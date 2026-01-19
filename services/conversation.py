@@ -7,6 +7,8 @@ from services.redis_session import (
     create_session,
     update_crop_advice_category,
     update_crop_info,
+    update_is_Existing_Crop,
+    update_district_info,
     update_user_query,
     delete_session,
     update_session_state,
@@ -22,6 +24,7 @@ from services.audio import process_voice_note
 from services.vision import analyze_image
 from services.crop_detection import detect_crop
 from services.config import Config
+from services.utility import set_timeout
 
 _client = OpenAI(api_key=Config.openai_api_key)
 
@@ -58,11 +61,11 @@ class Conversation:
                     )
                 else:
                     update_crop_advice_category(message.from_, category_id)
-                    update_session_state(message.from_, SessionState["AWAITING_CROP_NAME"])
+                    update_session_state(message.from_, SessionState["AWAITING_DISTRICT_NAME"])
                     GraphApi.message_text(
                         sender_phone_number_id,
                         message.from_,
-                        "Which crop do you want to know about?"
+                        "कृपया अपने ज़िले का नाम बताइए?"
                     )
             else:
                 _reset_session_state(message.id, sender_phone_number_id, message.from_)
@@ -74,17 +77,38 @@ class Conversation:
                 set_user_location(message.from_, location)
                 send_weather(sender_phone_number_id, message.from_, location)
                 update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-                GraphApi.send_welcome_menu(message.id, sender_phone_number_id, message.from_)
+                set_timeout(2,
+                            GraphApi,
+                            message.id,
+                            sender_phone_number_id,
+                            message.from_
+                            )
             else:
                 _reset_session_state(message.id, sender_phone_number_id, message.from_)
             return
 
+        if state == SessionState["AWAITING_DISTRICT_NAME"]:
+            if message.type != "text":
+                GraphApi.message_text(
+                    sender_phone_number_id,
+                    message.from_,
+                    "कृपया अपने ज़िले का नाम बताइए।"
+                )
+                return
+            update_district_info(message.from_, message.text)
+            update_session_state("AWAITING_CROP_NAME")
+            GraphApi.message_text(
+                    sender_phone_number_id,
+                    message.from_,
+                    "कृपया फसल का नाम टाइप करें।"
+                )
+            
         if state == SessionState["AWAITING_CROP_NAME"]:
             if message.type != "text":
                 GraphApi.message_text(
                     sender_phone_number_id,
                     message.from_,
-                    "Please type the crop name."
+                    "कृपया फसल का नाम टाइप करें।"
                 )
                 return
 
@@ -93,32 +117,31 @@ class Conversation:
                 GraphApi.message_text(
                     sender_phone_number_id,
                     message.from_,
-                    "मैं फसल का नाम पहचान नहीं पाया। कृपया फसल का नाम दोबारा बताएं।"
+                    "मुझे फसल का नाम पहचान नहीं आया। कृपया फसल का नाम फिर से बताएं।"
                 )
                 return
 
             update_crop_info(message.from_, crop)
-            response = _format_varieties_response(crop)
-            if not response:
-                GraphApi.message_text(
-                    sender_phone_number_id,
-                    message.from_,
-                    "मैं उस फसल के बारे में जानकारी नहीं पा सका। कृपया फसल का नाम दोबारा बताएं।"
-                )
-                return
-
-            GraphApi.message_text(sender_phone_number_id, message.from_, response)
 
             category_id = session.get("cropAdviceCategory")
             if category_id in ("variety", "sowing_time"):
-                update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-                GraphApi.send_welcome_menu(message.id, sender_phone_number_id, message.from_)
+                response = _format_varieties_response(crop)
+                if not response:
+                    GraphApi.message_text(
+                        sender_phone_number_id,
+                        message.from_,
+                        "मुझे उस फसल के लिए विवरण नहीं मिल सके। कृपया फसल का नाम फिर से साझा करें।"
+                    )
+                    return
+
+                GraphApi.message_text(sender_phone_number_id, message.from_, response)
+                update_session_state(message.from_, SessionState["GREETING"])
             else:
                 update_session_state(message.from_, SessionState["CROP_ADVICE_QUERY_COLLECTING"])
                 GraphApi.message_text(
                     sender_phone_number_id,
                     message.from_,
-                    "कृपया अपनी फसल से संबंधित समस्या बताएं।"
+                    "कृपया अपनी फसल की समस्या का वर्णन करें।"
                 )
             return
 

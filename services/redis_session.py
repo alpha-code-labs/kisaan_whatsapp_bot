@@ -9,6 +9,7 @@ SessionState = {
     "AWAITING_MENU_WEATHER_CHOICE": "AWAITING_MENU_WEATHER_CHOICE",
     "AWAITING_MENU_CROP_ADVICE_CHOICE": "AWAITING_MENU_CROP_ADVICE_CHOICE",
     "AWAITING_WEATHER_LOCATION": "AWAITING_WEATHER_LOCATION",
+    "AWAITING_DISTRICT_NAME": "AWAITING_DISTRICT_NAME",
     "AWAITING_CROP_NAME": "AWAITING_CROP_NAME",
     "WEATHER": "WEATHER",
     "CROP_ADVICE_CATEGORY_MENU": "CROP_ADVICE_CATEGORY_MENU",
@@ -36,6 +37,8 @@ def create_session(user_id):
         "state": SessionState["GREETING"],
         "queryType": None,
         "location": None,
+        "district": None,
+        "isExistingCrop": False,
         "cropAdviceCategory": None,
         "crop": None,
         "query": {"texts": [], "audios": [], "images": []},
@@ -76,6 +79,11 @@ def update_crop_advice_category(user_id, category):
 def update_crop_info(user_id, crop):
     return update_session(user_id, {"crop": crop})
 
+def update_is_Existing_Crop(user_id, is_existing_crop):
+    return update_session(user_id, {"is_existing_crop": is_existing_crop})
+
+def update_district_info(user_id, district):
+    return update_session(user_id, {"district": district})
 
 def update_user_query(user_id, query):
     return update_session(user_id, {"query": query})
