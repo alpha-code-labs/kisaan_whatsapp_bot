@@ -1,0 +1,27 @@
+[
+    {
+        "input": "melon",
+        "variations": [
+            "melons"
+        ],
+        "resolves_to": [
+            "melon",
+            "musk_melon",
+            "snap_melon",
+            "watermelon"
+        ]
+    },
+    {
+        "input": "bean",
+        "variations": [
+            "beans"
+        ],
+        "resolves_to": [
+            "beans",
+            "french_bean",
+            "green_gram_(moong_bean_moong)",
+            "black_gram_(urd_bean)",
+            "moth_bean_(kidney_bean_deww_gram)"
+        ]
+    }
+]

@@ -2,7 +2,7 @@ import json
 import redis
 from services.config import Config
 
-SESSION_TTL = 30
+SESSION_TTL = 300
 
 SessionState = {
     "GREETING": "GREETING",
@@ -16,7 +16,9 @@ SessionState = {
     "CROP_ADVICE_QUERY": "CROP_ADVICE_QUERY",
     "CROP_ADVICE_QUERY_COLLECTING": "CROP_ADVICE_QUERY_COLLECTING",
     "CROP_ADVICE_QUERY_CONFIRM": "CROP_ADVICE_QUERY_CONFIRM",
-    "PROCESSING_CROP_QUERY": "PROCESSING_CROP_QUERY"
+    "PROCESSING_CROP_QUERY": "PROCESSING_CROP_QUERY",
+    "AWAITING_AMBIGUOUS_CROP_CHOICE": "AWAITING_AMBIGUOUS_CROP_CHOICE",
+    "AWAITING_CROP_CONFIRMATION": "AWAITING_CROP_CONFIRMATION",
 }
 
 _client = redis.Redis(
@@ -69,7 +71,20 @@ def update_session_state(user_id, new_state):
         update["queryType"] = "WEATHER"
     if new_state == SessionState["CROP_ADVICE_CATEGORY_MENU"]:
         update["queryType"] = "CROP_ADVICE"
-    return update_session(user_id, update)
+
+    session = update_session(user_id, update)
+
+    # 🔍 DEBUG LOG
+    print(
+        f"[SESSION] STATE_UPDATE | user={user_id} | "
+        f"new_state={new_state} | "
+        f"crop={session.get('crop')} | "
+        f"isExistingCrop={session.get('isExistingCrop')} | "
+        f"category={session.get('cropAdviceCategory')}"
+    )
+
+    return session
+
 
 
 def update_crop_advice_category(user_id, category):
@@ -79,8 +94,8 @@ def update_crop_advice_category(user_id, category):
 def update_crop_info(user_id, crop):
     return update_session(user_id, {"crop": crop})
 
-def update_is_Existing_Crop(user_id, is_existing_crop):
-    return update_session(user_id, {"is_existing_crop": is_existing_crop})
+def update_is_existing_crop(user_id, is_existing_crop: bool):
+    return update_session(user_id, {"isExistingCrop": bool(is_existing_crop)})
 
 def update_district_info(user_id, district):
     return update_session(user_id, {"district": district})

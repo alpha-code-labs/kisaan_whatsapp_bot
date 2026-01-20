@@ -3,7 +3,11 @@ import requests
 from services.config import Config
 from services.graph_api import GraphApi
 
-DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+DAYS_HI = ["सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार", "रविवार"]
+
+
+def _ms_to_kmh(ms: float) -> int:
+    return int(round((ms or 0) * 3.6))
 
 
 def send_weather(sender_phone_number_id, recipient_phone_number, location):
@@ -17,41 +21,50 @@ def send_weather(sender_phone_number_id, recipient_phone_number, location):
 
     response = requests.get(url, timeout=30)
     response.raise_for_status()
+
     daily = response.json().get("daily", [])[:7]
 
-    message = "7-day weather summary:\n"
+    message = "🌦️ *7 दिन का मौसम*\n"
     total_rain = 0
     dry_streak = 0
 
     for index, day in enumerate(daily):
-        rain = round(day.get("rain", 0))
-        total_rain += rain
+        rain_mm = round(day.get("rain", 0) or 0)
+        total_rain += rain_mm
+
+        clouds_pct = int(round(day.get("clouds", 0) or 0))
+        wind_kmh = _ms_to_kmh(day.get("wind_speed", 0) or 0)
 
         if index == 0:
-            day_label = "Today"
+            day_label = "आज"
         elif index == 1:
-            day_label = "Tomorrow"
+            day_label = "कल"
         else:
             date = datetime.datetime.fromtimestamp(day.get("dt", 0))
-            day_label = DAYS[date.weekday()]
+            day_label = DAYS_HI[date.weekday()]
 
-        if rain == 0 and index == dry_streak:
+        if rain_mm == 0 and index == dry_streak:
             dry_streak += 1
 
-        message += f"\n{day_label}\nRain: {rain} mm\n"
+        message += (
+            f"\n➤ *{day_label}*\n"
+            f"🌧️ {rain_mm} mm\n"
+            f"☁️ {clouds_pct}%\n"
+            f"💨 {wind_kmh} km/h\n"
+        )
 
-    if daily and daily[0].get("rain", 0) > 0:
-        advice = "Rain expected today. Avoid irrigation if possible."
+    if daily and (daily[0].get("rain", 0) or 0) > 0:
+        advice = "आज बारिश की संभावना है। संभव हो तो सिंचाई न करें।"
     elif dry_streak >= 5:
-        advice = "Dry streak detected. Consider irrigation planning."
+        advice = "लगातार सूखे दिन दिख रहे हैं। सिंचाई की योजना बनाएं।"
     else:
-        advice = "Light rain expected. Monitor field conditions."
+        advice = "हल्की बारिश की संभावना है। खेत की स्थिति पर नजर रखें।"
 
     message += (
-        f"\nSummary:\n"
-        f"Total rain (7 days): {total_rain} mm\n"
-        f"Dry days in a row: {dry_streak}\n"
-        f"Advice: {advice}"
+        f"\n📊 *सारांश*\n"
+        f"🌧️ कुल बारिश: {total_rain} mm\n"
+        f"☀️ लगातार सूखे दिन: {dry_streak}\n"
+        f"🌱 सलाह: {advice}"
     )
 
     return GraphApi.message_text(sender_phone_number_id, recipient_phone_number, message)

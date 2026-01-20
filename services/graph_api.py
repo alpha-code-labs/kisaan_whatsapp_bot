@@ -23,7 +23,7 @@ class GraphApi:
         response = requests.post(url, json=body, headers=headers, timeout=30)
         response.raise_for_status()
         return response.json()
-
+    
     @staticmethod
     def send_welcome_menu(message_id, sender_phone_number_id, recipient_phone_number):
         body = {
@@ -33,7 +33,7 @@ class GraphApi:
             "interactive": {
                 "type": "list",
                 "body": {
-                    "text": "Welcome! Choose a category to get started."
+                    "text": "Please! Choose a category to get started."
                 },
                 "action": {
                     "button": "Choose Category",
@@ -46,8 +46,7 @@ class GraphApi:
                                 {"id": "insect_management", "title": "Insect management"},
                                 {"id": "fertilizer_use", "title": "Fertilizer use"},
                                 {"id": "weed_management", "title": "Weed management"},
-                                {"id": "variety", "title": "Varieties"},
-                                {"id": "sowing_time", "title": "Sowing time"},
+                                {"id": "variety_sowing_time", "title": "Varieties & Sowing Time"},
                                 {"id": "others", "title": "Others"}
                             ]
                         }
@@ -143,6 +142,51 @@ class GraphApi:
 
         return GraphApi._make_api_call(message_id, sender_phone_number_id, request_body)
 
+    
+    @staticmethod
+    def send_ambiguous_crop_menu(message_id, sender_phone_number_id, recipient_phone_number, title_text, options):
+        """
+        options: list of dicts -> [{"id":"crop_pick_0","title":"1. नींबू"}, ...]
+        """
+        body = {
+            "messaging_product": "whatsapp",
+            "to": recipient_phone_number,
+            "type": "interactive",
+            "interactive": {
+                "type": "button",
+                "body": {"text": title_text},
+                "action": {
+                    "buttons": [
+                        {"type": "reply", "reply": {"id": opt["id"], "title": opt["title"]}}
+                        for opt in options[:3]
+                    ]
+                }
+            }
+        }
+        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+
+    @staticmethod
+    def send_crop_confirmation_menu(message_id, sender_phone_number_id, recipient_phone_number, crop_name_hi):
+        body = {
+            "messaging_product": "whatsapp",
+            "to": recipient_phone_number,
+            "type": "interactive",
+            "interactive": {
+                "type": "button",
+                "body": {
+                    "text": f"क्या आप {crop_name_hi} के बारे में जानना चाहते हैं?"
+                },
+                "action": {
+                    "buttons": [
+                        {"type": "reply", "reply": {"id": "crop_confirm_yes", "title": "हाँ"}},
+                        {"type": "reply", "reply": {"id": "crop_confirm_no", "title": "नहीं"}}
+                    ]
+                }
+            }
+        }
+        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+
+    
     @staticmethod
     def get_media_url(media_id):
         url = f"{Config.graph_api_url}/{media_id}"

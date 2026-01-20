@@ -1,139 +1,1901 @@
 {
-    "acid_lime": "acid_lime",
-    "almond": "almond",
-    "aloe_vera": "aloe_vera",
-    "aonla": "aonla",
-    "apple": "apple",
-    "apricot": "apricot",
-    "arum": "arum",
-    "ash_gourd_(petha)": "ash_gourd_(petha)",
-    "babool": "babool",
-    "bail": "bail",
-    "bajra_napier_hybrid": "bajra_napier_hybrid",
-    "banana": "banana",
-    "barley_(jau)": "barley_(jau)",
-    "barseem": "barseem",
-    "beans": "beans",
-    "beet_root_(garden_beetstock_beet)": "beet_root_(garden_beetstock_beet)",
-    "bengal_gram_(gramchick_peakabulichana)": "bengal_gram_(gramchick_peakabulichana)",
-    "ber": "ber",
-    "bhindi(okraladysfinger)": "bhindi(okraladysfinger)",
-    "bitter_gourd": "bitter_gourd",
-    "black_gram_(urd_bean)": "black_gram_(urd_bean)",
-    "bottle_gourd": "bottle_gourd",
-    "brinjal": "brinjal",
-    "broccoli": "broccoli",
-    "cabbage": "cabbage",
-    "capsicum": "capsicum",
-    "carrot": "carrot",
-    "castor_(rehri_rendi_arandi)": "castor_(rehri_rendi_arandi)",
-    "cauliflower": "cauliflower",
-    "celery": "celery",
-    "chapan_kaddu": "chapan_kaddu",
-    "chillies": "chillies",
-    "chrysanthemum": "chrysanthemum",
-    "citrus": "citrus",
-    "cluster_bean": "cluster_bean",
-    "coconut": "coconut",
-    "colocasia_(arvi_arbi)": "colocasia_(arvi_arbi)",
-    "coriander": "coriander",
-    "cotton_(kapas)": "cotton_(kapas)",
-    "cowpea_(vegetable)": "cowpea_(vegetable)",
-    "cucumber": "cucumber",
-    "cumin": "cumin",
-    "datepalm": "datepalm",
-    "dhaincha": "dhaincha",
-    "drum_stick": "drum_stick",
-    "eculeptous": "eculeptous",
-    "fennel": "fennel",
-    "fig": "fig",
-    "fingermillet__(ragimandika)": "fingermillet__(ragimandika)",
-    "french_bean": "french_bean",
-    "garlic": "garlic",
-    "gerbera": "gerbera",
-    "ginger": "ginger",
-    "gladiolus": "gladiolus",
-    "grape": "grape",
-    "green_gram_(moong_bean_moong)": "green_gram_(moong_bean_moong)",
-    "groundnut_(pea_nutmung_phalli)": "groundnut_(pea_nutmung_phalli)",
-    "guar": "guar",
-    "guava": "guava",
-    "guinea_grass": "guinea_grass",
-    "hibiscus_(gurhal)": "hibiscus_(gurhal)",
-    "indian_squash_(tindaround_melon)": "indian_squash_(tindaround_melon)",
-    "jack_fruit": "jack_fruit",
-    "jamun": "jamun",
-    "jasmine": "jasmine",
-    "kaner": "kaner",
-    "kiwi_fruit": "kiwi_fruit",
-    "koronda": "koronda",
-    "leafy_vegetable": "leafy_vegetable",
-    "lehberry": "lehberry",
-    "lemon": "lemon",
-    "lentil_(masur)": "lentil_(masur)",
-    "litchi": "litchi",
-    "long_melon": "long_melon",
-    "maize_(makka)": "maize_(makka)",
-    "mango": "mango",
-    "marigold": "marigold",
-    "melon": "melon",
-    "mentha": "mentha",
-    "methi_(fenugreek)": "methi_(fenugreek)",
-    "mint": "mint",
-    "mosambi": "mosambi",
-    "moth_bean_(kidney_bean_deww_gram)": "moth_bean_(kidney_bean_deww_gram)",
-    "mulberry": "mulberry",
-    "mushroom": "mushroom",
-    "musk_melon": "musk_melon",
-    "mustard": "mustard",
-    "neem": "neem",
-    "oats": "oats",
-    "onion": "onion",
-    "orange": "orange",
-    "paddy_(dhan)": "paddy_(dhan)",
-    "palmyra": "palmyra",
-    "papaya": "papaya",
-    "peach": "peach",
-    "pear": "pear",
-    "pearl_millet_(bajrabulrush_milletspiked_millet)": "pearl_millet_(bajrabulrush_milletspiked_millet)",
-    "peas_(field_peas_garden_peasmar)": "peas_(field_peas_garden_peasmar)",
-    "pepper": "pepper",
-    "pigeon_pea_(red_gramarhartur)": "pigeon_pea_(red_gramarhartur)",
-    "plum": "plum",
-    "pointed_gourd": "pointed_gourd",
-    "pomegranate": "pomegranate",
-    "poplar": "poplar",
-    "potato": "potato",
-    "pumpkin": "pumpkin",
-    "radish": "radish",
-    "rajma_(french_bean)": "rajma_(french_bean)",
-    "ribbed_gourd_(kali_tori)": "ribbed_gourd_(kali_tori)",
-    "ridge_gourd": "ridge_gourd",
-    "rocket_salad_(taramira)": "rocket_salad_(taramira)",
-    "rose": "rose",
-    "safed_musli": "safed_musli",
-    "sagoan": "sagoan",
-    "sapota": "sapota",
-    "sesame_(gingellytil)sesamum": "sesame_(gingellytil)sesamum",
-    "snake_gourd": "snake_gourd",
-    "snap_melon": "snap_melon",
-    "sorghum_(jowargreat_millet)": "sorghum_(jowargreat_millet)",
-    "soybean_(bhat)": "soybean_(bhat)",
-    "spinach_(palak)": "spinach_(palak)",
-    "spine_gourd": "spine_gourd",
-    "sponge_gourd": "sponge_gourd",
-    "spring_gourd": "spring_gourd",
-    "strawberry": "strawberry",
-    "sudan_grass": "sudan_grass",
-    "sugarcane_(noble_cane)": "sugarcane_(noble_cane)",
-    "sunflower_(suryamukhi)": "sunflower_(suryamukhi)",
-    "tobacco": "tobacco",
-    "tomato": "tomato",
-    "toria": "toria",
-    "tulsi": "tulsi",
-    "turmeric": "turmeric",
-    "turnip_(saljam)": "turnip_(saljam)",
-    "watermelon": "watermelon",
-    "wheat": "wheat",
-    "yard_long_bean": "yard_long_bean"
+  "version": "1.3",
+  "region": "Haryana/North India",
+  "crops": [
+    {
+      "master_name": "Acid Lime",
+      "synonyms": [
+        {
+          "en": "Acid Lime",
+          "hi": "खट्टा नींबू"
+        },
+        {
+          "en": "Nimbu",
+          "hi": "नींबू"
+        },
+        {
+          "en": "Kagzi Nimbu",
+          "hi": "कागजी नींबू"
+        },
+        {
+          "en": "Kagzi Limbu",
+          "hi": "कागजी लिंबू"
+        },
+        {
+          "en": "Pati Nimbu",
+          "hi": "पाती नींबू"
+        }
+      ]
+    },
+    {
+      "master_name": "Almond",
+      "synonyms": [
+        {
+          "en": "Almond",
+          "hi": "बादाम"
+        },
+        {
+          "en": "Badam",
+          "hi": "बादाम"
+        },
+        {
+          "en": "Badaam",
+          "hi": "बादाम"
+        }
+      ]
+    },
+    {
+      "master_name": "Aloe Vera",
+      "synonyms": [
+        {
+          "en": "Aloe Vera",
+          "hi": "एलोवेरा"
+        },
+        {
+          "en": "Gwarpatha",
+          "hi": "ग्वारपाठा"
+        },
+        {
+          "en": "Ghrit Kumari",
+          "hi": "घृत कुमारी"
+        }
+      ]
+    },
+    {
+      "master_name": "Aonla",
+      "synonyms": [
+        {
+          "en": "Aonla",
+          "hi": "आंवला"
+        },
+        {
+          "en": "Amla",
+          "hi": "आंवला"
+        },
+        {
+          "en": "Indian Gooseberry",
+          "hi": "इंडियन गूजबेरी"
+        }
+      ]
+    },
+    {
+      "master_name": "Apple",
+      "synonyms": [
+        {
+          "en": "Apple",
+          "hi": "सेब"
+        },
+        {
+          "en": "Seb",
+          "hi": "सेब"
+        }
+      ]
+    },
+    {
+      "master_name": "Apricot",
+      "synonyms": [
+        {
+          "en": "Apricot",
+          "hi": "खुबानी"
+        },
+        {
+          "en": "Khubani",
+          "hi": "खुबानी"
+        }
+      ]
+    },
+    {
+      "master_name": "Ash Gourd (Petha)",
+      "synonyms": [
+        {
+          "en": "Ash Gourd",
+          "hi": "पेठा"
+        },
+        {
+          "en": "Petha",
+          "hi": "पेठा कद्दू"
+        },
+        {
+          "en": "Safed Kaddu",
+          "hi": "सफेद कद्दू"
+        }
+      ]
+    },
+    {
+      "master_name": "Babool",
+      "synonyms": [
+        {
+          "en": "Babool",
+          "hi": "बबूल"
+        },
+        {
+          "en": "Kikar",
+          "hi": "कीकर"
+        },
+        {
+          "en": "Desi Kikar",
+          "hi": "देशी कीकर"
+        }
+      ]
+    },
+    {
+      "master_name": "Bael",
+      "synonyms": [
+        {
+          "en": "Bael",
+          "hi": "बेल"
+        },
+        {
+          "en": "Bel Pathar",
+          "hi": "बेल पत्थर"
+        },
+        {
+          "en": "Bilva",
+          "hi": "बिल्व"
+        }
+      ]
+    },
+    {
+      "master_name": "BAJRA NAPIER HYBRID",
+      "synonyms": [
+        {
+          "en": "Napier",
+          "hi": "नेपियर"
+        },
+        {
+          "en": "Bajra Napier",
+          "hi": "बाजरा नेपियर"
+        },
+        {
+          "en": "Hathi Ghas",
+          "hi": "हाथी घास"
+        }
+      ]
+    },
+    {
+      "master_name": "Banana",
+      "synonyms": [
+        {
+          "en": "Banana",
+          "hi": "केला"
+        },
+        {
+          "en": "Kela",
+          "hi": "केला"
+        }
+      ]
+    },
+    {
+      "master_name": "Barley (Jau)",
+      "synonyms": [
+        {
+          "en": "Barley",
+          "hi": "जौ"
+        },
+        {
+          "en": "Jau",
+          "hi": "जौ"
+        },
+        {
+          "en": "Jow",
+          "hi": "जौ"
+        }
+      ]
+    },
+    {
+      "master_name": "Barseem",
+      "synonyms": [
+        {
+          "en": "Barseem",
+          "hi": "बरसीम"
+        },
+        {
+          "en": "Berseem",
+          "hi": "बरसीम"
+        },
+        {
+          "en": "Egyptian Clover",
+          "hi": "इजिप्शियन क्लोवर"
+        }
+      ]
+    },
+    {
+      "master_name": "Beet Root",
+      "synonyms": [
+        {
+          "en": "Beetroot",
+          "hi": "चुकंदर"
+        },
+        {
+          "en": "Chukandar",
+          "hi": "चुकंदर"
+        }
+      ]
+    },
+    {
+      "master_name": "Bengal Gram",
+      "synonyms": [
+        {
+          "en": "Bengal Gram",
+          "hi": "चना"
+        },
+        {
+          "en": "Chana",
+          "hi": "चना"
+        },
+        {
+          "en": "Kala Chana",
+          "hi": "काला चना"
+        },
+        {
+          "en": "Chickpea",
+          "hi": "छोले"
+        }
+      ]
+    },
+    {
+      "master_name": "Ber",
+      "synonyms": [
+        {
+          "en": "Ber",
+          "hi": "बेर"
+        },
+        {
+          "en": "Bor",
+          "hi": "बोर"
+        },
+        {
+          "en": "Jujube",
+          "hi": "जुजुब"
+        }
+      ]
+    },
+    {
+      "master_name": "Bhindi",
+      "synonyms": [
+        {
+          "en": "Bhindi",
+          "hi": "भिंडी"
+        },
+        {
+          "en": "Okra",
+          "hi": "ओकरा"
+        },
+        {
+          "en": "Lady Finger",
+          "hi": "भिन्डी"
+        }
+      ]
+    },
+    {
+      "master_name": "Bitter Gourd",
+      "synonyms": [
+        {
+          "en": "Bitter Gourd",
+          "hi": "करेला"
+        },
+        {
+          "en": "Karela",
+          "hi": "करेला"
+        }
+      ]
+    },
+    {
+      "master_name": "Black Gram",
+      "synonyms": [
+        {
+          "en": "Black Gram",
+          "hi": "उड़द"
+        },
+        {
+          "en": "Urad",
+          "hi": "उड़द दाल"
+        },
+        {
+          "en": "Maash",
+          "hi": "माश"
+        }
+      ]
+    },
+    {
+      "master_name": "Bottle Gourd",
+      "synonyms": [
+        {
+          "en": "Bottle Gourd",
+          "hi": "लौकी"
+        },
+        {
+          "en": "Lauki",
+          "hi": "लौकी"
+        },
+        {
+          "en": "Ghiya",
+          "hi": "घिया"
+        }
+      ]
+    },
+    {
+      "master_name": "Brinjal",
+      "synonyms": [
+        {
+          "en": "Brinjal",
+          "hi": "बैंगन"
+        },
+        {
+          "en": "Baingan",
+          "hi": "बैंगन"
+        },
+        {
+          "en": "Bhatta",
+          "hi": "भट्टा"
+        }
+      ]
+    },
+    {
+      "master_name": "Broccoli",
+      "synonyms": [
+        {
+          "en": "Broccoli",
+          "hi": "ब्रोकोली"
+        },
+        {
+          "en": "Hari Gobi",
+          "hi": "हरी गोभी"
+        }
+      ]
+    },
+    {
+      "master_name": "Cabbage",
+      "synonyms": [
+        {
+          "en": "Cabbage",
+          "hi": "पत्ता गोभी"
+        },
+        {
+          "en": "Band Gobi",
+          "hi": "बंद गोभी"
+        }
+      ]
+    },
+    {
+      "master_name": "Capsicum",
+      "synonyms": [
+        {
+          "en": "Capsicum",
+          "hi": "शिमला मिर्च"
+        },
+        {
+          "en": "Shimla Mirch",
+          "hi": "शिमला मिर्च"
+        }
+      ]
+    },
+    {
+      "master_name": "Carrot",
+      "synonyms": [
+        {
+          "en": "Carrot",
+          "hi": "गाजर"
+        },
+        {
+          "en": "Gajar",
+          "hi": "गाजर"
+        }
+      ]
+    },
+    {
+      "master_name": "Castor",
+      "synonyms": [
+        {
+          "en": "Castor",
+          "hi": "अरंडी"
+        },
+        {
+          "en": "Arandi",
+          "hi": "अरंडी"
+        }
+      ]
+    },
+    {
+      "master_name": "Cauliflower",
+      "synonyms": [
+        {
+          "en": "Cauliflower",
+          "hi": "फूल गोभी"
+        },
+        {
+          "en": "Phool Gobi",
+          "hi": "फूल गोभी"
+        }
+      ]
+    },
+    {
+      "master_name": "Celery",
+      "synonyms": [
+        {
+          "en": "Celery",
+          "hi": "सैलरी"
+        },
+        {
+          "en": "Ajwain Khurasani",
+          "hi": "अजवायन खुरासानी"
+        }
+      ]
+    },
+    {
+      "master_name": "Chillies",
+      "synonyms": [
+        {
+          "en": "Chillies",
+          "hi": "मिर्च"
+        },
+        {
+          "en": "Mirchi",
+          "hi": "मिर्ची"
+        },
+        {
+          "en": "Lal Mirch",
+          "hi": "लाल मिर्च"
+        }
+      ]
+    },
+    {
+      "master_name": "Chrysanthemum",
+      "synonyms": [
+        {
+          "en": "Chrysanthemum",
+          "hi": "गुलदाउदी"
+        },
+        {
+          "en": "Guldaudi",
+          "hi": "गुलदाउदी"
+        }
+      ]
+    },
+    {
+      "master_name": "Coconut",
+      "synonyms": [
+        {
+          "en": "Coconut",
+          "hi": "नारियल"
+        },
+        {
+          "en": "Nariyal",
+          "hi": "नारियल"
+        },
+        {
+          "en": "Gola",
+          "hi": "गोला"
+        }
+      ]
+    },
+    {
+      "master_name": "Colocasia",
+      "synonyms": [
+        {
+          "en": "Colocasia",
+          "hi": "अरबी"
+        },
+        {
+          "en": "Arbi",
+          "hi": "अरबी"
+        },
+        {
+          "en": "Ghuiya",
+          "hi": "घुइयां"
+        }
+      ]
+    },
+    {
+      "master_name": "Coriander",
+      "synonyms": [
+        {
+          "en": "Coriander",
+          "hi": "धनिया"
+        },
+        {
+          "en": "Dhaniya",
+          "hi": "धनिया"
+        }
+      ]
+    },
+    {
+      "master_name": "Cotton (Kapas)",
+      "synonyms": [
+        {
+          "en": "Cotton",
+          "hi": "कपास"
+        },
+        {
+          "en": "Kapas",
+          "hi": "कपास"
+        },
+        {
+          "en": "Narma",
+          "hi": "नरमा"
+        },
+        {
+          "en": "Rui",
+          "hi": "रुई"
+        }
+      ]
+    },
+    {
+      "master_name": "Cowpea (Vegetable)",
+      "synonyms": [
+        {
+          "en": "Cowpea",
+          "hi": "लोबिया"
+        },
+        {
+          "en": "Lobiya",
+          "hi": "लोबिया"
+        },
+        {
+          "en": "Chola",
+          "hi": "चोला"
+        },
+        {
+          "en": "Rongi",
+          "hi": "रोंगी"
+        }
+      ]
+    },
+    {
+      "master_name": "Cucumber",
+      "synonyms": [
+        {
+          "en": "Cucumber",
+          "hi": "खीरा"
+        },
+        {
+          "en": "Kheera",
+          "hi": "खीरा"
+        }
+      ]
+    },
+    {
+      "master_name": "Cumin",
+      "synonyms": [
+        {
+          "en": "Cumin",
+          "hi": "जीरा"
+        },
+        {
+          "en": "Jeera",
+          "hi": "जीरा"
+        }
+      ]
+    },
+    {
+      "master_name": "DatePalm",
+      "synonyms": [
+        {
+          "en": "Date Palm",
+          "hi": "खजूर"
+        },
+        {
+          "en": "Khajur",
+          "hi": "खजूर"
+        }
+      ]
+    },
+    {
+      "master_name": "Dhaincha",
+      "synonyms": [
+        {
+          "en": "Dhaincha",
+          "hi": "ढैंचा"
+        },
+        {
+          "en": "Jantar",
+          "hi": "जंतर"
+        }
+      ]
+    },
+    {
+      "master_name": "Drum Stick",
+      "synonyms": [
+        {
+          "en": "Drumstick",
+          "hi": "सहजन"
+        },
+        {
+          "en": "Sahjan",
+          "hi": "सहजन"
+        },
+        {
+          "en": "Munga",
+          "hi": "मुंगा"
+        }
+      ]
+    },
+    {
+      "master_name": "Eculeptous",
+      "synonyms": [
+        {
+          "en": "Eucalyptus",
+          "hi": "यूकेलिप्टस"
+        },
+        {
+          "en": "Safeda",
+          "hi": "सफेदा"
+        }
+      ]
+    },
+    {
+      "master_name": "Fennel",
+      "synonyms": [
+        {
+          "en": "Fennel",
+          "hi": "सौंफ"
+        },
+        {
+          "en": "Saunf",
+          "hi": "सौंफ"
+        }
+      ]
+    },
+    {
+      "master_name": "Fig",
+      "synonyms": [
+        {
+          "en": "Fig",
+          "hi": "अंजीर"
+        },
+        {
+          "en": "Anjeer",
+          "hi": "अंजीर"
+        }
+      ]
+    },
+    {
+      "master_name": "FingerMillet (Ragi)",
+      "synonyms": [
+        {
+          "en": "Ragi",
+          "hi": "रागी"
+        },
+        {
+          "en": "Finger Millet",
+          "hi": "मड़ुआ"
+        },
+        {
+          "en": "Mandua",
+          "hi": "मंडुआ"
+        }
+      ]
+    },
+    {
+      "master_name": "French Bean",
+      "synonyms": [
+        {
+          "en": "French Bean",
+          "hi": "फ्रेंच बीन"
+        },
+        {
+          "en": "Faras Bean",
+          "hi": "फरास बीन"
+        }
+      ]
+    },
+    {
+      "master_name": "Garlic",
+      "synonyms": [
+        {
+          "en": "Garlic",
+          "hi": "लहसुन"
+        },
+        {
+          "en": "Lehsun",
+          "hi": "लहसुन"
+        }
+      ]
+    },
+    {
+      "master_name": "Gerbera",
+      "synonyms": [
+        {
+          "en": "Gerbera",
+          "hi": "जरबेरा"
+        }
+      ]
+    },
+    {
+      "master_name": "Ginger",
+      "synonyms": [
+        {
+          "en": "Ginger",
+          "hi": "अदरक"
+        },
+        {
+          "en": "Adrak",
+          "hi": "अदरक"
+        }
+      ]
+    },
+    {
+      "master_name": "Gladiolus",
+      "synonyms": [
+        {
+          "en": "Gladiolus",
+          "hi": "ग्लैडियोलस"
+        }
+      ]
+    },
+    {
+      "master_name": "Grape",
+      "synonyms": [
+        {
+          "en": "Grape",
+          "hi": "अंगूर"
+        },
+        {
+          "en": "Angoor",
+          "hi": "अंगूर"
+        }
+      ]
+    },
+    {
+      "master_name": "Green Gram",
+      "synonyms": [
+        {
+          "en": "Green Gram",
+          "hi": "मूंग"
+        },
+        {
+          "en": "Moong",
+          "hi": "मूंग"
+        }
+      ]
+    },
+    {
+      "master_name": "Groundnut",
+      "synonyms": [
+        {
+          "en": "Groundnut",
+          "hi": "मूंगफली"
+        },
+        {
+          "en": "Moongphali",
+          "hi": "मूंगफली"
+        }
+      ]
+    },
+    {
+      "master_name": "Guar",
+      "synonyms": [
+        {
+          "en": "Guar",
+          "hi": "ग्वार"
+        },
+        {
+          "en": "Gwar",
+          "hi": "ग्वार फली"
+        }
+      ]
+    },
+    {
+      "master_name": "Guava",
+      "synonyms": [
+        {
+          "en": "Guava",
+          "hi": "अमरूद"
+        },
+        {
+          "en": "Amrood",
+          "hi": "अमरूद"
+        }
+      ]
+    },
+    {
+      "master_name": "Guinea Grass",
+      "synonyms": [
+        {
+          "en": "Guinea Grass",
+          "hi": "गिनी घास"
+        }
+      ]
+    },
+    {
+      "master_name": "Hibiscus",
+      "synonyms": [
+        {
+          "en": "Hibiscus",
+          "hi": "गुड़हल"
+        },
+        {
+          "en": "Gudhal",
+          "hi": "गुड़हल"
+        }
+      ]
+    },
+    {
+      "master_name": "Indian Squash (Tinda)",
+      "synonyms": [
+        {
+          "en": "Tinda",
+          "hi": "टिंडा"
+        },
+        {
+          "en": "Dilpasand",
+          "hi": "दिलपसंद"
+        }
+      ]
+    },
+    {
+      "master_name": "Jack Fruit",
+      "synonyms": [
+        {
+          "en": "Jackfruit",
+          "hi": "कटहल"
+        },
+        {
+          "en": "Kathal",
+          "hi": "कटहल"
+        }
+      ]
+    },
+    {
+      "master_name": "Jamun",
+      "synonyms": [
+        {
+          "en": "Jamun",
+          "hi": "जामुन"
+        }
+      ]
+    },
+    {
+      "master_name": "Jasmine",
+      "synonyms": [
+        {
+          "en": "Jasmine",
+          "hi": "चमेली"
+        },
+        {
+          "en": "Chameli",
+          "hi": "चमेली"
+        },
+        {
+          "en": "Bela",
+          "hi": "बेला"
+        }
+      ]
+    },
+    {
+      "master_name": "Kaner",
+      "synonyms": [
+        {
+          "en": "Kaner",
+          "hi": "कनेर"
+        }
+      ]
+    },
+    {
+      "master_name": "Kiwi Fruit",
+      "synonyms": [
+        {
+          "en": "Kiwi",
+          "hi": "कीवी"
+        }
+      ]
+    },
+    {
+      "master_name": "Koronda",
+      "synonyms": [
+        {
+          "en": "Karonda",
+          "hi": "करौंदा"
+        },
+        {
+          "en": "Koronda",
+          "hi": "करौंदा"
+        }
+      ]
+    },
+    {
+      "master_name": "Lemon",
+      "synonyms": [
+        {
+          "en": "Lemon",
+          "hi": "नींबू"
+        },
+        {
+          "en": "Nimbu",
+          "hi": "नींबू"
+        }
+      ]
+    },
+    {
+      "master_name": "Lentil (Masur)",
+      "synonyms": [
+        {
+          "en": "Lentil",
+          "hi": "मसूर"
+        },
+        {
+          "en": "Masur",
+          "hi": "मसूर दाल"
+        }
+      ]
+    },
+    {
+      "master_name": "Litchi",
+      "synonyms": [
+        {
+          "en": "Litchi",
+          "hi": "लीची"
+        }
+      ]
+    },
+    {
+      "master_name": "Long Melon",
+      "synonyms": [
+        {
+          "en": "Long Melon",
+          "hi": "ककड़ी"
+        },
+        {
+          "en": "Kakri",
+          "hi": "ककड़ी"
+        },
+        {
+          "en": "Tar",
+          "hi": "तर"
+        }
+      ]
+    },
+    {
+      "master_name": "Maize (Makka)",
+      "synonyms": [
+        {
+          "en": "Maize",
+          "hi": "मक्का"
+        },
+        {
+          "en": "Makka",
+          "hi": "मक्का"
+        },
+        {
+          "en": "Chhalli",
+          "hi": "छल्ली"
+        }
+      ]
+    },
+    {
+      "master_name": "Mango",
+      "synonyms": [
+        {
+          "en": "Mango",
+          "hi": "आम"
+        },
+        {
+          "en": "Aam",
+          "hi": "आम"
+        }
+      ]
+    },
+    {
+      "master_name": "Marigold",
+      "synonyms": [
+        {
+          "en": "Marigold",
+          "hi": "गेंदा"
+        },
+        {
+          "en": "Genda",
+          "hi": "गेंदा"
+        }
+      ]
+    },
+    {
+      "master_name": "Mentha",
+      "synonyms": [
+        {
+          "en": "Mentha",
+          "hi": "मेंथा"
+        },
+        {
+          "en": "Spearmint",
+          "hi": "मेंथा"
+        }
+      ]
+    },
+    {
+      "master_name": "Methi (Fenugreek)",
+      "synonyms": [
+        {
+          "en": "Methi",
+          "hi": "मेथी"
+        },
+        {
+          "en": "Fenugreek",
+          "hi": "मेथी"
+        }
+      ]
+    },
+    {
+      "master_name": "Mint",
+      "synonyms": [
+        {
+          "en": "Mint",
+          "hi": "पुदीना"
+        },
+        {
+          "en": "Pudina",
+          "hi": "पुदीना"
+        }
+      ]
+    },
+    {
+      "master_name": "Moth Bean",
+      "synonyms": [
+        {
+          "en": "Moth Bean",
+          "hi": "मोठ"
+        },
+        {
+          "en": "Moth",
+          "hi": "मोठ"
+        }
+      ]
+    },
+    {
+      "master_name": "Mulberry",
+      "synonyms": [
+        {
+          "en": "Mulberry",
+          "hi": "शहतूत"
+        },
+        {
+          "en": "Shahtoot",
+          "hi": "शहतूत"
+        }
+      ]
+    },
+    {
+      "master_name": "Mushroom",
+      "synonyms": [
+        {
+          "en": "Mushroom",
+          "hi": "मशरूम"
+        },
+        {
+          "en": "Khumb",
+          "hi": "खुंब"
+        }
+      ]
+    },
+    {
+      "master_name": "Musk Melon",
+      "synonyms": [
+        {
+          "en": "Musk Melon",
+          "hi": "खरबूजा"
+        },
+        {
+          "en": "Kharbuja",
+          "hi": "खरबूजा"
+        }
+      ]
+    },
+    {
+      "master_name": "Mustard",
+      "synonyms": [
+        {
+          "en": "Mustard",
+          "hi": "सरसों"
+        },
+        {
+          "en": "Sarson",
+          "hi": "सरसों"
+        },
+        {
+          "en": "Raya",
+          "hi": "राया"
+        },
+        {
+          "en": "Laha",
+          "hi": "लाहा"
+        },
+        {
+          "en": "Rai",
+          "hi": "राई"
+        }
+      ]
+    },
+    {
+      "master_name": "Neem",
+      "synonyms": [
+        {
+          "en": "Neem",
+          "hi": "नीम"
+        }
+      ]
+    },
+    {
+      "master_name": "Oats",
+      "synonyms": [
+        {
+          "en": "Oats",
+          "hi": "जई"
+        },
+        {
+          "en": "Jai",
+          "hi": "जई"
+        }
+      ]
+    },
+    {
+      "master_name": "Onion",
+      "synonyms": [
+        {
+          "en": "Onion",
+          "hi": "प्याज"
+        },
+        {
+          "en": "Pyaj",
+          "hi": "प्याज"
+        }
+      ]
+    },
+    {
+      "master_name": "Orange",
+      "synonyms": [
+        {
+          "en": "Orange",
+          "hi": "संतरा"
+        },
+        {
+          "en": "Malta",
+          "hi": "माल्टा"
+        },
+        {
+          "en": "Kinnow",
+          "hi": "किन्नू"
+        }
+      ]
+    },
+    {
+      "master_name": "Paddy (Dhan)",
+      "synonyms": [
+        {
+          "en": "Paddy",
+          "hi": "धान"
+        },
+        {
+          "en": "Dhan",
+          "hi": "धान"
+        },
+        {
+          "en": "Jhona",
+          "hi": "झोना"
+        },
+        {
+          "en": "Chawal",
+          "hi": "चावल"
+        }
+      ]
+    },
+    {
+      "master_name": "Palmyra",
+      "synonyms": [
+        {
+          "en": "Palmyra",
+          "hi": "ताड़"
+        }
+      ]
+    },
+    {
+      "master_name": "Papaya",
+      "synonyms": [
+        {
+          "en": "Papaya",
+          "hi": "पपीता"
+        },
+        {
+          "en": "Papeeta",
+          "hi": "पपीता"
+        }
+      ]
+    },
+    {
+      "master_name": "Peach",
+      "synonyms": [
+        {
+          "en": "Peach",
+          "hi": "आड़ू"
+        },
+        {
+          "en": "Adoo",
+          "hi": "आड़ू"
+        }
+      ]
+    },
+    {
+      "master_name": "Pear",
+      "synonyms": [
+        {
+          "en": "Pear",
+          "hi": "नाशपाती"
+        },
+        {
+          "en": "Nashpati",
+          "hi": "नाशपाती"
+        }
+      ]
+    },
+    {
+      "master_name": "Pearl Millet (Bajra)",
+      "synonyms": [
+        {
+          "en": "Pearl Millet",
+          "hi": "बाजरा"
+        },
+        {
+          "en": "Bajra",
+          "hi": "बाजरा"
+        }
+      ]
+    },
+    {
+      "master_name": "Peas",
+      "synonyms": [
+        {
+          "en": "Peas",
+          "hi": "मटर"
+        },
+        {
+          "en": "Matar",
+          "hi": "मटर"
+        }
+      ]
+    },
+    {
+      "master_name": "Pigeon pea",
+      "synonyms": [
+        {
+          "en": "Pigeon pea",
+          "hi": "अरहर"
+        },
+        {
+          "en": "Arhar",
+          "hi": "अरहर"
+        },
+        {
+          "en": "Tur",
+          "hi": "तूर"
+        }
+      ]
+    },
+    {
+      "master_name": "Plum",
+      "synonyms": [
+        {
+          "en": "Plum",
+          "hi": "आलू बुखारा"
+        },
+        {
+          "en": "Alubukhara",
+          "hi": "आलू बुखारा"
+        }
+      ]
+    },
+    {
+      "master_name": "Pointed Gourd",
+      "synonyms": [
+        {
+          "en": "Pointed Gourd",
+          "hi": "परवल"
+        },
+        {
+          "en": "Parwal",
+          "hi": "परवल"
+        }
+      ]
+    },
+    {
+      "master_name": "Pomegranate",
+      "synonyms": [
+        {
+          "en": "Pomegranate",
+          "hi": "अनार"
+        },
+        {
+          "en": "Anar",
+          "hi": "अनार"
+        }
+      ]
+    },
+    {
+      "master_name": "Poplar",
+      "synonyms": [
+        {
+          "en": "Poplar",
+          "hi": "पॉपलर"
+        }
+      ]
+    },
+    {
+      "master_name": "Potato",
+      "synonyms": [
+        {
+          "en": "Potato",
+          "hi": "आलू"
+        },
+        {
+          "en": "Aloo",
+          "hi": "आलू"
+        }
+      ]
+    },
+    {
+      "master_name": "Pumpkin",
+      "synonyms": [
+        {
+          "en": "Pumpkin",
+          "hi": "कद्दू"
+        },
+        {
+          "en": "Kaddu",
+          "hi": "कद्दू"
+        },
+        {
+          "en": "Petha",
+          "hi": "पेठा"
+        }
+      ]
+    },
+    {
+      "master_name": "Radish",
+      "synonyms": [
+        {
+          "en": "Radish",
+          "hi": "मूली"
+        },
+        {
+          "en": "Mooli",
+          "hi": "मूली"
+        }
+      ]
+    },
+    {
+      "master_name": "Rajma",
+      "synonyms": [
+        {
+          "en": "Rajma",
+          "hi": "राजमा"
+        }
+      ]
+    },
+    {
+      "master_name": "Ridge Gourd",
+      "synonyms": [
+        {
+          "en": "Ridge Gourd",
+          "hi": "तोरई"
+        },
+        {
+          "en": "Torai",
+          "hi": "तोरई"
+        },
+        {
+          "en": "Kali Torai",
+          "hi": "काली तोरई"
+        }
+      ]
+    },
+    {
+      "master_name": "Rocket salad",
+      "synonyms": [
+        {
+          "en": "Rocket salad",
+          "hi": "रॉकेट सलाद"
+        }
+      ]
+    },
+    {
+      "master_name": "Rose",
+      "synonyms": [
+        {
+          "en": "Rose",
+          "hi": "गुलाब"
+        },
+        {
+          "en": "Gulab",
+          "hi": "गुलाब"
+        }
+      ]
+    },
+    {
+      "master_name": "Safed Musli",
+      "synonyms": [
+        {
+          "en": "Safed Musli",
+          "hi": "सफेद मूसली"
+        }
+      ]
+    },
+    {
+      "master_name": "Sagoan",
+      "synonyms": [
+        {
+          "en": "Teak",
+          "hi": "सागवान"
+        },
+        {
+          "en": "Sagwan",
+          "hi": "सागवान"
+        }
+      ]
+    },
+    {
+      "master_name": "Sapota",
+      "synonyms": [
+        {
+          "en": "Sapota",
+          "hi": "चीकू"
+        },
+        {
+          "en": "Chiku",
+          "hi": "चीकू"
+        }
+      ]
+    },
+    {
+      "master_name": "Sesame",
+      "synonyms": [
+        {
+          "en": "Sesame",
+          "hi": "तिल"
+        },
+        {
+          "en": "Til",
+          "hi": "तिल"
+        }
+      ]
+    },
+    {
+      "master_name": "Snake Gourd",
+      "synonyms": [
+        {
+          "en": "Snake Gourd",
+          "hi": "चिचिंडा"
+        },
+        {
+          "en": "Chichinda",
+          "hi": "चिचिंडा"
+        }
+      ]
+    },
+    {
+      "master_name": "Snap Melon",
+      "synonyms": [
+        {
+          "en": "Snap Melon",
+          "hi": "फूट"
+        },
+        {
+          "en": "Phoot",
+          "hi": "फूट"
+        },
+        {
+          "en": "Kachra",
+          "hi": "कचरा"
+        }
+      ]
+    },
+    {
+      "master_name": "Sorghum (Jowar)",
+      "synonyms": [
+        {
+          "en": "Sorghum",
+          "hi": "ज्वार"
+        },
+        {
+          "en": "Jowar",
+          "hi": "ज्वार"
+        },
+        {
+          "en": "Chari",
+          "hi": "चरी"
+        }
+      ]
+    },
+    {
+      "master_name": "Soybean",
+      "synonyms": [
+        {
+          "en": "Soybean",
+          "hi": "सोयाबीन"
+        }
+      ]
+    },
+    {
+      "master_name": "Spinach (Palak)",
+      "synonyms": [
+        {
+          "en": "Spinach",
+          "hi": "पालक"
+        },
+        {
+          "en": "Palak",
+          "hi": "पालक"
+        }
+      ]
+    },
+    {
+      "master_name": "Spine Gourd",
+      "synonyms": [
+        {
+          "en": "Spine Gourd",
+          "hi": "ककोड़ा"
+        },
+        {
+          "en": "Kakoda",
+          "hi": "ककोड़ा"
+        }
+      ]
+    },
+    {
+      "master_name": "Sponge Gourd",
+      "synonyms": [
+        {
+          "en": "Sponge Gourd",
+          "hi": "तोरई"
+        },
+        {
+          "en": "Ghiya Torai",
+          "hi": "घिया तोरई"
+        },
+        {
+          "en": "Hari Torai",
+          "hi": "हरी तोरई"
+        }
+      ]
+    },
+    {
+      "master_name": "Strawberry",
+      "synonyms": [
+        {
+          "en": "Strawberry",
+          "hi": "स्ट्रॉबेरी"
+        }
+      ]
+    },
+    {
+      "master_name": "Sudan Grass",
+      "synonyms": [
+        {
+          "en": "Sudan Grass",
+          "hi": "सूडान घास"
+        }
+      ]
+    },
+    {
+      "master_name": "Sugarcane",
+      "synonyms": [
+        {
+          "en": "Sugarcane",
+          "hi": "गन्ना"
+        },
+        {
+          "en": "Ganna",
+          "hi": "गन्ना"
+        }
+      ]
+    },
+    {
+      "master_name": "Sunflower",
+      "synonyms": [
+        {
+          "en": "Sunflower",
+          "hi": "सूरजमुखी"
+        },
+        {
+          "en": "Surajmukhi",
+          "hi": "सूरजमुखी"
+        }
+      ]
+    },
+    {
+      "master_name": "Tobacco",
+      "synonyms": [
+        {
+          "en": "Tobacco",
+          "hi": "तंबाकू"
+        },
+        {
+          "en": "Tambaku",
+          "hi": "तंबाकू"
+        }
+      ]
+    },
+    {
+      "master_name": "Tomato",
+      "synonyms": [
+        {
+          "en": "Tomato",
+          "hi": "टमाटर"
+        },
+        {
+          "en": "Tamatar",
+          "hi": "टमाटर"
+        }
+      ]
+    },
+    {
+      "master_name": "Toria",
+      "synonyms": [
+        {
+          "en": "Toria",
+          "hi": "तोरिया"
+        }
+      ]
+    },
+    {
+      "master_name": "Tulsi",
+      "synonyms": [
+        {
+          "en": "Tulsi",
+          "hi": "तुलसी"
+        }
+      ]
+    },
+    {
+      "master_name": "Turmeric",
+      "synonyms": [
+        {
+          "en": "Turmeric",
+          "hi": "हल्दी"
+        },
+        {
+          "en": "Haldi",
+          "hi": "हल्दी"
+        }
+      ]
+    },
+    {
+      "master_name": "Turnip",
+      "synonyms": [
+        {
+          "en": "Turnip",
+          "hi": "शलगम"
+        },
+        {
+          "en": "Shalgam",
+          "hi": "शलगम"
+        }
+      ]
+    },
+    {
+      "master_name": "Watermelon",
+      "synonyms": [
+        {
+          "en": "Watermelon",
+          "hi": "तरबूज"
+        },
+        {
+          "en": "Tarbuj",
+          "hi": "तरबूज"
+        }
+      ]
+    },
+    {
+      "master_name": "Wheat",
+      "synonyms": [
+        {
+          "en": "Wheat",
+          "hi": "गेहूं"
+        },
+        {
+          "en": "Gehu",
+          "hi": "गेहूं"
+        },
+        {
+          "en": "Kanak",
+          "hi": "कनक"
+        }
+      ]
+    },
+    {
+      "master_name": "Yard Long Bean",
+      "synonyms": [
+        {
+          "en": "Yard Long Bean",
+          "hi": "लोबिया फली"
+        },
+        {
+          "en": "Lobiya Phali",
+          "hi": "लोबिया फली"
+        }
+      ]
+    },
+    {
+      "master_name": "Dragon Fruit",
+      "synonyms": [
+        {
+          "en": "Dragon Fruit",
+          "hi": "ड्रैगन फ्रूट"
+        },
+        {
+          "en": "Pitaya",
+          "hi": ""
+        },
+        {
+          "en": "Kamalam",
+          "hi": "कमलम"
+        }
+      ]
+    },
+    {
+      "master_name": "Cashew Nut",
+      "synonyms": [
+        {
+          "en": "Cashew Nut",
+          "hi": "काजू"
+        }
+      ]
+    }
+  ],
+  "ambiguous_names": [
+    {
+      "input_word": {
+        "en": "Lobiya",
+        "hi": "लोबिया"
+      },
+      "variations": [
+        "Lobia",
+        "Lobhiya",
+        "लोबिया",
+        "लोभिया"
+      ],
+      "resolves_to": [
+        "Cowpea (Vegetable)",
+        "Yard Long Bean"
+      ],
+      "button_options": [
+        "1. लोबिया (सब्जी)",
+        "2. बरबटी"
+      ]
+    },
+    {
+      "input_word": {
+        "en": "Bajra",
+        "hi": "बाजरा"
+      },
+      "variations": [
+        "Bajra",
+        "Bajara",
+        "बाजरा"
+      ],
+      "resolves_to": [
+        "Pearl Millet (Bajra)",
+        "BAJRA NAPIER HYBRID"
+      ],
+      "button_options": [
+        "1. बाजरा",
+        "2. बाजरा-नेपियर संकर"
+      ]
+    },
+    {
+      "input_word": {
+        "en": "Kaddu",
+        "hi": "कद्दू"
+      },
+      "variations": [
+        "Kaddu",
+        "Kadu",
+        "कद्दू"
+      ],
+      "resolves_to": [
+        "Pumpkin",
+        "Ash Gourd (Petha)"
+      ],
+      "button_options": [
+        "1. कद्दू",
+        "2. पेठा (सफेद कद्दू)"
+      ]
+    },
+    {
+      "input_word": {
+        "en": "Gobi",
+        "hi": "गोभी"
+      },
+      "variations": [
+        "Gobi",
+        "Gobhi",
+        "गोभी"
+      ],
+      "resolves_to": [
+        "Cauliflower",
+        "Cabbage",
+        "Broccoli"
+      ],
+      "button_options": [
+        "1. फूलगोभी",
+        "2. पत्ता गोभी",
+        "3. ब्रोकली"
+      ]
+    },
+    {
+      "input_word": {
+        "en": "Nimbu",
+        "hi": "नींबू"
+      },
+      "variations": [
+        "Nimbu",
+        "Nimboo",
+        "नींबू"
+      ],
+      "resolves_to": [
+        "Lemon",
+        "Acid Lime"
+      ],
+      "button_options": [
+        "1. नींबू",
+        "2. कागजी नींबू"
+      ]
+    },
+    {
+      "input_word": {
+        "en": "Sarson",
+        "hi": "सरसों"
+      },
+      "variations": [
+        "Sarson",
+        "Sarso",
+        "सरसों",
+        "सरसो"
+      ],
+      "resolves_to": [
+        "Mustard",
+        "Toria"
+      ],
+      "button_options": [
+        "1. सरसों",
+        "2. तोरिया"
+      ]
+    },
+    {
+      "input_word": {
+        "en": "Torai",
+        "hi": "तोरई"
+      },
+      "variations": [
+        "Torai",
+        "Turi",
+        "तोरई",
+        "तूरी"
+      ],
+      "resolves_to": [
+        "Ridge Gourd",
+        "Sponge Gourd"
+      ],
+      "button_options": [
+        "1. तोरई (रिज गार्ड)",
+        "2. गिलकी"
+      ]
+    }
+  ]
 }
