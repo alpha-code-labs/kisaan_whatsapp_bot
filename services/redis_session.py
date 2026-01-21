@@ -1,5 +1,7 @@
 import json
+import os
 import redis
+import uuid
 from services.config import Config
 
 SESSION_TTL = 300
@@ -19,6 +21,7 @@ SessionState = {
     "PROCESSING_CROP_QUERY": "PROCESSING_CROP_QUERY",
     "AWAITING_AMBIGUOUS_CROP_CHOICE": "AWAITING_AMBIGUOUS_CROP_CHOICE",
     "AWAITING_CROP_CONFIRMATION": "AWAITING_CROP_CONFIRMATION",
+    "QUERY_NOT_ABOUT_CROP": "QUERY_NOT_ABOUT_CROP",
 }
 
 _client = redis.Redis(
@@ -30,12 +33,14 @@ _client = redis.Redis(
 
 def get_session(user_id):
     data = _client.get(f"session:{user_id}")
-    return json.loads(data) if data else None
+    session = json.loads(data) if data else None
+    return session
 
 
 def create_session(user_id):
     session = {
         "userId": user_id,
+        "sessionId": uuid.uuid4().hex[:8],
         "state": SessionState["GREETING"],
         "queryType": None,
         "location": None,
@@ -44,6 +49,11 @@ def create_session(user_id):
         "cropAdviceCategory": None,
         "crop": None,
         "query": {"texts": [], "audios": [], "images": []},
+        "uploadCount": 0,
+        "geminiAggregatedQuery": None,
+        "geminiAggregatedQueryDecomposed": [],
+        "geniminiSplittedQueries" : [],
+        "adviceResponses": [],
         "createdAt": _now_ms(),
         "updatedAt": _now_ms()
     }
@@ -80,7 +90,7 @@ def update_session_state(user_id, new_state):
         f"new_state={new_state} | "
         f"crop={session.get('crop')} | "
         f"isExistingCrop={session.get('isExistingCrop')} | "
-        f"category={session.get('cropAdviceCategory')}"
+        f"category={session.get('cropAdviceCategory')} | "
     )
 
     return session
@@ -114,16 +124,61 @@ def append_user_query(user_id, payload):
 
     if payload.get("text"):
         query["texts"].append(payload["text"])
-    if payload.get("audioId"):
-        query["audios"].append(payload["audioId"])
-    if payload.get("imageId"):
-        query["images"].append(payload["imageId"])
+    if payload.get("audioUrl"):
+        query["audios"].append(payload["audioUrl"])
+    if payload.get("imageUrl"):
+        query["images"].append(payload["imageUrl"])
 
     return update_session(user_id, {"query": query})
 
 
 def delete_session(user_id):
     _client.delete(f"session:{user_id}")
+
+
+def dump_session(user_id, failed = False):
+    session = get_session(user_id)
+    if not session:
+        return
+
+    session_id = session.get("sessionId") or "unknown"
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    sessions_dir = os.path.join(base_dir, "sessions")
+    os.makedirs(sessions_dir, exist_ok=True)
+    if not failed:
+        path = os.path.join(sessions_dir, f"{user_id}_{session_id}.json")
+    else:
+        path = os.path.join(sessions_dir, f"{user_id}_{session_id}_failed.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(session, f, ensure_ascii=True, indent=2)
+
+
+def append_advice_response(user_id, response_text):
+    session = get_session(user_id) or create_session(user_id)
+    responses = session.get("adviceResponses") or []
+    responses.append(response_text)
+    return update_session(user_id, {"adviceResponses": responses})
+
+def append_aggregated_query_response(user_id, response_text):
+    session = get_session(user_id) or create_session(user_id)
+    return update_session(user_id, {"geminiAggregatedQuery": response_text})
+
+def append_aggregated_query_decomposed_response(user_id, response_text):
+    session = get_session(user_id) or create_session(user_id)
+    return update_session(user_id, {"geminiAggregatedQueryDecomposed": response_text})
+
+
+def reset_query_arrays(user_id):
+    session = get_session(user_id) or create_session(user_id)
+    query = {"texts": [], "audios": [], "images": []}
+    return update_session(user_id, {"query": query, "uploadCount": 0})
+
+
+def next_upload_count(user_id):
+    session = get_session(user_id) or create_session(user_id)
+    count = int(session.get("uploadCount", 0)) + 1
+    update_session(user_id, {"uploadCount": count})
+    return count
 
 
 def _now_ms():

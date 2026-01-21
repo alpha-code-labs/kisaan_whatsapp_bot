@@ -13,6 +13,8 @@ ENV_VARS = [
     "OPENAI_API_KEY",
     "GEMINI_API_KEY",
     "WEATHER_API_KEY",
+    "AZURE_STORAGE_CONNECTION_STRING",
+    "AZURE_STORAGE_CONTAINER",
 ]
 
 class Config:
@@ -27,6 +29,8 @@ class Config:
     openai_api_key = os.getenv("OPENAI_API_KEY", "")
     gemini_api_key = os.getenv("GEMINI_API_KEY", "")
     weather_api_key = os.getenv("WEATHER_API_KEY", "")
+    azure_storage_connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING", "")
+    azure_storage_container = os.getenv("AZURE_STORAGE_CONTAINER", "")
     _base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     _data_dir_env = os.getenv("DATA_DIR")
     if _data_dir_env:
@@ -54,3 +58,5 @@ class Config:
         print(f"gemini_api_key={Config.gemini_api_key}")
         print(f"weather_api_key={Config.weather_api_key}")
         print(f"data_dir={Config.data_dir}")
+        print(f"blob_string={Config.azure_storage_connection_string}")
+        print(f"blob_container={Config.azure_storage_container}")
