@@ -35,6 +35,7 @@ from services.weather import send_weather
 from services.crop_name import detect_crop
 from services.blob_storage import BlobStorageService
 from services.config import Config
+from services.rag_builder import retrieve_rag_evidence
 from services.utility import set_timeout
 
 _client = OpenAI(api_key=Config.openai_api_key)
@@ -739,6 +740,12 @@ def _generate_response(session):
                     # Store in an array (session + your existing persistence if you have it)
                     # session["decomposedQueries"] = decomposed_queries
                     append_aggregated_query_decomposed_response(session["userId"], decomposed_queries)
+
+                    try:
+                        rag_results = retrieve_rag_evidence(decomposed_queries)
+                        update_session(session["userId"], {"ragResults": rag_results})
+                    except Exception:
+                        logger.exception("RAG retrieval error")
 
                     #dump the session at this point for now
                     dump_session(session["userId"])

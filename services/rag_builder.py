@@ -1,23 +1,27 @@
-import os
-import json
-import sys
+import logging
+import time
 from pathlib import Path
-from google import genai
+
 import chromadb
-from chromadb.api.types import EmbeddingFunction, Documents, Embeddings
+from chromadb.api.types import Documents, EmbeddingFunction, Embeddings
+from google import genai
+
 from services.config import Config
 
-# --- PATH RESOLUTION ---
-SCRIPT_PATH = Path(__file__).resolve()
-ROOT_DIR = SCRIPT_PATH.parents[1] 
+_logger = logging.getLogger("rag_builder")
 
-# Paths
-INPUT_FILE = ROOT_DIR / "data" / "queryanalysis" / "final_query" / "individual_queries.txt"
-DB_DIR = ROOT_DIR / "data" / "chroma_db"
-OUTPUT_FOLDER = ROOT_DIR / "data" / "queryanalysis" / "retrieval_results"
+DB_DIR = Path(Config.chroma_db_dir)
+COLLECTION_NAME = Config.chroma_collection_name
 
+_DEFAULT_TOP_K = 3
+_DEFAULT_DISTANCE_THRESHOLD = 0.35
+_VALID_CROP_CACHE_TTL_SECONDS = 300
 
-genai_client = genai.Client(api_key=Config.gemini_api_key)
+_gemini_client = None
+_chroma_client = None
+_collection = None
+_valid_crop_cache = {"values": None, "fetched_at": 0.0}
+
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     def __init__(self, client, model_name="text-embedding-004"):
@@ -25,96 +29,215 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
         self.model_name = model_name
 
     def __call__(self, input_texts: Documents) -> Embeddings:
-        result = self.client.models.embed_content(model=self.model_name, contents=input_texts)
+        result = self.client.models.embed_content(
+            model=self.model_name,
+            contents=input_texts
+        )
         return [e.values for e in result.embeddings]
 
     def name(self) -> str:
         return "GeminiEmbeddingFunction"
 
-# --- INITIALIZE DATABASE ---
-gemini_ef = GeminiEmbeddingFunction(client=genai_client)
-chroma_client = chromadb.PersistentClient(path=str(DB_DIR))
 
-try:
-    collection = chroma_client.get_collection(name="crop_knowledge_base", embedding_function=gemini_ef)
-except chromadb.errors.NotFoundError:
-    print(f"❌ Error: Collection not found in {DB_DIR}")
-    sys.exit(1)
+def _get_gemini_client():
+    global _gemini_client
+    if _gemini_client is None:
+        _gemini_client = genai.Client(api_key=Config.gemini_api_key)
+    return _gemini_client
 
-def run_optimized_retrieval():
-    print(f"--- PROMPT 8: REFINED RETRIEVAL & GAP ANALYSIS ---")
-    
-    if not INPUT_FILE.exists():
-        print(f"❌ Error: {INPUT_FILE} not found.")
-        return
 
-    # Get a list of actual crop tags in the DB for flexible mapping
+def _get_collection():
+    global _chroma_client, _collection
+    if _collection is not None:
+        return _collection
+
+    gemini_client = _get_gemini_client()
+    embedding_fn = GeminiEmbeddingFunction(client=gemini_client)
+    _chroma_client = chromadb.PersistentClient(path=str(DB_DIR))
+
     try:
-        all_metadata = collection.get(include=['metadatas'])['metadatas']
-        valid_db_crops = set(m.get('crop') for m in all_metadata)
-    except Exception as e:
-        print(f"⚠️ Could not fetch metadata census: {e}")
-        valid_db_crops = set()
-
-    queries = INPUT_FILE.read_text(encoding='utf-8').strip().splitlines()
-    results_package = []
-
-    for line in queries:
-        if "|" not in line: continue
-        
-        parts = line.split("|")
-        locked_crop = parts[0].strip().lower()
-        atomic_query = parts[1].strip()
-
-        # --- ROBUST METADATA MAPPING ---
-        # 1. Normalize input by replacing spaces with underscores (e.g., 'green gram' -> 'green_gram')
-        normalized_crop = locked_crop.replace(" ", "_")
-        
-        search_crop_tag = normalized_crop
-        
-        # 2. Check DB census for exact match or 'name_local' style suffixes (e.g., 'paddy_dhan')
-        if normalized_crop not in valid_db_crops:
-            for db_crop in valid_db_crops:
-                if db_crop == normalized_crop or db_crop.startswith(f"{normalized_crop}_"):
-                    search_crop_tag = db_crop
-                    break
-        # -------------------------------
-
-        # 1. Targeted Metadata Search
-        search_results = collection.query(
-            query_texts=[atomic_query],
-            n_results=3, 
-            where={"crop": search_crop_tag} 
+        _collection = _chroma_client.get_collection(
+            name=COLLECTION_NAME,
+            embedding_function=embedding_fn
         )
+    except chromadb.errors.NotFoundError as exc:
+        _logger.error("Chroma collection missing: %s", COLLECTION_NAME)
+        _collection = None
+        return None
 
-        # 2. Status Check
-        has_local_data = len(search_results['documents'][0]) > 0
-        top_distance = search_results['distances'][0][0] if has_local_data else 1.0
-        
-        # Threshold set to 0.35 for high-precision matching
-        status = "FOUND" if has_local_data and top_distance < 0.35 else "MISSING"
+    return _collection
 
-        # 3. Content Deduplication
-        raw_evidence = search_results['documents'][0] if status == "FOUND" else []
-        clean_evidence = list(dict.fromkeys(raw_evidence)) 
 
-        # 4. Final Package Assembly (Distance Removed)
-        package = {
+def _get_valid_crops(collection):
+    now = time.time()
+    cached = _valid_crop_cache.get("values")
+    if cached is not None and (now - _valid_crop_cache.get("fetched_at", 0)) < _VALID_CROP_CACHE_TTL_SECONDS:
+        return cached
+
+    try:
+        metadatas = collection.get(include=["metadatas"]).get("metadatas") or []
+    except Exception as exc:
+        _logger.warning("Failed to load crop metadata census: %s", exc)
+        return set()
+
+    crops = set()
+    for meta in metadatas:
+        if not meta:
+            continue
+        crop = meta.get("crop")
+        if crop:
+            crops.add(str(crop).strip())
+
+    _valid_crop_cache["values"] = crops
+    _valid_crop_cache["fetched_at"] = now
+    return crops
+
+
+def _normalize_crop_tag(crop_name):
+    return (crop_name or "").strip().lower().replace(" ", "_")
+
+
+def _resolve_crop_tag(normalized_crop, valid_crops):
+    if not normalized_crop:
+        return ""
+
+    if not valid_crops:
+        return normalized_crop
+
+    if normalized_crop in valid_crops:
+        return normalized_crop
+
+    for db_crop in valid_crops:
+        if db_crop.startswith(f"{normalized_crop}_"):
+            return db_crop
+
+    return normalized_crop
+
+
+def retrieve_rag_evidence(
+    decomposed_queries,
+    *,
+    top_k=_DEFAULT_TOP_K,
+    distance_threshold=_DEFAULT_DISTANCE_THRESHOLD
+):
+    """
+    Retrieve evidence for decomposed queries.
+    Each entry in decomposed_queries is expected to be "Crop | question".
+    Returns a list of dicts with query, crop, status, evidence, matched_crop, score.
+    """
+    if not decomposed_queries:
+        return []
+
+    collection = _get_collection()
+    if collection is None:
+        _logger.warning("RAG collection unavailable; returning empty results")
+        results = []
+        for line in decomposed_queries:
+            if not isinstance(line, str) or "|" not in line:
+                continue
+            crop_raw, atomic_query = (part.strip() for part in line.split("|", 1))
+            if not atomic_query:
+                continue
+            results.append({
+                "query": atomic_query,
+                "crop": crop_raw,
+                "status": "ERROR",
+                "evidence": [],
+                "matched_crop": "",
+                "score": 1.0,
+            })
+        return results
+    valid_crops = _get_valid_crops(collection)
+
+    parsed = []
+    for line in decomposed_queries:
+        if not isinstance(line, str) or "|" not in line:
+            continue
+        crop_raw, atomic_query = (part.strip() for part in line.split("|", 1))
+        if not atomic_query:
+            continue
+        normalized_crop = _normalize_crop_tag(crop_raw)
+        search_crop_tag = _resolve_crop_tag(normalized_crop, valid_crops)
+        parsed.append({
+            "crop": crop_raw,
             "query": atomic_query,
-            "crop": locked_crop,
-            "status": status,
-            "evidence": clean_evidence
-        }
-        results_package.append(package)
-        print(f"Processed: {atomic_query[:40]}... -> {status} (Used Tag: {search_crop_tag} | Score: {top_distance:.4f})")
+            "search_tag": search_crop_tag,
+        })
 
-    # Save finalized package
-    OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
-    output_path = OUTPUT_FOLDER / "retrieval_audit.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(results_package, f, indent=4, ensure_ascii=False)
+    if not parsed:
+        return []
 
-    print(f"\n✅ Retrieval Package Ready: {output_path}")
+    grouped = {}
+    for entry in parsed:
+        grouped.setdefault(entry["search_tag"], []).append(entry)
 
-if __name__ == "__main__":
-    run_optimized_retrieval()
+    results = []
+    for tag, entries in grouped.items():
+        if not tag:
+            for entry in entries:
+                results.append({
+                    "query": entry["query"],
+                    "crop": entry["crop"],
+                    "status": "MISSING",
+                    "evidence": [],
+                    "matched_crop": "",
+                    "score": 1.0,
+                })
+            continue
+
+        try:
+            response = collection.query(
+                query_texts=[e["query"] for e in entries],
+                n_results=top_k,
+                where={"crop": tag},
+            )
+        except Exception as exc:
+            _logger.exception("Chroma query failed for tag=%s: %s", tag, exc)
+            for entry in entries:
+                results.append({
+                    "query": entry["query"],
+                    "crop": entry["crop"],
+                    "status": "ERROR",
+                    "evidence": [],
+                    "matched_crop": tag,
+                    "score": 1.0,
+                })
+            continue
+
+        documents = response.get("documents") or []
+        distances = response.get("distances") or []
+
+        for idx, entry in enumerate(entries):
+            docs = documents[idx] if idx < len(documents) else []
+            dists = distances[idx] if idx < len(distances) else []
+            top_distance = dists[0] if dists else 1.0
+            has_local_data = bool(docs)
+            status = "FOUND" if has_local_data and top_distance < distance_threshold else "MISSING"
+
+            raw_evidence = docs if status == "FOUND" else []
+            clean_evidence = list(dict.fromkeys(raw_evidence))
+
+            results.append({
+                "query": entry["query"],
+                "crop": entry["crop"],
+                "status": status,
+                "evidence": clean_evidence,
+                "matched_crop": tag,
+                "score": float(top_distance),
+            })
+
+    return results
+
+
+def warm_rag_cache():
+    """
+    Initialize Chroma collection and cached crop metadata.
+    Returns True on success, False otherwise.
+    """
+    try:
+        collection = _get_collection()
+        _get_valid_crops(collection)
+    except Exception as exc:
+        _logger.warning("RAG warmup failed: %s", exc)
+        return False
+    return True

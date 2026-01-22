@@ -1,19 +1,23 @@
 import hashlib
 import hmac
+import logging
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse, PlainTextResponse
 
 from services.config import Config
 from services.conversation import Conversation
-from services.rag_builder import run_optimized_retrieval
+from services.rag_builder import warm_rag_cache
 
 app = FastAPI()
+logger = logging.getLogger("app")
 
 
 @app.on_event("startup")
 def on_startup():
     Config.check_env_variables()
     Config.print_config()
+    if not warm_rag_cache():
+        logger.warning("RAG warmup did not complete; first request may be slower")
 
 
 @app.get("/webhook")
@@ -88,4 +92,4 @@ def verify_request_signature(raw_body, signature_header):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("kissan_bot_python.app:app", host="0.0.0.0", port=Config.port, reload=False)
+    uvicorn.run("app:app", host="0.0.0.0", port=Config.port, reload=False)

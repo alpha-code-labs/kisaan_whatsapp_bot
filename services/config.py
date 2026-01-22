@@ -15,6 +15,9 @@ ENV_VARS = [
     "WEATHER_API_KEY",
     "AZURE_STORAGE_CONNECTION_STRING",
     "AZURE_STORAGE_CONTAINER",
+    "CHROMA_DB_DIR",
+    "CHROMA_COLLECTION_NAME",
+    "RAG_KB_DIR",
 ]
 
 class Config:
@@ -38,6 +41,20 @@ class Config:
     else:
         data_dir = os.path.join(_base_dir, "data")
 
+    _chroma_dir_env = os.getenv("CHROMA_DB_DIR")
+    if _chroma_dir_env:
+        chroma_db_dir = _chroma_dir_env if os.path.isabs(_chroma_dir_env) else os.path.join(_base_dir, _chroma_dir_env)
+    else:
+        chroma_db_dir = os.path.join(data_dir, "chroma_db")
+
+    chroma_collection_name = os.getenv("CHROMA_COLLECTION_NAME", "crop_knowledge_base")
+
+    _rag_kb_dir_env = os.getenv("RAG_KB_DIR")
+    if _rag_kb_dir_env:
+        rag_kb_dir = _rag_kb_dir_env if os.path.isabs(_rag_kb_dir_env) else os.path.join(_base_dir, _rag_kb_dir_env)
+    else:
+        rag_kb_dir = os.path.join(data_dir, "gemini_responses")
+
     @staticmethod
     def check_env_variables():
         for key in ENV_VARS:
@@ -58,5 +75,8 @@ class Config:
         print(f"gemini_api_key={Config.gemini_api_key}")
         print(f"weather_api_key={Config.weather_api_key}")
         print(f"data_dir={Config.data_dir}")
+        print(f"chroma_db_dir={Config.chroma_db_dir}")
+        print(f"chroma_collection_name={Config.chroma_collection_name}")
+        print(f"rag_kb_dir={Config.rag_kb_dir}")
         print(f"blob_string={Config.azure_storage_connection_string}")
         print(f"blob_container={Config.azure_storage_container}")
