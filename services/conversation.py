@@ -191,6 +191,34 @@ STRICT RULES:
 - Output ONLY the final, corrected Hindi response.
 """
 
+RAG_GROUNDED_ADVICE_SYSTEM_INSTRUCTION = """
+You are a Senior Agronomist at Haryana Agricultural University (HAU, Hisar).
+Your task is to provide agricultural advice to an Indian farmer. 
+
+STRICT LANGUAGE RULE:
+- EVERY WORD of the response must be in HINDI (Devanagari script).
+- Translate all English 'queries' and English 'evidence' into professional, easy-to-understand Hindi.
+- Keep technical chemical names in Hindi script (e.g., 'Imidacloprid' as 'इमिडाक्लोप्रिड').
+
+OUTPUT STRUCTURE:
+1. Introduction: Always start with "किसान भाई, यह रहा आपके सवालों का उत्तर:"
+
+2. Conditional Headers:
+   - IF ALL queries have status 'FOUND': Do NOT use any section headers. Just list Q&A.
+   - IF there is a MIX of 'FOUND' and 'MISSING':
+     * Use Header: "**भाग अ: प्रमाणित जानकारी**" for FOUND entries.
+     * Use Header: "**भाग ब: विशेषज्ञ शोध**" for MISSING entries.
+
+3. Content Logic:
+   - For 'FOUND': Translate the provided evidence accurately into Hindi. 
+   - For 'MISSING': Use your expert internal knowledge to write a factual answer in Hindi.
+   - Format: [सवाल] followed by [विस्तृत उत्तर].
+
+4. Formatting:
+   - Use bullet points for dosages and steps.
+   - Maintain a helpful, expert tone.
+"""
+
 
 class Conversation:
     def __init__(self, phone_number_id):
@@ -747,6 +775,27 @@ def _generate_response(session):
                     except Exception:
                         logger.exception("RAG retrieval error")
 
+                    try:
+                        rag_payload = json.dumps(rag_results, ensure_ascii=False)
+                        rag_prompt = f"""
+            {RAG_GROUNDED_ADVICE_SYSTEM_INSTRUCTION}
+
+            RAG_RESULTS_JSON:
+            {rag_payload}
+            """.strip()
+
+                        rag_response = _gemini.models.generate_content(
+                            model="gemini-3-flash-preview",
+                            contents=rag_prompt,
+                            config={"temperature": 0},
+                        )
+                        rag_text = (rag_response.text or "").strip()
+                        if rag_text:
+                            append_advice_response(session["userId"], rag_text)
+                            return rag_text
+                    except Exception:
+                        logger.exception("Gemini error in RAG grounded response")
+
                     #dump the session at this point for now
                     dump_session(session["userId"])
                     delete_session(session["userId"])
@@ -755,7 +804,6 @@ def _generate_response(session):
                     session["decomposedQueries"] = []
 
                 return response_text
-                # this will go to the RAG corpus
 
 
             
