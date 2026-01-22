@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 
 from services.config import Config
 from services.conversation import Conversation
+from services.rag_builder import run_optimized_retrieval
 
 app = FastAPI()
 
@@ -87,4 +88,4 @@ def verify_request_signature(raw_body, signature_header):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=Config.port, reload=False)
+    uvicorn.run("kissan_bot_python.app:app", host="0.0.0.0", port=Config.port, reload=False)
