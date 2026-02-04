@@ -1,0 +1,5279 @@
+{
+  "meta": {
+    "source_csv": "/Users/sandeepnair/Desktop/kcc_project/data/cleanragbackupdata/Varieties and Sowing Time.csv",
+    "exported_at": "2026-01-08T17:25:13",
+    "row_count": 1043,
+    "columns": [
+      "Crop",
+      "Variety",
+      "Sowing_Time"
+    ]
+  },
+  "records": [
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Pusa Abhinav",
+      "Sowing_Time": "Feb–March or July–Sept"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Pusa Udit",
+      "Sowing_Time": "Feb–March or July–Sept"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Kagzi Lime",
+      "Sowing_Time": "Aug–Oct (Preferred)"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Pramalini",
+      "Sowing_Time": "July–September"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Vikram",
+      "Sowing_Time": "July–September"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Chakradhar",
+      "Sowing_Time": "Feb–March or July–Sept"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "Sai Sharbati",
+      "Sowing_Time": "July–September"
+    },
+    {
+      "Crop": "Acid Lime",
+      "Variety": "PKM-1",
+      "Sowing_Time": "July–September"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "California Papershell",
+      "Sowing_Time": "Jan–Feb (Standard) or Nov–Dec"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Independence",
+      "Sowing_Time": "Jan–Feb (Standard) or Nov–Dec"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Hybrid 15",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Pethick's Wonder",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "J K 55",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Sanora",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Ne Plus Ultra",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Waris ",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Pranyaj",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Almond",
+      "Variety": "Shalimar",
+      "Sowing_Time": "Jan–Feb"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "Aloe barbadensis Miller",
+      "Sowing_Time": "July–Aug or Feb–March"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "Aloe indica Royle",
+      "Sowing_Time": "July–Aug or Feb–March"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "AL-1",
+      "Sowing_Time": "June–July or Sept–Oct"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111271",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111269",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111280",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111273",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111279",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111267",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111266",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111272",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aloe Vera",
+      "Variety": "IC111277",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Aonla",
+      "Variety": "Kanchan (NA-4)",
+      "Sowing_Time": "July–August or February"
+    },
+    {
+      "Crop": "Aonla",
+      "Variety": "NA-7 (Neelam)",
+      "Sowing_Time": "July–August or February"
+    },
+    {
+      "Crop": "Aonla",
+      "Variety": "NA-10 (Balwant)",
+      "Sowing_Time": "July–August or February"
+    },
+    {
+      "Crop": "Aonla",
+      "Variety": "Krishna (NA-5)",
+      "Sowing_Time": "July–August or February"
+    },
+    {
+      "Crop": "Aonla",
+      "Variety": "Chakaiya",
+      "Sowing_Time": "July–August or February"
+    },
+    {
+      "Crop": "Aonla",
+      "Variety": "Banarasi",
+      "Sowing_Time": "July–August or February"
+    },
+    {
+      "Crop": "Apple",
+      "Variety": "HRMN-99 (Hariman)",
+      "Sowing_Time": "January–February"
+    },
+    {
+      "Crop": "Apple",
+      "Variety": "Anna",
+      "Sowing_Time": "January–February"
+    },
+    {
+      "Crop": "Apple",
+      "Variety": "Dorsett Golden",
+      "Sowing_Time": "January–February"
+    },
+    {
+      "Crop": "Apricot",
+      "Variety": "New Castle",
+      "Sowing_Time": "December–February"
+    },
+    {
+      "Crop": "Apricot",
+      "Variety": "Shakarpara",
+      "Sowing_Time": "December–February"
+    },
+    {
+      "Crop": "Apricot",
+      "Variety": "Suffaida",
+      "Sowing_Time": "December–February"
+    },
+    {
+      "Crop": "Apricot",
+      "Variety": "Harcot",
+      "Sowing_Time": "December–February"
+    },
+    {
+      "Crop": "Apricot",
+      "Variety": "Ketcot",
+      "Sowing_Time": "December–February"
+    },
+    {
+      "Crop": "Ash Gourd Petha",
+      "Variety": "PAG-3",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Ash Gourd Petha",
+      "Variety": "PAG-3",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Ash Gourd Petha",
+      "Variety": "Kashi Dhawal",
+      "Sowing_Time": "February–March and June–July"
+    },
+    {
+      "Crop": "Ash Gourd Petha",
+      "Variety": "Kashi Surbhi",
+      "Sowing_Time": "February–March and June–July"
+    },
+    {
+      "Crop": "Ash Gourd Petha",
+      "Variety": "Pusa Ujjwal",
+      "Sowing_Time": "February–March and June–July"
+    },
+    {
+      "Crop": "Ash Gourd Petha",
+      "Variety": "Kashi Ujawal",
+      "Sowing_Time": "February–March and June–July"
+    },
+    {
+      "Crop": "Babool",
+      "Variety": "Desi Babool (Acacia nilotica subsp. indica)",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Babool",
+      "Variety": "Israeli Babool (Acacia tortilis)",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Babool",
+      "Variety": "Vilayati Babool (Prosopis juliflora)",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Babool",
+      "Variety": "Ramkati Babool (subsp. cupressiformis)",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "NB-17 (Narendra Bael-17)",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "NB-5 (Narendra Bael-5)",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "NB-9 (Narendra Bael-9)",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "NB-16 (Narendra Bael-16)",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "CISH Bael-1",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "CISH Bael-2",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "Pant Aparna",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "Pant Sujata",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bael",
+      "Variety": "Goma Yashi",
+      "Sowing_Time": "July–August and February–March"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "PBN-351",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "BNH-11",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "BNH-14",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "PBN-233",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "PBN-346",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "NB-21",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "CO-3",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "CO-4",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Bajra Napier Hybrid",
+      "Variety": "CO-5",
+      "Sowing_Time": "February–May and July–August"
+    },
+    {
+      "Crop": "Banana",
+      "Variety": "Grand Naine (G-9)",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Banana",
+      "Variety": "Dwarf Cavendish",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Banana",
+      "Variety": "Robusta",
+      "Sowing_Time": "February–March and July–August"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "BH 946",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "BH 959",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "BH 902",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "BH 393",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "RD 2552",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "RD 2035",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "DWRB 101",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "PL 426",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "NDB 1173",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "DWR 28",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barley Jau",
+      "Variety": "RD 2668",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "HB 1 (Hisar Berseem 1)",
+      "Sowing_Time": "September and October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "HB 2 (Hisar Berseem 2)",
+      "Sowing_Time": "September and October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "Mescavi",
+      "Sowing_Time": "September and October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "BL 10",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "BL 42",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "BL 43",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "BL 44",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "Wardan",
+      "Sowing_Time": "September and October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "Pusa Giant",
+      "Sowing_Time": "September and October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "JB 1",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "JB 2",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "JB 3",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Barseem",
+      "Variety": "JBSC-1 (Single cut)",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Beet Root",
+      "Variety": "Detroit Dark Red",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Beet Root",
+      "Variety": "Crimson Globe",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Beet Root",
+      "Variety": "Early Wonder",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Beet Root",
+      "Variety": "Crosby Egyptian",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Beet Root",
+      "Variety": "Red Ball",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "GNG 2144",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "GNG 2207",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "GNG 2171",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "HC-6 (Haryana Chana-6)",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "HC-5",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "HC-3",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "CSJ 515",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "Pusa 3022 (Kabuli)",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "HK-4 (Haryana Kabuli-4)",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "Anubhav (RSG 888)",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Bengal Gram",
+      "Variety": "PDL-1 (Pusa Avantika)",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Gola (Early)",
+      "Sowing_Time": "July–August and January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Safeda (Early)",
+      "Sowing_Time": "July–August and January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Safeda (Early)",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Seb (Early)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Seb (Early)",
+      "Sowing_Time": "July–August and January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Sanaur-5 (Early)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Sanaur-5 (Early)",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Kaithli (Mid-Season)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Kaithli (Mid-Season)",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Banarasi Karaka (Mid-Season)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Banarasi Karaka (Mid-Season)",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Umran (Late)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Umran (Late)",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Ilaichi (Late)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Ilaichi (Late)",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Sandhura Narnaul",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Ber",
+      "Variety": "Sandhura Narnaul",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Hisar Naveen",
+      "Sowing_Time": "July and February and March"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Hisar Naveen",
+      "Sowing_Time": "February–March or July – July "
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Hisar Unnat (HRB-55)",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Varsha Uphar (HRB 9-2)",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Pusa A-4",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Arka Anamika",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Parbhani Kranti",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Pusa Sawani",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Punjab Padmini",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bhindi",
+      "Variety": "Hisar Barsati",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Hybrid 1",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Hybrid 2",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Aushadhi",
+      "Sowing_Time": "January–March or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Rasdar",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Purvi",
+      "Sowing_Time": "January–March or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Do Mausami",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Pusa Visesh",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Arka Harit",
+      "Sowing_Time": "January–March or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Priya",
+      "Sowing_Time": "January–March or June–July"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "HKH 11",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "HKH 12",
+      "Sowing_Time": "January–March"
+    },
+    {
+      "Crop": "Bitter Gourd",
+      "Variety": "Bachchan",
+      "Sowing_Time": "Late January–March"
+    },
+    {
+      "Crop": "Black Gram",
+      "Variety": "UH-1",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Black Gram",
+      "Variety": "Pant Urd 12",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Black Gram",
+      "Variety": "Mukundra Urd-2 (KPU 405)",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Black Gram",
+      "Variety": "PDU 1 (Basant Bahar)",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Black Gram",
+      "Variety": "Mash 1190 (SUG 1190)",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Black Gram",
+      "Variety": "T-9",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "HBGH-35 (Hybrid)",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "GH-22",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "Pusa Naveen",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "Pusa Summer Prolific Long",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "Pusa Summer Prolific Round",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "Punjab Komal",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Bottle Gourd",
+      "Variety": "Arka Bahar",
+      "Sowing_Time": "January–February or June–July"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Hisar Jamuni",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Hisar Shyamal",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Pusa Purple Long",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Pusa Purple Round",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "PH-4 (HAU Release)",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Pusa Purple Cluster",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Pusa Kranti",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Pant Rituraj",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Arka Nidhi",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Brinjal",
+      "Variety": "Azad Kranti",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Palam Samridhi",
+      "Sowing_Time": "Mid-August to mid-September or Mid-September to early November"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Punjab Broccoli-1",
+      "Sowing_Time": "Mid-August to mid-September"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Pusa Broccoli KTS-1",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "F1 Tahoe",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Tahoe RZ",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "F1 Fiesta",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Green Speed",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Green Giant",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Palam Haritika",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Broccoli",
+      "Variety": "Lucky",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Golden Acre (Early)",
+      "Sowing_Time": "July–November"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Pride of India (Early)",
+      "Sowing_Time": "July–November"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Pusa Mukta (Early)",
+      "Sowing_Time": "July–November"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Hari Rani (F1 Hybrid)",
+      "Sowing_Time": "July–November or September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Shri Ganesh Gol (F1 Hybrid)",
+      "Sowing_Time": "July–November or September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "September Early (Mid-season)",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Pusa Drumhead (Late)",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Early Drum Head",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Late Large Drum Head",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "K-1",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cabbage",
+      "Variety": "Pusa Synthetic",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Indra (Green)",
+      "Sowing_Time": "Mid-October to November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Yamuna (Green)",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Bomby (Red)",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Triple Star",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Natasha",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Inspiration (Red)",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Sunnyez",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Swarna",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Orobelle",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Bachata (Yellow)",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "California Wonder",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Yolo Wonder",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Arka Basant",
+      "Sowing_Time": "September–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Arka Gaurav",
+      "Sowing_Time": "September–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Arka Mohini",
+      "Sowing_Time": "September–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Bharat",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Capsicum",
+      "Variety": "Solan Hybrid-2",
+      "Sowing_Time": "October–November or January–February"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Hisar Gairic",
+      "Sowing_Time": "August–September"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Kesar",
+      "Sowing_Time": "August–early October"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Vasudha",
+      "Sowing_Time": "August–October"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Rudhira",
+      "Sowing_Time": "August–September or Mid-September–October"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Hisar Madhur",
+      "Sowing_Time": "August–October"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Meghali",
+      "Sowing_Time": "August–September"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Early Nantes (European)",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Jamdagni (European)",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Nayanjyoti",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Carrot",
+      "Variety": "Pusa Ashita (Black)",
+      "Sowing_Time": "August–October"
+    },
+    {
+      "Crop": "Castor",
+      "Variety": "GCHB (SHB 896)",
+      "Sowing_Time": "June –July "
+    },
+    {
+      "Crop": "Castor",
+      "Variety": "DCH-177",
+      "Sowing_Time": "June –July "
+    },
+    {
+      "Crop": "Castor",
+      "Variety": "GCH-8",
+      "Sowing_Time": "June –July "
+    },
+    {
+      "Crop": "Castor",
+      "Variety": "DSP-222",
+      "Sowing_Time": "June –July "
+    },
+    {
+      "Crop": "Castor",
+      "Variety": "Aruna",
+      "Sowing_Time": "June –July "
+    },
+    {
+      "Crop": "Castor",
+      "Variety": "Tilhan Tec ICH-6",
+      "Sowing_Time": "June –July "
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Early Kunwari",
+      "Sowing_Time": "May–August"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pusa Deepali",
+      "Sowing_Time": "May–June"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pusa Katki",
+      "Sowing_Time": "May–June"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Hisar-1",
+      "Sowing_Time": "August–September"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pant Gobhi-3",
+      "Sowing_Time": "May–August"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pant Shubhra",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pusa Synthetic",
+      "Sowing_Time": "September"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Punjab Giant-26",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Punjab Giant-35",
+      "Sowing_Time": "September–October"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pusa Snowball-1",
+      "Sowing_Time": "October–December"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Pusa Snowball K-1",
+      "Sowing_Time": "October–December"
+    },
+    {
+      "Crop": "Cauliflower",
+      "Variety": "Snowball-16",
+      "Sowing_Time": "October–December"
+    },
+    {
+      "Crop": "Celery",
+      "Variety": "PRL-85-1",
+      "Sowing_Time": "September –October "
+    },
+    {
+      "Crop": "Celery",
+      "Variety": "EC-99249-1",
+      "Sowing_Time": "September –October "
+    },
+    {
+      "Crop": "Celery",
+      "Variety": "Standard Bearer",
+      "Sowing_Time": "September –October "
+    },
+    {
+      "Crop": "Celery",
+      "Variety": "Wright Grove Giant",
+      "Sowing_Time": "September –October "
+    },
+    {
+      "Crop": "Celery",
+      "Variety": "Punjab Celery 1",
+      "Sowing_Time": "September –October "
+    },
+    {
+      "Crop": "Celery",
+      "Variety": "Giant Pascal",
+      "Sowing_Time": "September –October "
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "CH-1 (Hybrid)",
+      "Sowing_Time": "June–July or October end to mid-November"
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "Pusa Jwala",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "Pusa Sadabahar",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "Pant C-1",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "NP 46A",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "Kashi Anmol",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Chillies",
+      "Variety": "Arka Meghana",
+      "Sowing_Time": "February–March, June–July or October–November"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Birbal Sahni",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Baggi",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Ratlam Selection",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Ajay",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Pusa Aditya",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Lal Pari",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Vasantika",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Himanshu",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Jwala",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Meghdoot",
+      "Sowing_Time": "February"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Varsha",
+      "Sowing_Time": "February"
+    },
+    {
+      "Crop": "Chrysanthemum",
+      "Variety": "Mother Teresa",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Citrus",
+      "Variety": "Mandarin",
+      "Sowing_Time": "Feb–March or Aug–Oct"
+    },
+    {
+      "Crop": "Citrus",
+      "Variety": "Sweet Orange",
+      "Sowing_Time": "Feb–March or Aug–Oct"
+    },
+    {
+      "Crop": "Citrus",
+      "Variety": "Lemon",
+      "Sowing_Time": "Feb–March or Aug–Oct"
+    },
+    {
+      "Crop": "Coconut",
+      "Variety": "West Coast Tall (WCT)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Coconut",
+      "Variety": "Chowghat Orange Dwarf (COD)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Coconut",
+      "Variety": "Hybrid Varieties",
+      "Sowing_Time": "July–August"
+    },
+    {
+    "Crop": "Colocasia",
+    "Variety": "CO 1",
+    "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Panchamukhi",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Satamukhi (Kovvur)",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Sree Pallavi",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Sree Kiran",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Sree Rashmi",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Muktakeshi (field resistant to leaf blight)",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Jankhri (field resistant to leaf blight)",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Colocasia",
+      "Variety": "Jankhri (field resistant to leaf blight)",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "Hisar Sugandh-1",
+      "Sowing_Time": "Late October–Early November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "Hisar Sugandh (DH-36)",
+      "Sowing_Time": "Late October–Early November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "Hisar Surabhi",
+      "Sowing_Time": "Late October–Early November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "ACr-2",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "Pant Haritma",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "RCr-436",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "Kumbhraj",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Coriander",
+      "Variety": "Punjab Sugandh",
+      "Sowing_Time": "October–December"
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "Bt Cotton (BG-II hybrids)",
+      "Sowing_Time": "April to mid-May"
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "H - 1117 (American)",
+      "Sowing_Time": "April to May "
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "H - 1226 (American)",
+      "Sowing_Time": "April to May "
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "HD - 123 (Desi)",
+      "Sowing_Time": "April to May "
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "H - 1098 (Sympodial)",
+      "Sowing_Time": "May to June"
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "AAH-1 (Desi Hybrid)",
+      "Sowing_Time": "April"
+    },
+    {
+      "Crop": "Cotton Kapas",
+      "Variety": "DS-1 (Desi)",
+      "Sowing_Time": "April to May "
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "Kashi Kanchan (VRCP-4)",
+      "Sowing_Time": "June – July  (Rainy) or Feb–March (Summer)"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "P-263",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "Pusa Sukomal",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "Pusa Komal",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "Cowpea 88 (C-88)",
+      "Sowing_Time": "June–July (Kharif)"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "CL 367",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "HC-46",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "Kohinoor (IGFRI-5450)",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "HFC-42-1 (Hara Lobia)",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Cowpea Vegetable",
+      "Variety": "CAZRI Moth-3",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Japanese Long Green",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Straight Eight",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Poinsette",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "KPCH 2 (Hybrid)",
+      "Sowing_Time": "Jan–Feb or Aug–Sept"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Pusa Sheethal",
+      "Sowing_Time": "Jan–Feb or June–July"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Poona Khira",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Padmini",
+      "Sowing_Time": "January–February"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Infinity F1 (Hybrid)",
+      "Sowing_Time": "Jan–Feb or Aug–Sept"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Britney F1 (Hybrid)",
+      "Sowing_Time": "Year-round (Protected)"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Don ",
+      "Sowing_Time": "Jan–Feb or June–July"
+    },
+    {
+      "Crop": "Cucumber",
+      "Variety": "Belle",
+      "Sowing_Time": "Jan–Feb or June–July"
+    },
+    {
+      "Crop": "Cumin",
+      "Variety": "RS-1",
+      "Sowing_Time": "Mid-November to early December"
+    },
+    {
+      "Crop": "Cumin",
+      "Variety": "CZC-94",
+      "Sowing_Time": "Up to mid-December (Early maturing)"
+    },
+    {
+      "Crop": "Cumin",
+      "Variety": "RZ-19",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "Cumin",
+      "Variety": "RZ-209",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "Cumin",
+      "Variety": "GC-4",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "Cumin",
+      "Variety": "RZ-223",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "DatePalm",
+      "Variety": "Medjool",
+      "Sowing_Time": "February–March or August–September"
+    },
+    {
+      "Crop": "DatePalm",
+      "Variety": "Barhee (Barhi)",
+      "Sowing_Time": "February–March or August–September"
+    },
+    {
+      "Crop": "DatePalm",
+      "Variety": "Zahidi",
+      "Sowing_Time": "February–March or August–September"
+    },
+    {
+      "Crop": "DatePalm",
+      "Variety": "Deglet Noor",
+      "Sowing_Time": "February–March or August–September"
+    },
+    {
+      "Crop": "DatePalm",
+      "Variety": "Halawy (Hallawi)",
+      "Sowing_Time": "February–March or August–September"
+    },
+    {
+      "Crop": "DatePalm",
+      "Variety": "Khuneizi",
+      "Sowing_Time": "February–March or August–September"
+    },
+    {
+      "Crop": "Dhaincha",
+      "Variety": "Punjab Dhaincha 1",
+      "Sowing_Time": "April – July"
+    },
+    {
+      "Crop": "Dhaincha",
+      "Variety": "CSD 137 (Salinity tolerant)",
+      "Sowing_Time": "April – July"
+    },
+    {
+      "Crop": "Dhaincha",
+      "Variety": "CSD 123 (Highly tolerant)",
+      "Sowing_Time": "April – July"
+    },
+    {
+      "Crop": "Dhaincha",
+      "Variety": "Sesbania bispinosa (Standard)",
+      "Sowing_Time": "April – July"
+    },
+    {
+      "Crop": "Drum Stick",
+      "Variety": "PKM-1",
+      "Sowing_Time": "March (Spring) or July–August"
+    },
+    {
+      "Crop": "Drum Stick",
+      "Variety": "ODC ",
+      "Sowing_Time": "July–August (Monsoon) or February–March"
+    },
+    {
+      "Crop": "Drum Stick",
+      "Variety": "ODC-3",
+      "Sowing_Time": "July–August (Monsoon) or February–March"
+    },
+    {
+      "Crop": "Drum Stick",
+      "Variety": "Thar Harsha",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Drum Stick",
+      "Variety": "Moringa Desi",
+      "Sowing_Time": "March"
+    },
+    {
+      "Crop": "Drum Stick",
+      "Variety": "PKM-2",
+      "Sowing_Time": "July–October"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Clonal Eucalyptus (Clones)",
+      "Sowing_Time": "February to December"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Safeda (E. hybrid )",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Safeda ( Mysore Gum)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Eucalyptus tereticornis",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "E. camaldulensis",
+      "Sowing_Time": "June – October"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "E. citriodora (Lemon-scented)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "FRI-4 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "FRI-5",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (7)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (316)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (2070)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (P-23)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (3)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (288)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Eculeptous",
+      "Variety": "Specific Clones (411)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "Hisar Swarup (HF-33)",
+      "Sowing_Time": "October "
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "HF-143",
+      "Sowing_Time": "October "
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "RF-101",
+      "Sowing_Time": "Mid-September to October"
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "RF-125",
+      "Sowing_Time": "Mid-September to October"
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "RF-143",
+      "Sowing_Time": "Mid-September to October"
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "Gujarat Fennel 1 (GF-1)",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "Ajmer Fennel-1 (AF-1)",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Fennel",
+      "Variety": "CO 1",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Fig",
+      "Variety": "Poona Fig",
+      "Sowing_Time": "Mid-January – February"
+    },
+    {
+      "Crop": "Fig",
+      "Variety": "Brown Turkey",
+      "Sowing_Time": "Mid-January – February"
+    },
+    {
+      "Crop": "Fig",
+      "Variety": "Conadria",
+      "Sowing_Time": "Mid-January – February"
+    },
+    {
+      "Crop": "Fig",
+      "Variety": "Deanna",
+      "Sowing_Time": "Mid-January – February"
+    },
+    {
+      "Crop": "Fig",
+      "Variety": "Excel",
+      "Sowing_Time": "Mid-January – February"
+    },
+    {
+      "Crop": "Fig",
+      "Variety": "Black Ischia",
+      "Sowing_Time": "Mid-January – February"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "VL 352",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "GPU-67",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "PRM-1",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "KM-65",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "Champavathi",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "VL Mandua-315",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "VL Mandua-324",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "Local Black-seeded",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "FingerMillet Ragi",
+      "Variety": "Local White-seeded",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Him-1",
+      "Sowing_Time": "October (Rabi) or February–March (Spring)"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Jawala",
+      "Sowing_Time": "October (Rabi) or February–March (Spring)"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "VL 63",
+      "Sowing_Time": "October (Rabi) or February–March (Spring)"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Arka Komal",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Arka Suvidha",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Pusa Parvati",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Contender",
+      "Sowing_Time": "January–February or October–November"
+    },
+    {
+      "Crop": "French Bean",
+      "Variety": "Pant Anupama",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Yamuna Safed-3 (G-282)",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Yamuna Safed-2 (G-50)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Yamuna Safed-5 (G-189)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Yamuna Safed-8 (G-384)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Agrifound White (G-41)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Bhima Omkar",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "Bhima Purple",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Garlic",
+      "Variety": "G-1 (Yamuna Safed)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Szogun",
+      "Sowing_Time": "September–October or February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Salsa",
+      "Sowing_Time": "September–October or February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Dana Ellen",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Feliks",
+      "Sowing_Time": "September–October or February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Amulet",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Kormoran",
+      "Sowing_Time": "September–October or February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Savannah ",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Goliath",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Winter Queen ",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Sunway",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Ruby Red ",
+      "Sowing_Time": "Year-round (Protected)"
+    },
+    {
+      "Crop": "Gerbera",
+      "Variety": "Sangaria",
+      "Sowing_Time": "Year-round (Protected)"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "IISR Varada",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "Rio-de-Janeiro",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "Nadia",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "China",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "Maran",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "Himachal",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "Suprabha ",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Ginger",
+      "Variety": "Suruchi",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "White Prosperity",
+      "Sowing_Time": "September to mid-November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Nova Lux",
+      "Sowing_Time": "September to mid-November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "American Beauty",
+      "Sowing_Time": "October "
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Red Beauty",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Suchitra",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Mayur",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Punjab Pink Elegance",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Punjab Flame",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Punjab Glance",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Punjab Lemon Delight",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Snow Princess",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Silvia",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Sansray",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Urovian",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Golden Melody",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Gladiolus",
+      "Variety": "Punjab Glad 1",
+      "Sowing_Time": "September to November"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Perlette",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Flame Seedless",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Beauty Seedless",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Anab-e-Shahi",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Thompson Seedless",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Pusa Seedless",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Grape",
+      "Variety": "Early Perlette",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "MH 421",
+      "Sowing_Time": "March  – April (Summer) or July (Kharif)"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "MH 318",
+      "Sowing_Time": "March – April  (Summer) or July (Kharif)"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "MH 1142",
+      "Sowing_Time": "March  – April  (Summer)"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "SML 668",
+      "Sowing_Time": "March  – April  (Summer)"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "Pusa Vishal",
+      "Sowing_Time": "March  – April  (Summer)"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "Sattya (SML 832)",
+      "Sowing_Time": "March  – April  (Summer)"
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "Basanti",
+      "Sowing_Time": "July "
+    },
+    {
+      "Crop": "Green Gram",
+      "Variety": "Muskan",
+      "Sowing_Time": "July "
+    },
+    {
+      "Crop": "Groundnut",
+      "Variety": "Mallika (ICHG 00440)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Groundnut",
+      "Variety": "MH 1",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Groundnut",
+      "Variety": "MH 2",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Groundnut",
+      "Variety": "M 522",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "HG - 365",
+      "Sowing_Time": "June - July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "HG - 563",
+      "Sowing_Time": "June - July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "HG 2-20",
+      "Sowing_Time": "June - July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "RGC - 936",
+      "Sowing_Time": "June - July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "Ageta Guara-112",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "Guara-80",
+      "Sowing_Time": "June - July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "HG - 75",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "FS - 277",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "Pusa Navbahar (Vegetable)",
+      "Sowing_Time": "June – July or March "
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "Pusa Mausami (Vegetable)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": "X-10  (Private Notified)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guar",
+      "Variety": " X-28 (Private Notified)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Allahabad Safeda",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Sardar (L-49)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Hisar Safeda",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Hisar Surkha",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Taiwan Pink",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Lalit",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Shweta",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guava",
+      "Variety": "Arka Mridula",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Guinea Grass",
+      "Variety": "PGG 101",
+      "Sowing_Time": "Mid-March to Mid-May"
+    },
+    {
+      "Crop": "Guinea Grass",
+      "Variety": "PGG 518",
+      "Sowing_Time": "Mid-March to Mid-May"
+    },
+    {
+      "Crop": "Guinea Grass",
+      "Variety": "Hamil",
+      "Sowing_Time": "Mid-March to Mid-May"
+    },
+    {
+      "Crop": "Guinea Grass",
+      "Variety": "PGG 1",
+      "Sowing_Time": "Mid-March to Mid-May"
+    },
+    {
+      "Crop": "Guinea Grass",
+      "Variety": "Bundel Guinea-2",
+      "Sowing_Time": "Mid-March to Mid-May"
+    },
+    {
+      "Crop": "Guinea Grass",
+      "Variety": "PGG-616",
+      "Sowing_Time": "Mid-March to Mid-May"
+    },
+    {
+      "Crop": "Hibiscus",
+      "Variety": "Chinese Hibiscus (H. rosa-sinensis)",
+      "Sowing_Time": "February–March or July–August"
+    },
+    {
+      "Crop": "Hibiscus",
+      "Variety": "Rose of Sharon (H. syriacus)",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Hibiscus",
+      "Variety": "Roselle (H. sabdariffa)",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Hibiscus",
+      "Variety": "Cranberry Hibiscus",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Hibiscus",
+      "Variety": "Hybrid Varieties",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Indian Squash Tinda",
+      "Variety": "Hisar Tinda (HT-10)",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Indian Squash Tinda",
+      "Variety": "Arka Tinda",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Indian Squash Tinda",
+      "Variety": "Hisar Selection",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Indian Squash Tinda",
+      "Variety": "Punjab Tinda",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Indian Squash Tinda",
+      "Variety": "Bikaner Green",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Indian Squash Tinda",
+      "Variety": "Swati",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "All-season ",
+      "Sowing_Time": "July–August  or February–March"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Thai Hybrid",
+      "Sowing_Time": "July–August or February–March"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Swarna Manohar",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Singapore (Grafted)",
+      "Sowing_Time": "July–August or February–March"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Vietman Super Early",
+      "Sowing_Time": "July–August or February–March"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Dwarf ",
+      "Sowing_Time": "February–March or July–August"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Bonsai Grafted",
+      "Sowing_Time": "February–March or July–August"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Black Gold ",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Honey Gold",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jackfruit",
+      "Variety": "Desi (Seedling)",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "Ra Jamun",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "CISH J-42",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "CISH J-37",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "Konkan Bahadoli",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "Goma Priyanka",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "Narendra Jamun-6",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jamun",
+      "Variety": "Vardaan",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Jasmine",
+      "Variety": "Main Varieties (Mogra, Star, Arabian)",
+      "Sowing_Time": "July–August or January–February"
+    },
+    {
+      "Crop": "Jasmine",
+      "Variety": "General Jasmine Bushes",
+      "Sowing_Time": "June to November"
+    },
+    {
+      "Crop": "Jasmine",
+      "Variety": "Spring Propagation (Cuttings)",
+      "Sowing_Time": "April to September"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Nerium oleander (SinglePink)",
+      "Sowing_Time": "February–March or July–September"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Nerium oleander (Double Pink)",
+      "Sowing_Time": "February–March or July–September"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Nerium oleander ( White)",
+      "Sowing_Time": "February–March or July–September"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Nerium oleander (Red)",
+      "Sowing_Time": "February–March or July–September"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Pila Kaner (Yellow Oleander)",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Pila Kaner (Cascabela thevetia )",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Dwarf Kaner (Petite Salmon )",
+      "Sowing_Time": "February–March or July–August"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Dwarf Kaner ( Petite Pink)",
+      "Sowing_Time": "February–March or July–August"
+    },
+    {
+      "Crop": "Kaner",
+      "Variety": "Variegated Kaner",
+      "Sowing_Time": "February–March or July–August"
+    },
+    {
+      "Crop": "Kiwi Fruit",
+      "Variety": "Allison",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Kiwi Fruit",
+      "Variety": "Bruno",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Kiwi Fruit",
+      "Variety": "Abbott",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Kiwi Fruit",
+      "Variety": "Hayward",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Kiwi Fruit",
+      "Variety": "Monty",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Kiwi Fruit",
+      "Variety": "Tomuri",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Pant Manohar",
+      "Sowing_Time": "July–August or February–March"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Pant Suvarna",
+      "Sowing_Time": "July–August or February–March"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Pant Priya",
+      "Sowing_Time": "July–August or February–March"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Maroon",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Green ",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Local Pink",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Karonda",
+      "Variety": "Konkan Bold",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "PAU Baramasi",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Pusa Abhinav",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Pant Lemon",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Eureka",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Punjab Galgal",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Rasraj",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Lisbon",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Lemon",
+      "Variety": "Kagzi Kalan",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "Haryana Masar-1 (LH 89-48)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "Sapna",
+      "Sowing_Time": "November - December"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "Garima (LH 82-6)",
+      "Sowing_Time": "November - December"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "PDL-1 (Pusa Avantika)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "PSL-9 (Pusa Yuvraj)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "HM-1",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "L 4076 (Pusa 4076)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "DPL 15 ",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Lentil Masur",
+      "Variety": "DPL 62",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Litchi",
+      "Variety": "Saharanpur",
+      "Sowing_Time": "August – September"
+    },
+    {
+      "Crop": "Litchi",
+      "Variety": "Dehradun",
+      "Sowing_Time": "August – September"
+    },
+    {
+      "Crop": "Litchi",
+      "Variety": "Calcuttia",
+      "Sowing_Time": "August – September"
+    },
+    {
+      "Crop": "Litchi",
+      "Variety": "Muzaffarpur",
+      "Sowing_Time": "August – September"
+    },
+    {
+      "Crop": "Litchi",
+      "Variety": "Rose Scented",
+      "Sowing_Time": "August – September"
+    },
+    {
+      "Crop": "Litchi",
+      "Variety": "Seedless (Late)",
+      "Sowing_Time": "August – September"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Pusa Utkarsh (DLM-27)",
+      "Sowing_Time": "Mid-February to Early March (Spring-Summer)"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Punjab Long Melon-1",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Arka Sheetal",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Kashi Santushti",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Thar Sheetal",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Pant Kakri-1",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Durgesh Komal Green",
+      "Sowing_Time": "December – February"
+    },
+    {
+      "Crop": "Long Melon",
+      "Variety": "Hisar Local Selection",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "HQPM-1",
+      "Sowing_Time": "June–July or October–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "HM-4 (Baby Corn)",
+      "Sowing_Time": "February–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "HM-5",
+      "Sowing_Time": "June–July or October–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "HHM-4",
+      "Sowing_Time": "June–July or October–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "DKC 9125",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "Hyshel",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "DKC 7074",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "P 3408",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "PAC 740",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "31Y45",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "P 1844",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "DKC 9108",
+      "Sowing_Time": "February–March"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "IMH 226",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "IMH 222",
+      "Sowing_Time": "October–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "N 75 (Sweet Corn)",
+      "Sowing_Time": "June–July or October–November"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "Pusa Popcorn Hybrid 1",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "Pratap Makka Chari 6",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "African Tall",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "HQPM-28",
+      "Sowing_Time": "June–July"
+    },
+    {
+      "Crop": "Maize Makka",
+      "Variety": "PMH-1",
+      "Sowing_Time": "June–July or February–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Dashehari",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Langra",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Chausa",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Mallika",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Amrapali",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Ramkela",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Arunika ",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Ambika",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mango",
+      "Variety": "Fazli",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Pusa Narangi Gainda",
+      "Sowing_Time": "Mid-September to October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Pusa Basanti Gainda",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Pusa Arpita",
+      "Sowing_Time": "January to February (Summer)"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "African Giant Double Orange",
+      "Sowing_Time": "June–July or September–October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "African Giant Double Yellow",
+      "Sowing_Time": "June–July or September–October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Cracker Jack",
+      "Sowing_Time": "January to February"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Hisar Beauty",
+      "Sowing_Time": "Mid-September to October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Red Brocade (French)",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Rusty Red (French)",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Butter Scotch (French)",
+      "Sowing_Time": "September to October"
+    },
+    {
+      "Crop": "Marigold",
+      "Variety": "Inca II (Hybrid)",
+      "Sowing_Time": "Mid-September to October"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "Koshi",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "CIM-Kranti",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "CIM-Unnati",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "Himalaya",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "Saksham",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "Kushal",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "Gomti",
+      "Sowing_Time": "January –  March"
+    },
+    {
+      "Crop": "Mentha",
+      "Variety": "Kiran (Bergamot Mint)",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "Hisar Sonali",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "Hisar Mukta",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "Hisar Madhavi",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "Hisar Suvarna",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "HM-219",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "Pusa Early Bunching",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "Kasuri Methi",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Methi Fenugreek",
+      "Variety": "AFg-5",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "MAS-1",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Hybrid-77",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Shivalik",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Kosi",
+      "Sowing_Time": "December – February"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Himalaya",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Kushal",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Saksham",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "Gomti",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mint",
+      "Variety": "EC-41911",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "Mosambi (Standard)",
+      "Sowing_Time": "July – December"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "Blood Red",
+      "Sowing_Time": "July – August or February – March"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "Pineapple",
+      "Sowing_Time": "July – August or February – March"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "Jaffa",
+      "Sowing_Time": "July – August or February – March"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "New Seller",
+      "Sowing_Time": "July – December"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "Valencia",
+      "Sowing_Time": "July – August"
+    },
+    {
+      "Crop": "Mosambi",
+      "Variety": "Pusa Abhinav",
+      "Sowing_Time": "March – April or August – September"
+    },
+    {
+      "Crop": "Moth Bean",
+      "Variety": "MH 465",
+      "Sowing_Time": "July "
+    },
+    {
+      "Crop": "Moth Bean",
+      "Variety": "HG 75",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Moth Bean",
+      "Variety": "RMO-40 (Early maturing)",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Moth Bean",
+      "Variety": "RMO-257",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Moth Bean",
+      "Variety": "FMM-96",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Moth Bean",
+      "Variety": "CZM-2",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "S-1",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "V-1 (Victory-1)",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "S-146 ",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "S-1635",
+      "Sowing_Time": "July–August or Feb–March"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "Long Sweet (Shahtoot)",
+      "Sowing_Time": "January–February"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "English White",
+      "Sowing_Time": "January–February"
+    },
+    {
+      "Crop": "Mulberry",
+      "Variety": "Desi Shahtoot",
+      "Sowing_Time": "July–August"
+    },
+    {
+      "Crop": "Mushroom",
+      "Variety": "White Button Mushroom",
+      "Sowing_Time": "November "
+    },
+    {
+      "Crop": "Mushroom",
+      "Variety": "Oyster (Dhingri)",
+      "Sowing_Time": "March "
+    },
+    {
+      "Crop": "Mushroom",
+      "Variety": "Milky Mushroom",
+      "Sowing_Time": "April – June"
+    },
+    {
+      "Crop": "Mushroom",
+      "Variety": "Portobello ",
+      "Sowing_Time": "Year-round (Controlled)"
+    },
+    {
+      "Crop": "Mushroom",
+      "Variety": "Shiitake",
+      "Sowing_Time": "Year-round (Controlled)"
+    },
+    {
+      "Crop": "Mushroom",
+      "Variety": "Gucchi (Morel)",
+      "Sowing_Time": "December"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "Hara Madhu",
+      "Sowing_Time": "February – Early March"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "MH-51",
+      "Sowing_Time": "Mid-February"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "MH-27",
+      "Sowing_Time": "Mid-February"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "Punjab Sunehri",
+      "Sowing_Time": "Mid-February"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "Punjab Hybrid",
+      "Sowing_Time": "February – Early March"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "Pusa Sharbati",
+      "Sowing_Time": "November – February"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "Arka Jeet ",
+      "Sowing_Time": "February"
+    },
+    {
+      "Crop": "Musk Melon",
+      "Variety": "Arka Rajhans",
+      "Sowing_Time": "February"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "RH-30",
+      "Sowing_Time": "September  – October "
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "RH-0749",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "RH-0406 (Rainfed)",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "Laxmi",
+      "Sowing_Time": "September  – October "
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "Pusa Jwalamukhi",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "Pusa Agrani",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "T-59 (Varuna)",
+      "Sowing_Time": "September  – October "
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "RGN-48",
+      "Sowing_Time": "September  – October "
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "NRCDR 601 (DMR 601)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "Pusa Mustard 27",
+      "Sowing_Time": "Early October"
+    },
+    {
+      "Crop": "Mustard",
+      "Variety": "Pusa Mustard 26",
+      "Sowing_Time": "November "
+    },
+    {
+      "Crop": "Neem",
+      "Variety": "Indigenous Neem (Azadirachta indica)",
+      "Sowing_Time": "June – August"
+    },
+    {
+      "Crop": "Neem",
+      "Variety": "Malabar Neem (Melia dubia)",
+      "Sowing_Time": "June – August or February – March"
+    },
+    {
+      "Crop": "Neem",
+      "Variety": "Bakain (Melia azedarach)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Neem",
+      "Variety": "Nursery Seed Sowing",
+      "Sowing_Time": "March – April"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "HFO 917",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "HFO 1014",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "HFO 607",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "HFO-114 (Haryana Javi)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "OS-6",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "Central Oat OS 403",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "OS 405",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "Kent",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "Algerian",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Oats",
+      "Variety": "Bunker-10",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Bhima Super",
+      "Sowing_Time": "June – July or September – October"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Bhima Shakti",
+      "Sowing_Time": "September – October or October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Bhima Kiran",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Bhima Shweta",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Agrifound Dark Red",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Agrifound Light Red",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "NHRDF Red",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Pusa Ridhi",
+      "Sowing_Time": "June – July or October – November"
+    },
+    {
+      "Crop": "Onion",
+      "Variety": "Balwan Pyaj",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Orange",
+      "Variety": "Blood Red (Malta)",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Orange",
+      "Variety": "Mosambi",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Orange",
+      "Variety": "Jaffa",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Orange",
+      "Variety": "Pineapple",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Orange",
+      "Variety": "Valencia Late",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Orange",
+      "Variety": "Hamlin",
+      "Sowing_Time": "February – March or July – August"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "CSR-30 (Basmati)",
+      "Sowing_Time": "June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "Pusa-1121 (Basmati)",
+      "Sowing_Time": "June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "Pusa-1509 (Basmati)",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "Pusa-1847 (Basmati)",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "HBC-19 (Taraori Basmati)",
+      "Sowing_Time": "June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "Pusa-44 (Non-Basmati)",
+      "Sowing_Time": "May"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "PR-126 (Non-Basmati)",
+      "Sowing_Time": "June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "HKR-47 (Non-Basmati)",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "HKR-127 (Non-Basmati)",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Paddy Dhan",
+      "Variety": "Direct Seeded Rice (DSR)",
+      "Sowing_Time": "May – June "
+    },
+    {
+      "Crop": "Palmyra",
+      "Variety": "Borassus flabellifer (Asian Palmyra)",
+      "Sowing_Time": "July – August "
+    },
+    {
+      "Crop": "Palmyra",
+      "Variety": "Desi Palmyra",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Red Lady 786",
+      "Sowing_Time": "July – September or February – March"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Pusa Nanha",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Pusa Dwarf",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Pusa Delicious",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Pusa Giant",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Pusa Majesty",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Coorg Honey Dew",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Papaya",
+      "Variety": "Taiwan Red Lady",
+      "Sowing_Time": "February – March or July – September"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Pratap",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Shan-i-Punjab",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Prabhat",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Flordaprince",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Flordasun",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Sharbati",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Peach",
+      "Variety": "Earligrande",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Patharnakh",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Punjab Nakh",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Punjab Beauty",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Bagugosha",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Punjab Gold",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Punjab Soft",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pear",
+      "Variety": "Le Conte",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-67 (Improved)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-94",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-197",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-117 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": " HHB-146",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-223 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-226",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-272 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-234",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-299 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HHB-311",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HC-10 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "HC-20 (OPVs)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "MPMH-17 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "MPMH-42",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "86M89 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pearl Millet Bajra",
+      "Variety": "KBH-108",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Hisar Harit (PH 1)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Arkel",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Uttra (HFP-8909)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "AP 3",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Matar Ageta-7",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "PB-89",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Pusa Panna (DDR-27)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Bonneville",
+      "Sowing_Time": "November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Hariyal (HFP-9907 B)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Peas",
+      "Variety": "Pant Matar 155",
+      "Sowing_Time": "September – October"
+    },
+    {
+      "Crop": "Pigeon Pea",
+      "Variety": "Manak",
+      "Sowing_Time": "June - July"
+    },
+    {
+      "Crop": "Pigeon Pea",
+      "Variety": "Paras (H62-1)",
+      "Sowing_Time": "June"
+    },
+    {
+      "Crop": "Pigeon Pea",
+      "Variety": "IPH 15-03 (Hybrid)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pigeon Pea",
+      "Variety": "Pusa Arhar 16",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pigeon Pea",
+      "Variety": "Pusa Arhar 2018-4",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Pigeon Pea",
+      "Variety": "UPAS-120",
+      "Sowing_Time": "June"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Kala Amritsari",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Satluj Purple",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Titron",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Kataru Chak",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Alubokhara",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Frontier",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Plum",
+      "Variety": "Sharps Early",
+      "Sowing_Time": "December – January"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Kashi Alankar",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Swarna Rekha",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Swarna Alaukik",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Kashi Suphal",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Rajendra Parwal-1",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Rajendra Parwal-2",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pointed Gourd",
+      "Variety": "Kashi Parwal-141",
+      "Sowing_Time": "July – October"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Bhagwa",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Mridula",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Ganesh",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Jodhpur Red",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Kandhari",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Jalore Seedless",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Pomegranate",
+      "Variety": "Wonderful",
+      "Sowing_Time": "Feb–March or July–August"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "W-109 ",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "W-110",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "W-111 ",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": " W-112",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "G-48",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "D-121 ",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "D-67",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "PL-5 ",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "C-5",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "Udai ",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Poplar",
+      "Variety": "S-7",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Pukhraj",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Jyoti",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Bahar",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Ashoka",
+      "Sowing_Time": "September - October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Chipsona 1 ",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Chipsona  2",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Frysona",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Tejas",
+      "Sowing_Time": "October and November"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Chandramukhi",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Potato",
+      "Variety": "Kufri Alankar",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "Pusa Vishwas",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "Arka Suryamukhi",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "Arka Chandan",
+      "Sowing_Time": "Jan–March or June–July"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "PPH-1  ",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "PPH-2",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "Punjab Samrat",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "PAU Magaz Kaddoo-1",
+      "Sowing_Time": "Feb–March"
+    },
+    {
+      "Crop": "Pumpkin",
+      "Variety": "Indu F1 Hybrid",
+      "Sowing_Time": "Year-round (Irrigated)"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Japanese White",
+      "Sowing_Time": "November – December"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Pusa Chetki",
+      "Sowing_Time": "April – August"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Pusa Himani",
+      "Sowing_Time": "January – February"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Pusa Desi",
+      "Sowing_Time": "Mid-August – October"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Punjab Safed",
+      "Sowing_Time": "September – October"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Punjab Pasand",
+      "Sowing_Time": "March – August"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Pusa Reshmi",
+      "Sowing_Time": "Mid-September – Mid-November"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Arka Nishant",
+      "Sowing_Time": "September – October"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "White Icicle",
+      "Sowing_Time": "Mid-October – February"
+    },
+    {
+      "Crop": "Radish",
+      "Variety": "Hisar Selection-1",
+      "Sowing_Time": "September – January"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "CZM-45",
+      "Sowing_Time": "Late Oct – Early Nov"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "CZM-99",
+      "Sowing_Time": "Late Oct – Early Nov"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "HUR-137 (Malviya Rajmash)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "Amber (IPR 96-4)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "Pusa Parvathi",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "Arka Komal",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Rajma",
+      "Variety": "Chitra Rajma (Speckled)",
+      "Sowing_Time": "February – March "
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Hisar Kalitori",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Pusa Nasdar",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Arka Sumeet ",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Arka Sujath",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Thar Karni",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "PKM-1",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Punjab Sadabhar",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Satputia",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Jaipur Long",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Aarti ",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "Rajni",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "VNR-102",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": "F1 Ravina ",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Ridge Gourd",
+      "Variety": " F1 216",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Rocket Salad",
+      "Variety": "Astro",
+      "Sowing_Time": "September – November"
+    },
+    {
+      "Crop": "Rocket Salad",
+      "Variety": "Red Dragon",
+      "Sowing_Time": "September – November"
+    },
+    {
+      "Crop": "Rocket Salad",
+      "Variety": "Wasabi",
+      "Sowing_Time": "September – November"
+    },
+    {
+      "Crop": "Rocket Salad",
+      "Variety": "Slow Bolt",
+      "Sowing_Time": "September – November"
+    },
+    {
+      "Crop": "Rocket Salad",
+      "Variety": "Cultivated Rocket (Standard)",
+      "Sowing_Time": "September – February"
+    },
+    {
+      "Crop": "Rocket Salad",
+      "Variety": "Wild Rocket",
+      "Sowing_Time": "October – December"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Sent Rose ",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Ruby Red",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Tajmahal ",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Eiffel Tower",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Gladiator ",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": " Grand Gala",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Queen Elizabeth",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Edward Rose",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Happiness ",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "First Red",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Avalanche",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Rose",
+      "Variety": "Jaffrey Rose",
+      "Sowing_Time": "Sept – Oct or Feb – March"
+    },
+    {
+      "Crop": "Safed Musli",
+      "Variety": "Jawahar Safed Musli 405",
+      "Sowing_Time": "June – August"
+    },
+    {
+      "Crop": "Safed Musli",
+      "Variety": "Rajvijay Safed Musli 414",
+      "Sowing_Time": "June – August"
+    },
+    {
+      "Crop": "Safed Musli",
+      "Variety": "RC-2 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Safed Musli",
+      "Variety": "RC-16 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Safed Musli",
+      "Variety": "RC-36",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Safed Musli",
+      "Variety": "Mridula",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "Tissue Culture Burma Teak",
+      "Sowing_Time": "June – July "
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "Nilambur ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "Malabar Teak",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "Konni Teak",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "Godhavari ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "Godavari Teak",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sagoan",
+      "Variety": "High-Yielding Clones",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Baramasi",
+      "Sowing_Time": "February – March or August – October"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Kalipatti",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Cricket Ball (Calcutta Large)",
+      "Sowing_Time": "February – March or August – October"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Dhola Diwani",
+      "Sowing_Time": "February – March or August – October"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Pot Sapota",
+      "Sowing_Time": "February – March or August – October"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Chhatri",
+      "Sowing_Time": "February – March or August – October"
+    },
+    {
+      "Crop": "Sapota",
+      "Variety": "Calcutta Round",
+      "Sowing_Time": "February – March or August – October"
+    },
+    {
+      "Crop": "Sesame",
+      "Variety": "Haryana Til-1",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Sesame",
+      "Variety": "Haryana Til-2",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Sesame",
+      "Variety": "BLSFH-15004 (Hybrid)",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Sesame",
+      "Variety": "RT-346 ",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Sesame",
+      "Variety": " RT-351",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Sesame",
+      "Variety": "RT-372",
+      "Sowing_Time": "July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "CO-1 ",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "CO-2",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "PKM-1",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "MDU-1",
+      "Sowing_Time": "February – March or June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "Pusa Swetha",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "Baby",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "Manusree",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "Kaumudi",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "MHSN-1",
+      "Sowing_Time": "January – July"
+    },
+    {
+      "Crop": "Snake Gourd",
+      "Variety": "CT 603",
+      "Sowing_Time": "January – July"
+    },
+    {
+      "Crop": "Snap Melon",
+      "Variety": "Thar Mahak (AHS-82)",
+      "Sowing_Time": "March – November "
+    },
+    {
+      "Crop": "Snap Melon",
+      "Variety": "AHS-10",
+      "Sowing_Time": "March – November "
+    },
+    {
+      "Crop": "Snap Melon",
+      "Variety": "Pusa Shandar",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Snap Melon",
+      "Variety": "Local Landraces (Phoot)",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Snap Melon",
+      "Variety": "Arya (Landrace)",
+      "Sowing_Time": "February–March or June–July"
+    },
+    {
+      "Crop": "Snap Melon",
+      "Variety": "DPLSM-6",
+      "Sowing_Time": "May – June"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "HJH 1513 (Single-cut Hybrid)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "HJ 1514 (Single-cut Variety)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "CSV 64 F (Sweet Sorghum)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "Haryana Chari-308",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "Haryana Jowar-513 (HJ 513)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "HJ 541",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "Hara Sona (Multi-cut)",
+      "Sowing_Time": "March – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "SSG-59 (Multi-cut)",
+      "Sowing_Time": "March – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "Pusa Chari Hybrid-106",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sorghum Jowar",
+      "Variety": "CSH-24",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "Pusa Soybean 21",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "NRC 149",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "SL 1074 ",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "SL 1028",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "Pant Soybean 27",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "PS 1670",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "NRC 128",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "SL 979 ",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "SL 955",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "Pant Soybean 26 (PS 1572)",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "PS 1368",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Soyabean",
+      "Variety": "VLS 89",
+      "Sowing_Time": "Mid-June to End of June"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "All Green",
+      "Sowing_Time": "Sept – Oct or Feb – April"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Pusa Jyoti",
+      "Sowing_Time": "Sept – Oct or Feb – April"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Pusa Palak ",
+      "Sowing_Time": "September – November"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Pusa Harit",
+      "Sowing_Time": "September – November"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Japanese White (Exotic)",
+      "Sowing_Time": "October – December"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Hisar Selection-1",
+      "Sowing_Time": "September – October"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Jobner Green",
+      "Sowing_Time": "Sept – Oct or Feb – April"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Savoy ",
+      "Sowing_Time": "September – February"
+    },
+    {
+      "Crop": "Spinach Palak",
+      "Variety": "Bloomsdale",
+      "Sowing_Time": "September – February"
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Indira Kankoda-1 (RMF-37)",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Ambika-12-1 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Ambika- 12-2 ",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Ambika- 12-3",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Desi Kantola",
+      "Sowing_Time": "June – July or Jan – Feb "
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Arka Bharath",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Spine Gourd",
+      "Variety": "Jharkhand-1",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Pusa Chikni",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "PSG-9",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Pusa Supriya",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Pusa Sneha",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Kashi Divya",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Kashi Rakshita",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Kashi Saumya (F1)",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Sponge Gourd",
+      "Variety": "Arka Sumeet",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Camarosa",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Winter Dawn",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Sweet Charlie",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Chandler",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Vibrant",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Tioga ",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Strawberry",
+      "Variety": "Torrey",
+      "Sowing_Time": "Mid-September – Early November"
+    },
+    {
+      "Crop": "Sudan Grass",
+      "Variety": "SSG 59-3 (Meethi Sudan)",
+      "Sowing_Time": "April to July"
+    },
+    {
+      "Crop": "Sudan Grass",
+      "Variety": "CSV 64 F",
+      "Sowing_Time": "June – July"
+    },
+    {
+      "Crop": "Sudan Grass",
+      "Variety": "SSG-5000",
+      "Sowing_Time": "April – June"
+    },
+    {
+      "Crop": "Sudan Grass",
+      "Variety": "Punjab Sudex Chari-1",
+      "Sowing_Time": "April – May"
+    },
+    {
+      "Crop": "Sudan Grass",
+      "Variety": "PG–3055 (Hybrid)",
+      "Sowing_Time": "April – July"
+    },
+    {
+      "Crop": "Sudan Grass",
+      "Variety": "Piper Sudan Grass",
+      "Sowing_Time": "Spring to Summer"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "CoH 160",
+      "Sowing_Time": "February – March or Sept – Oct"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "Co 0238",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "CoH 119",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "CoH 167",
+      "Sowing_Time": "February – March or Sept – Oct"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "Co 15023",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "CoS 767",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "Co 7717",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "CoH 128 ",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Variety": "CoH 150",
+      "Sowing_Time": "February – March"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "Kaveri Champ (Hybrid)",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "DCS-107 (Hybrid)",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "SH-3322",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "FSH-17",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "KBSH-1 ",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "KBSH-44",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Sunflower",
+      "Variety": "Morden (Short-duration)",
+      "Sowing_Time": "January - February"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Hookah Tobacco (Anand 145 )",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Hookah Tobacco ( S 57)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Hookah Tobacco (WR 2 )",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Hookah Tobacco (PV 7)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Chewing Tobacco (DP 401)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Chewing Tobacco (Gandak Bahar)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Chewing Tobacco (Vaishali Special)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Rustica Tobacco (V-1 )",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tobacco",
+      "Variety": "Rustica Tobacco (V-2)",
+      "Sowing_Time": "October – November"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Hisar Arun (HH-2)",
+      "Sowing_Time": "June – July or Nov – Jan"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Hisar Lalit",
+      "Sowing_Time": "June – July or Nov – Jan"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Abhinav (Hybrid)",
+      "Sowing_Time": "June – July or Oct – Nov"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Pusa Ruby",
+      "Sowing_Time": "June – July or Nov – Jan"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Pusa Early Dwarf",
+      "Sowing_Time": "June – July or Nov – Jan"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "HS 101 ",
+      "Sowing_Time": "November (Winter)"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": " HS 102",
+      "Sowing_Time": "November (Winter)"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Arka Vikas",
+      "Sowing_Time": "June – July or Oct – Nov"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Tomato Sarthi F1",
+      "Sowing_Time": "January – March"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Tomato Tarun F1",
+      "Sowing_Time": "January – March"
+    },
+    {
+      "Crop": "Tomato",
+      "Variety": "Saksham",
+      "Sowing_Time": "June – July (Kharif)"
+    },
+    {
+      "Crop": "Toria",
+      "Variety": "TH-68",
+      "Sowing_Time": "September"
+    },
+    {
+      "Crop": "Toria",
+      "Variety": "T-9",
+      "Sowing_Time": "September"
+    },
+    {
+      "Crop": "Toria",
+      "Variety": "TL-15",
+      "Sowing_Time": "September"
+    },
+    {
+      "Crop": "Toria",
+      "Variety": "Sangam",
+      "Sowing_Time": "September"
+    },
+    {
+      "Crop": "Tulsi",
+      "Variety": "Ram Tulsi",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Tulsi",
+      "Variety": "Shyam (Krishna) Tulsi",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Tulsi",
+      "Variety": "Van Tulsi",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Tulsi",
+      "Variety": "Nimbu Tulsi",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Tulsi",
+      "Variety": "Vishnu Tulsi",
+      "Sowing_Time": "Feb–March or June–July"
+    },
+    {
+      "Crop": "Turmeric",
+      "Variety": "Rajendra Sonia (Standard high-yield variety)",
+      "Sowing_Time": "April to May"
+    },
+    {
+      "Crop": "Turmeric",
+      "Variety": "Rajapuri (Commercial local favorite)",
+      "Sowing_Time": "April to May"
+    },
+    {
+      "Crop": "Turmeric",
+      "Variety": "Punjab Haldi-1 & 2 (Suited for North Haryana)",
+      "Sowing_Time": "April to May"
+    },
+    {
+      "Crop": "Turmeric",
+      "Variety": "IISR Pratibha ",
+      "Sowing_Time": "April to May"
+    },
+    {
+      "Crop": "Turmeric",
+      "Variety": "IISR Prabha",
+      "Sowing_Time": "April to May"
+    },
+    {
+      "Crop": "Turmeric",
+      "Variety": "Black Turmeric (Kali Haldi - Introduced 2025)",
+      "Sowing_Time": "May to June"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Punjab Safed 4",
+      "Sowing_Time": "August to September"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Pusa Kanchan",
+      "Sowing_Time": "August to September"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Pusa Sweti",
+      "Sowing_Time": "August to September"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Golden Ball",
+      "Sowing_Time": "October to November"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Early Milan Red Top",
+      "Sowing_Time": "October to November"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Purple Top White Globe",
+      "Sowing_Time": "October to November"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Pusa Chandrima",
+      "Sowing_Time": "October to December"
+    },
+    {
+      "Crop": "Turnip",
+      "Variety": "Snowball",
+      "Sowing_Time": "October to December"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Aarohi (Yellow flesh)",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Kiran (Pink to red flesh)",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Vishala (Golden-yellow rind)",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Sugar Baby (Popular deep red)",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Arka Manik",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Asahi Yamato",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Pusa Bedana (Seedless)",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Kashi Mohini ",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Kashi Pitamber",
+      "Sowing_Time": "February to March"
+    },
+    {
+      "Crop": "Watermelon",
+      "Variety": "Sowing for Kharif Season",
+      "Sowing_Time": "July to August"
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "DBW 187 (Karan Vandana)",
+      "Sowing_Time": "October  to November  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "DBW 303 (Karan Vaishnavi)",
+      "Sowing_Time": "October  to November  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "WH 1270",
+      "Sowing_Time": "October"
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "DBW 327 (Karan Shivani)",
+      "Sowing_Time": "October  to November  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "HD 3086 (Pusa Gautam)",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "PBW 826",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "WH 1105",
+      "Sowing_Time": "November  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "PBW 752",
+      "Sowing_Time": "December to January"
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "WH 1021",
+      "Sowing_Time": "December  "
+    },
+    {
+      "Crop": "Wheat",
+      "Variety": "PBW 757",
+      "Sowing_Time": "January"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Arka Mangala (High-yielding long pods)",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Pusa Komal",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Lola",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Vyjayanthi",
+      "Sowing_Time": "February to March / June to July"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Yard Long Red (Open Pollinated)",
+      "Sowing_Time": "February to April"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Thai Soldier (Bushy)",
+      "Sowing_Time": "February to April"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "Thai Soldier (Heirloom)",
+      "Sowing_Time": "February to April"
+    },
+    {
+      "Crop": "Yard Long Bean",
+      "Variety": "General Hybrid",
+      "Sowing_Time": "June to July  / October to November "
+    }
+  ]
+}

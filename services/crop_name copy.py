@@ -257,7 +257,6 @@ def _add_new_crop_to_file(
 def _ai_detect_crop(query: str, master_names: List[str], trace_id: str) -> Dict[str, Any]:
     crop_list_str = ", ".join(master_names)
 
-# THIS IS PROMPT 1 FOR CROP DETECTION
     system_instruction = f"""You are a Senior Agronomist in Haryana, India.
 Identify the crop from user input.
 
@@ -267,7 +266,7 @@ OUTPUT RULES (return ONLY one of these, no extra text):
 A) If crop is found in MASTER LIST, return exactly:
 <Exact Master Name>|found
 
-B) If crop is a real crop only in Haryana but NOT in MASTER LIST, return VALID JSON only with this exact schema:
+B) If crop is a real crop but NOT in MASTER LIST, return VALID JSON only with this exact schema:
 {{
   "master_name": "<Title Case Name>",
   "synonyms": [
@@ -282,7 +281,10 @@ Schema rules:
 - If you know only one language, set the other to "" (empty string).
 - Return at least 1 synonym object.
 
-C) If input is not a crop, return exactly:
+C) If input is not a crop found in haryana, return exactly:
+no crop found in haryana
+
+D) If input is not a crop, return exactly:
 no crop found"""
 
     try:
@@ -298,8 +300,11 @@ no crop found"""
         return {"status": "none", "raw_text": "", "error": str(e)}
 
     lower = raw.lower()
+    # C) not found in haryana
+    if lower.strip() == "no crop found in haryana" or "no crop found in haryana" in lower:
+        return {"status": "none_haryana", "raw_text": raw}
 
-    # C) not a crop
+    # D) not a crop
     if lower.strip() == "no crop found" or "no crop found" in lower:
         return {"status": "none", "raw_text": raw}
 
@@ -393,6 +398,10 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
     if ai_result["status"] == "none":
         logger.info(f"[{trace_id}] DECISION=none")
         return {"crop_name": None, "is_ambiguous": False, "matched_by": "none", "trace_id": trace_id}
+    
+    if ai_result["status"] == "none_haryana":
+        logger.info(f"[{trace_id}] DECISION=none_haryana")
+        return {"crop_name": None, "is_ambiguous": False, "matched_by": "none_haryana", "trace_id": trace_id}
 
     ai_crop = (ai_result.get("crop_name") or "").strip() if isinstance(ai_result.get("crop_name"), str) else None
     if not ai_crop:

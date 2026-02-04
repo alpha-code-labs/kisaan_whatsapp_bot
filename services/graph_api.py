@@ -42,12 +42,12 @@ class GraphApi:
                             "title": "Categories",
                             "rows": [
                                 { "id": "weather_info", "title": "मौसम जानकारी" },
-                                { "id": "disease_management", "title": "रोग प्रबंधन" },
-                                { "id": "insect_management", "title": "कीट प्रबंधन" },
-                                { "id": "fertilizer_use", "title": "उर्वरक उपयोग" },
-                                { "id": "weed_management", "title": "खरपतवार नियंत्रण" },
-                                { "id": "variety_sowing_time", "title": "किस्में व बुवाई समय" },
-                                { "id": "others", "title": "अन्य" }
+                                { "id": "disease_management", "title": "कृषि रोग प्रबंधन"},
+                                { "id": "insect_management", "title": "कृषि कीट प्रबंधन"},
+                                { "id": "fertilizer_use", "title": "कृषि उर्वरक उपयोग"},
+                                { "id": "weed_management", "title": "कृषि खरपतवार नियंत्रण"},
+                                { "id": "variety_sowing_time", "title": "कृषि किस्में व बुवाई समय"},
+                                { "id": "others", "title": "कृषि अन्य"}
                             ]
 
                         }
@@ -66,7 +66,7 @@ class GraphApi:
             "interactive": {
                 "type": "button",
                 "body": {
-                    "text": 'क्या आप और जानकारी जोड़ना चाहते हैं या आपकी जानकारी पूरी हो गई है?'
+                    "text": 'क्या आप और सवाल पूछना चाहते हैं या आपके सवाल पूरे हो गए हैं?'
                 },
                 "action": {
                     "buttons": [
@@ -127,13 +127,15 @@ class GraphApi:
                         {
                             "title": "उपलब्ध श्रेणियाँ",
                             "rows": [
-                                { "id": "weather_info", "title": "मौसम जानकारी" },
-                                { "id": "disease_management", "title": "रोग प्रबंधन" },
-                                { "id": "insect_management", "title": "कीट प्रबंधन" },
-                                { "id": "fertilizer_use", "title": "उर्वरक उपयोग" },
-                                { "id": "weed_management", "title": "खरपतवार नियंत्रण" },
-                                { "id": "variety_sowing_time", "title": "किस्में व बुवाई समय" },
-                                { "id": "others", "title": "अन्य" }
+                                [
+                                     { "id": "weather_info", "title": "मौसम जानकारी" },
+                                     { "id": "disease_management", "title": "रोग प्रबंधन" },
+                                        { "id": "insect_management", "title": "कीट प्रबंधन" },
+                                        { "id": "fertilizer_use", "title": "उर्वरक उपयोग" },
+                                        { "id": "weed_management", "title": "खरपतवार नियंत्रण" },
+                                        { "id": "variety_sowing_time", "title": "किस्में व बुवाई समय" },
+                                        { "id": "others", "title": "अन्य" }
+                                ]   
                             ]
                         }
                     ]

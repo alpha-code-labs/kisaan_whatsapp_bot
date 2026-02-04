@@ -105,7 +105,7 @@
       ]
     },
     {
-      "master_name": "Ash Gourd (Petha)",
+      "master_name": "Ash Gourd Petha",
       "synonyms": [
         {
           "en": "Ash Gourd",
@@ -156,7 +156,7 @@
       ]
     },
     {
-      "master_name": "BAJRA NAPIER HYBRID",
+      "master_name": "Bajra Napier Hybrid",
       "synonyms": [
         {
           "en": "Napier",
@@ -186,7 +186,7 @@
       ]
     },
     {
-      "master_name": "Barley (Jau)",
+      "master_name": "Barley Jau",
       "synonyms": [
         {
           "en": "Barley",
@@ -520,7 +520,7 @@
       ]
     },
     {
-      "master_name": "Cotton (Kapas)",
+      "master_name": "Cotton Kapas",
       "synonyms": [
         {
           "en": "Cotton",
@@ -541,7 +541,7 @@
       ]
     },
     {
-      "master_name": "Cowpea (Vegetable)",
+      "master_name": "Cowpea Vegetable",
       "synonyms": [
         {
           "en": "Cowpea",
@@ -670,7 +670,7 @@
       ]
     },
     {
-      "master_name": "FingerMillet (Ragi)",
+      "master_name": "FingerMillet Ragi",
       "synonyms": [
         {
           "en": "Ragi",
@@ -831,7 +831,7 @@
       ]
     },
     {
-      "master_name": "Indian Squash (Tinda)",
+      "master_name": "Indian Squash Tinda",
       "synonyms": [
         {
           "en": "Tinda",
@@ -844,7 +844,7 @@
       ]
     },
     {
-      "master_name": "Jack Fruit",
+      "master_name": "Jackfruit",
       "synonyms": [
         {
           "en": "Jackfruit",
@@ -901,7 +901,7 @@
       ]
     },
     {
-      "master_name": "Koronda",
+      "master_name": "Karonda",
       "synonyms": [
         {
           "en": "Karonda",
@@ -927,7 +927,7 @@
       ]
     },
     {
-      "master_name": "Lentil (Masur)",
+      "master_name": "Lentil Masur",
       "synonyms": [
         {
           "en": "Lentil",
@@ -966,7 +966,7 @@
       ]
     },
     {
-      "master_name": "Maize (Makka)",
+      "master_name": "Maize Makka",
       "synonyms": [
         {
           "en": "Maize",
@@ -1022,7 +1022,7 @@
       ]
     },
     {
-      "master_name": "Methi (Fenugreek)",
+      "master_name": "Methi Fenugreek",
       "synonyms": [
         {
           "en": "Methi",
@@ -1031,6 +1031,31 @@
         {
           "en": "Fenugreek",
           "hi": "मेथी"
+        }
+      ]
+    },
+    {
+      "master_name": "Mosambi",
+      "synonyms": [
+        {
+          "en": "Mosambi",
+          "hi": "मोसंबी"
+        },
+        {
+          "en": "Sweet lime",
+          "hi": "मिठा नींबू"
+        },
+        {
+          "en": "Sweet lemon",
+          "hi": "मीठा नींबू"
+        },
+        {
+          "en": "Mausambi",
+          "hi": "मौसंबी"
+        },
+        {
+          "en": "Mosambi (Sweet lime)",
+          "hi": "मोसंबी (मिठा नींबू)"
         }
       ]
     },
@@ -1177,7 +1202,7 @@
       ]
     },
     {
-      "master_name": "Paddy (Dhan)",
+      "master_name": "Paddy Dhan",
       "synonyms": [
         {
           "en": "Paddy",
@@ -1246,7 +1271,7 @@
       ]
     },
     {
-      "master_name": "Pearl Millet (Bajra)",
+      "master_name": "Pearl Millet Bajra",
       "synonyms": [
         {
           "en": "Pearl Millet",
@@ -1272,7 +1297,7 @@
       ]
     },
     {
-      "master_name": "Pigeon pea",
+      "master_name": "Pigeon Pea",
       "synonyms": [
         {
           "en": "Pigeon pea",
@@ -1406,7 +1431,7 @@
       ]
     },
     {
-      "master_name": "Rocket salad",
+      "master_name": "Rocket Salad",
       "synonyms": [
         {
           "en": "Rocket salad",
@@ -1506,7 +1531,7 @@
       ]
     },
     {
-      "master_name": "Sorghum (Jowar)",
+      "master_name": "Sorghum Jowar",
       "synonyms": [
         {
           "en": "Sorghum",
@@ -1523,16 +1548,16 @@
       ]
     },
     {
-      "master_name": "Soybean",
+      "master_name": "Soyabean",
       "synonyms": [
         {
-          "en": "Soybean",
+          "en": "Soyabean",
           "hi": "सोयाबीन"
         }
       ]
     },
     {
-      "master_name": "Spinach (Palak)",
+      "master_name": "Spinach Palak",
       "synonyms": [
         {
           "en": "Spinach",
@@ -1732,6 +1757,15 @@
       ]
     },
     {
+      "master_name": "Cashew Nut",
+      "synonyms": [
+        {
+          "en": "Cashew Nut",
+          "hi": "काजू"
+        }
+      ]
+    },
+    {
       "master_name": "Dragon Fruit",
       "synonyms": [
         {
@@ -1739,21 +1773,8 @@
           "hi": "ड्रैगन फ्रूट"
         },
         {
-          "en": "Pitaya",
-          "hi": ""
-        },
-        {
           "en": "Kamalam",
           "hi": "कमलम"
-        }
-      ]
-    },
-    {
-      "master_name": "Cashew Nut",
-      "synonyms": [
-        {
-          "en": "Cashew Nut",
-          "hi": "काजू"
         }
       ]
     }
@@ -1771,11 +1792,11 @@
         "लोभिया"
       ],
       "resolves_to": [
-        "Cowpea (Vegetable)",
+        "Cowpea Vegetable",
         "Yard Long Bean"
       ],
       "button_options": [
-        "1. लोबिया (सब्जी)",
+        "1. लोबिया सब्जी",
         "2. बरबटी"
       ]
     },
@@ -1790,7 +1811,7 @@
         "बाजरा"
       ],
       "resolves_to": [
-        "Pearl Millet (Bajra)",
+        "Pearl Millet Bajra",
         "BAJRA NAPIER HYBRID"
       ],
       "button_options": [
@@ -1810,11 +1831,11 @@
       ],
       "resolves_to": [
         "Pumpkin",
-        "Ash Gourd (Petha)"
+        "Ash Gourd Petha"
       ],
       "button_options": [
         "1. कद्दू",
-        "2. पेठा (सफेद कद्दू)"
+        "2. पेठा सफेद कद्दू"
       ]
     },
     {
@@ -1893,7 +1914,7 @@
         "Sponge Gourd"
       ],
       "button_options": [
-        "1. तोरई (रिज गार्ड)",
+        "1. तोरई रिज गार्ड",
         "2. गिलकी"
       ]
     }

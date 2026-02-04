@@ -6,8 +6,6 @@ from openai import OpenAI
 from google import genai
 import mimetypes
 import time
-import random
-import concurrent.futures
 
 from services.redis_session import (
     get_session,
@@ -46,157 +44,13 @@ _gemini = genai.Client(api_key=Config.gemini_api_key)
 _blob_storage = None
 logger = logging.getLogger("conversation")
 
-# ----------------------------
-# GEMINI TIMEOUT/RETRY POLICY
-# ----------------------------
-GEMINI_POLICY = {
-    "aggregation_multimodal": {"timeout_s": 60, "retries": 1},
-    # "aggregation_text_only": {"timeout_s": 25, "retries": 1},
-    "advice_main": {"timeout_s": 60, "retries": 1},
-    "advice_audit": {"timeout_s": 60, "retries": 1},
-    "decomposition": {"timeout_s": 60, "retries": 1},
-    "rag_grounded": {"timeout_s": 60, "retries": 1},
-    "auditor_final": {"timeout_s": 60, "retries": 1},
-    "varieties_fetch": {"timeout_s": 120, "retries": 1},
-    "varieties_audit": {"timeout_s": 120, "retries": 1},
-}
-
-# Overall max time budget for a single user request (seconds)
-OVERALL_BUDGET_S = 90
-
-# Thread pool to enforce hard timeouts around Gemini calls
-_GEMINI_EXECUTOR = concurrent.futures.ThreadPoolExecutor(max_workers=4)
-
 def get_blob_storage():
     global _blob_storage
     if _blob_storage is None:
         _blob_storage = BlobStorageService()
     return _blob_storage
 
-def _shorten_url(url: str, tail: int = 40) -> str:
-    if not isinstance(url, str):
-        return ""
-    return url[-tail:] if len(url) > tail else url
-
-def _sleep_backoff(attempt: int):
-    # attempt: 1,2,... for retries
-    base = 2 ** (attempt - 1)  # 1,2,4...
-    jitter = random.uniform(0.0, 0.5)
-    time.sleep(base + jitter)
-
-def _check_budget(start_total: float, call_name: str) -> bool:
-    elapsed = time.perf_counter() - start_total
-    if elapsed > OVERALL_BUDGET_S:
-        try:
-            print(f"BUDGET_EXCEEDED call={call_name} elapsed_s={elapsed:.1f} budget_s={OVERALL_BUDGET_S}")
-        except Exception:
-            pass
-        return False
-    return True
-
-# ----------------------------
-# FIX: DEDUPE WELCOME MENU SENDS
-# ----------------------------
-def _send_welcome_menu_once(message_id, phone_number_id, user_id):
-    """
-    Ensure welcome menu buttons are sent only once per incoming WhatsApp message_id.
-    This prevents duplicate menus caused by webhook retries / repeated set_timeout calls.
-    """
-    try:
-        session = get_session(user_id)
-        if not session:
-            session = create_session(user_id)
-
-        last_id = session.get("welcomeMenuLastMsgId")
-        if message_id and last_id == message_id:
-            return
-
-        # mark first, then send (idempotency)
-        update_session(user_id, {"welcomeMenuLastMsgId": message_id})
-    except Exception:
-        # If session ops fail, fall back to sending (do not break UX)
-        pass
-
-    GraphApi.send_welcome_menu(message_id, phone_number_id, user_id)
-
-def _gemini_generate_content(
-    *,
-    call_name: str,
-    model: str,
-    contents,
-    config=None,
-    timeout_s: int = 30,
-    retries: int = 0,
-    start_total: float = None,
-):
-    """
-    Hard-timeout + retry wrapper around _gemini.models.generate_content.
-    Returns the raw response object on success.
-    Raises TimeoutError / Exception on final failure.
-    """
-    attempt = 0
-    last_exc = None
-
-    while attempt <= retries:
-        attempt += 1
-
-        if start_total is not None and not _check_budget(start_total, call_name):
-            raise TimeoutError(f"Overall budget exceeded before {call_name}")
-
-        t0 = time.perf_counter()
-        try:
-            print(f"GEMINI_CALL_START name={call_name} attempt={attempt}/{retries+1} timeout_s={timeout_s} model={model}")
-        except Exception:
-            pass
-
-        def _do_call():
-            return _gemini.models.generate_content(
-                model=model,
-                contents=contents,
-                config=config or {"temperature": 0},
-            )
-
-        fut = _GEMINI_EXECUTOR.submit(_do_call)
-        try:
-            resp = fut.result(timeout=timeout_s)
-            dt_ms = int((time.perf_counter() - t0) * 1000)
-            txt = (getattr(resp, "text", None) or "").strip()
-            try:
-                print(f"GEMINI_CALL_END name={call_name} attempt={attempt} elapsed_ms={dt_ms} has_text={bool(txt)} text_len={len(txt)}")
-            except Exception:
-                pass
-            return resp
-
-        except concurrent.futures.TimeoutError as e:
-            dt_ms = int((time.perf_counter() - t0) * 1000)
-            last_exc = e
-            try:
-                print(f"GEMINI_CALL_TIMEOUT name={call_name} attempt={attempt} elapsed_ms={dt_ms} timeout_s={timeout_s}")
-            except Exception:
-                pass
-
-        except Exception as e:
-            dt_ms = int((time.perf_counter() - t0) * 1000)
-            last_exc = e
-            try:
-                print(f"GEMINI_CALL_ERR name={call_name} attempt={attempt} elapsed_ms={dt_ms} err={repr(e)}")
-            except Exception:
-                pass
-
-        # retry?
-        if attempt <= retries:
-            try:
-                print(f"GEMINI_CALL_RETRY name={call_name} next_attempt={attempt+1}")
-            except Exception:
-                pass
-            _sleep_backoff(attempt)
-
-    # final failure
-    if isinstance(last_exc, concurrent.futures.TimeoutError):
-        raise TimeoutError(f"Gemini call timed out: {call_name}")
-    raise last_exc if last_exc else Exception(f"Gemini call failed: {call_name}")
-
-# THIS IS PROMPT 2 FOR NEW CROP VARIETIES AND SOWING TIME
+# THIS IS PROMPT 2 FOR NEW CROP VARIETIES AND SOWING TIME 
 SYSTEM_INSTRUCTION = """ You are a Senior Agronomist and Citrus Specialist specialized in Haryana Agricultural University (HAU) recommendations.
 
 TASK: Provide an exhaustive list of distinct varieties suited for Haryana in a specific WhatsApp-optimized format.
@@ -233,7 +87,7 @@ THE RESPONSE MUST START WITH { AND END WITH }.
 
 Focus on heat tolerance, frost resistance, and Haryana climatic conditions. """
 
-# THIS IS PROMPT 3 FOR AUDITING THE ABOVE JSON. VARITIES AND SOWING TIME FOR NEW CROPS
+# THIS IS PROMPT 3 FOR AUDITING THE ABOVE JSON. VARITIES AND SOWING TIME FOR NEW CROPS 
 AUDIT_SYSTEM_INSTRUCTION = """
 You are a Senior Agricultural Scientist at Haryana Agricultural University (HAU) Hisar. 
 Your task is to audit and fact-check a JSON object containing crop varieties and sowing times.
@@ -256,32 +110,15 @@ You are an Agricultural Extraction Agent. You have one primary filter: the {Lock
  
 STEP 1: CENSUS & THRESHOLD
 - Examine all provided inputs (TEXT, AUDIO, and IMAGES).
-- Classify each input into exactly one of these buckets:
-  A) LOCKED_CROP: clearly about {Locked Crop Name}
-  B) DIFFERENT_CROP: clearly about a different crop (a specific crop is mentioned or clearly implied)
-  C) GENERAL_AGRI: general agriculture / policy / scheme / insurance / subsidy questions that are NOT tied to any specific crop
-
-- IMPORTANT LOGIC #1 (Implicit Crop Assumption):
-  If the farmer gives a generic symptom-only message like "leaf curling ho rahi hai" (or similar symptom-only text) WITHOUT naming any crop,
-  then ASSUME it is about {Locked Crop Name} and classify it as LOCKED_CROP.
-
-- IMPORTANT LOGIC #2 (General Queries Count as Acceptable):
-  If the input is a general question such as crop insurance, government schemes, subsidies, MSP, PM-KISAN, KCC, or any policy/help topic,
-  classify it as GENERAL_AGRI (NOT DIFFERENT_CROP).
-  GENERAL_AGRI must be treated as ACCEPTABLE for the 50% threshold (i.e., it should NOT contribute to rejection).
-
-- Count how many inputs are LOCKED_CROP, DIFFERENT_CROP, and GENERAL_AGRI.
-
-- RULE 1 (Single Input): If only 1 input is provided and it is classified as DIFFERENT_CROP, REJECT.
-- RULE 2 (Multiple Inputs): If MORE THAN 50% of total inputs are classified as DIFFERENT_CROP, REJECT.
+- Count how many inputs are about the {Locked Crop Name} and how many are about a DIFFERENT crop.
+- RULE 1 (Single Input): If only 1 input is provided and it is NOT {Locked Crop Name}, REJECT.
+- RULE 2 (Multiple Inputs): If MORE THAN 50% of total inputs are about a DIFFERENT crop, REJECT.
 - REJECTION PHRASE: "This is not a question about {Locked Crop Name}" (Output ONLY this).
 
 STEP 2: AGGREGATE (Only if Threshold Passes)
-- IGNORE any input that was identified as DIFFERENT_CROP.
-- For the remaining inputs that match {Locked Crop Name} OR are GENERAL_AGRI, extract every technical issue.
-- Convert each extracted issue into a question:
-  - If the issue is crop-specific, the question must explicitly include "{Locked Crop Name}".
-  - If the issue is GENERAL_AGRI, keep it as a general agriculture question (do NOT force crop name).
+- IGNORE any input that was identified as a DIFFERENT crop.
+- For the remaining inputs that match {Locked Crop Name}, extract every technical issue.
+- Convert each matching issue into a question that explicitly includes "{Locked Crop Name}".
 - Combine these into a single compound sentence using "and".
 
 FORMAT:
@@ -365,8 +202,7 @@ STRICT RULES:
 - DO NOT add introductory filler like "I have audited this." 
 - Output ONLY the final, corrected Hindi response.
 """
-
-# THIS IS PROMPT 9
+# THIS IS PROMPT 9 
 RAG_GROUNDED_ADVICE_SYSTEM_INSTRUCTION = """
 You are a Senior Agronomist at Haryana Agricultural University (HAU, Hisar).
 Your task is to provide agricultural advice to an Indian farmer. 
@@ -394,7 +230,6 @@ OUTPUT STRUCTURE:
    - Use bullet points for dosages and steps.
    - Maintain a helpful, expert tone.
 """
-
 # This is prompt 10
 AUDITOR_INSTRUCTION = """
 You are a Senior Agricultural Auditor and UX Designer. 
@@ -444,7 +279,7 @@ class Conversation:
                         message.from_,
                         "नमस्कार किसान भाई/बहन, आपका स्वागत है। यहाँ आप फसल और मौसम से जुड़े सवाल पूछ सकते हैं।"
                     )
-            _send_welcome_menu_once(message.id, sender_phone_number_id, message.from_)
+            GraphApi.send_welcome_menu(message.id, sender_phone_number_id, message.from_)
             update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
             return
 
@@ -480,13 +315,12 @@ class Conversation:
                 dump_session(message.from_)
                 create_session(message.from_)
                 update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-                set_timeout(
-                    2,
-                    _send_welcome_menu_once,
-                    message.id,
-                    sender_phone_number_id,
-                    message.from_
-                )
+                set_timeout(2,
+                            GraphApi.send_welcome_menu,
+                            message.id,
+                            sender_phone_number_id,
+                            message.from_
+                            )
             else:
                 _reset_session_state(message.id, sender_phone_number_id, message.from_)
             return
@@ -507,7 +341,7 @@ class Conversation:
                     "कृपया फसल का नाम टाइप करें।"
                 )
             return
-
+            
         if state == SessionState["AWAITING_CROP_NAME"]:
             if message.type != "text":
                 GraphApi.message_text(
@@ -521,16 +355,21 @@ class Conversation:
 
             # Case: ambiguous (curated OR fuzzy)
             if detect.get("is_ambiguous"):
+                # Persist something so we can resolve after click
+                # store the options in session so we can map click -> crop
                 update_session(message.from_, {
                     "ambiguousCropOptions": detect.get("ambiguous_crop_names", []),
                     "ambiguousButtonOptions": detect.get("button_options", []),
                 })
                 update_session_state(message.from_, SessionState["AWAITING_AMBIGUOUS_CROP_CHOICE"])
 
+                # Build button titles:
+                # Prefer curated Hindi labels if provided; else use crop names.
                 button_options = detect.get("button_options") or []
                 if button_options:
+                    # Convert list of strings to button dicts
                     buttons = [
-                        {"id": f"amb_crop_{i}", "title": t[:20]}
+                        {"id": f"amb_crop_{i}", "title": t[:20]}  # WA title limit ~20 chars
                         for i, t in enumerate(button_options[:3])
                     ]
                     title = "आप किस फसल के बारे में पूछ रहे हैं? कृपया चुनें:"
@@ -551,8 +390,10 @@ class Conversation:
                 )
                 return
 
+            # Case: none
             crop = detect.get("crop_name")
             if not crop:
+                #check matched_by for none_haryana
                 if detect.get("matched_by") == "none_haryana":
                     GraphApi.message_text(
                         sender_phone_number_id,
@@ -567,6 +408,7 @@ class Conversation:
                 )
                 return
 
+            # Case: found a single crop -> ask for confirmation
             matched_by = detect.get("matched_by")
             is_existing = detect.get("is_existing_crop", matched_by == "local")
             crop_hi = detect.get("crop_name_hi") or crop
@@ -658,6 +500,7 @@ class Conversation:
 
         if state == SessionState["AWAITING_AMBIGUOUS_CROP_CHOICE"]:
             if not (interaction and interaction.get("kind") in ("BUTTON", "REPLY")):
+                # user didn't click a button
                 GraphApi.message_text(
                     sender_phone_number_id,
                     message.from_,
@@ -665,7 +508,8 @@ class Conversation:
                 )
                 return
 
-            picked_id = interaction.get("id")
+            # Button id will be like "amb_crop_0"
+            picked_id = interaction.get("id")  # e.g. amb_crop_1
             try:
                 idx = int(picked_id.split("_")[-1])
             except Exception:
@@ -713,6 +557,7 @@ class Conversation:
                 session_id = _ensure_session_id(message.from_, session)
                 count = next_upload_count(message.from_)
                 mime_type = message.audio.get("mimeType")
+                # FIXED: Force .ogg for audio and .jpg for images
                 ext = ".ogg"
                 blob_name = f"{message.from_}_{session_id}_{count}{ext}"
                 url = _blob_storage.upload_bytes(blob_name, audio_buffer, mime_type)
@@ -730,6 +575,7 @@ class Conversation:
                 url = _blob_storage.upload_bytes(blob_name, image_buffer, mime_type)
                 append_user_query(message.from_, {"imageUrl": url})
 
+            # AUTO-FIRE LOGIC START
             session = get_session(message.from_)
             query_data = session.get("query", {})
             total_items = (
@@ -784,21 +630,7 @@ def _trigger_processing(sender_phone_number_id, user_id):
     )
     response = _generate_response(get_session(user_id))
 
-    # ---- FIX: If mismatch/reset is returned, keep the user in the crop question loop ----
-    if isinstance(response, dict) and response.get("action") == "reset_query":
-        # _generate_response already reset query arrays + set state to CROP_ADVICE_QUERY_COLLECTING.
-        # Do NOT wipe session and do NOT set GREETING.
-        try:
-            update_session_state(user_id, SessionState["CROP_ADVICE_QUERY_COLLECTING"])
-        except Exception:
-            pass
-
-        GraphApi.message_text(sender_phone_number_id, user_id, response.get("text", ""))
-        # Prompt the user to send the correct-crop query again (stay in the loop)
-        GraphApi.message_text(sender_phone_number_id, user_id, "कृपया अपनी समस्या/सवाल फिर से भेजें।")
-        return
-    # -------------------------------------------------------------------------------
-
+    #dump session
     dump_session(user_id)
     delete_session(user_id)
     create_session(user_id)
@@ -825,14 +657,15 @@ def _continue_after_crop_selected(message_id, sender_phone_number_id, user_id, c
             )
         else:
             GraphApi.message_text(sender_phone_number_id, user_id, response)
-
+        
+        #dump session
         dump_session(user_id)
         delete_session(user_id)
         create_session(user_id)
         update_session_state(user_id, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
         set_timeout(
             2,
-            _send_welcome_menu_once,
+            GraphApi.send_welcome_menu,
             message_id,
             sender_phone_number_id,
             user_id
@@ -846,20 +679,18 @@ def _continue_after_crop_selected(message_id, sender_phone_number_id, user_id, c
         "कृपया फसल से जुड़ी अपनी समस्या या सवाल बताइए।"
     )
 
-
 def _reset_session_state(message_id, phone_number_id, user_id):
     update_session_state(user_id, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-    _send_welcome_menu_once(message_id, phone_number_id, user_id)
+    GraphApi.send_welcome_menu(message_id, phone_number_id, user_id)
 
 
 def _generate_response(session):
     if not session:
         return "Session expired. Please try again."
 
-    start_total = time.perf_counter()
-
     try:
         print("starting response generation")
+        start = time.perf_counter()
         query = session.get("query", {}) or {}
         texts = query.get("texts", []) or []
         audio_urls = query.get("audios", []) or []
@@ -889,7 +720,8 @@ def _generate_response(session):
             return response or "माफ़ कीजिए, इस फसल के लिए किस्में और बुवाई का समय उपलब्ध नहीं है।"
 
         if category_id not in ("variety", "sowing_time"):
-            print("starting aggregation query")
+            print(f"starting aggregation query")
+            # DIAG: payload census before aggregation
             try:
                 print(
                     f"AGG_CALL_START crop={crop} texts={len(texts)} audios={len(audio_urls)} images={len(image_urls)} "
@@ -898,21 +730,20 @@ def _generate_response(session):
             except Exception:
                 pass
 
-            aggregated = _aggregate_multimodal_query(
-                crop, texts, audio_urls, image_urls, start_total=start_total
-            )
+            aggregated = _aggregate_multimodal_query(crop, texts, audio_urls, image_urls)
 
-            print("completed aggregation query")
+            print(f"completed aggregation query")
+            # DIAG: aggregation result summary
             try:
                 if isinstance(aggregated, dict):
                     print(
                         f"AGG_CALL_END status={aggregated.get('status')} "
-                        f"text_len={len((aggregated.get('text') or '').strip())} "
-                        f"err={aggregated.get('error')}"
+                        f"text_len={len((aggregated.get('text') or '').strip())}"
                     )
             except Exception:
                 pass
-
+            
+            # FIXED: Robust Substring Rejection Check
             if aggregated.get("status") == "mismatch":
                 reset_query_arrays(session["userId"])
                 dump_session(session["userId"], True)
@@ -921,11 +752,11 @@ def _generate_response(session):
                     "text": f"कृपया {crop} के बारे में ही पूछें।",
                     "action": "reset_query",
                 }
-
+            
             if aggregated.get("status") != "ok":
-                # If aggregation failed (timeout or error), return safe UX message
-                return "तकनीकी कारण से विलंब/समस्या हो रही है। कृपया अपना सवाल केवल टेक्स्ट में फिर से भेजें।"
-
+                return "कृपया अधिक विवरण जोड़ें।"
+            
+            #identify if the question is about a new crop
             aggregated_query = aggregated.get("text", "").strip()
             append_aggregated_query_response(session["userId"], aggregated_query)
             print(aggregated_query)
@@ -937,145 +768,125 @@ def _generate_response(session):
 
             if not session["isExistingCrop"]:
                 try:
+                    # -------- First call: main advice --------
                     prompt_main = f"""
-{AGRI_ADVICE_SYSTEM_INSTRUCTION}
+            {AGRI_ADVICE_SYSTEM_INSTRUCTION}
 
-User query:
-{aggregated_query}
-""".strip()
+            User query:
+            {aggregated_query}
+            """.strip()
 
-                    p = GEMINI_POLICY["advice_main"]
-                    resp_main = _gemini_generate_content(
-                        call_name="advice_main",
+                    response_main = _gemini.models.generate_content(
                         model="gemini-3-flash-preview",
-                        contents=prompt_main,
-                        config={"temperature": 0},
-                        timeout_s=p["timeout_s"],
-                        retries=p["retries"],
-                        start_total=start_total,
+                        contents=prompt_main
                     )
-                    raw_response = (resp_main.text or "").strip()
 
+                    raw_response = response_main.text.strip()
+
+                    # -------- Second call: audit / refinement --------
                     prompt_audit = f"""
-{AGRI_ADVICE_AUDIT_SYSTEM_INSTRUCTION}
+            {AGRI_ADVICE_AUDIT_SYSTEM_INSTRUCTION}
 
-Previous answer:
-{raw_response}
-""".strip()
+            Previous answer:
+            {raw_response}
+            """.strip()
 
-                    p = GEMINI_POLICY["advice_audit"]
-                    resp_audit = _gemini_generate_content(
-                        call_name="advice_audit",
+                    response_audit = _gemini.models.generate_content(
                         model="gemini-3-flash-preview",
-                        contents=prompt_audit,
-                        config={"temperature": 0},
-                        timeout_s=p["timeout_s"],
-                        retries=p["retries"],
-                        start_total=start_total,
+                        contents=prompt_audit
                     )
-                    response_text = (resp_audit.text or "").strip()
 
-                except TimeoutError:
-                    logger.exception("Gemini timeout in crop advice generation")
-                    return "तकनीकी कारण से विलंब हो रहा है। कृपया थोड़ी देर बाद पुनः प्रयास करें।"
-                except Exception:
+                    response_text = response_audit.text.strip()
+
+                except Exception as e:
                     logger.exception("Gemini error in crop advice generation")
                     return "कुछ तकनीकी समस्या आ गई है। कृपया थोड़ी देर बाद पुनः प्रयास करें।"
-
             else:
                 response_text = aggregated_query
                 print("starting decomposition prompt")
                 append_advice_response(session["userId"], response_text)
                 print("completed decomposition prompt")
 
+                # --- Second call: Decompose into atomic RAG questions ---
                 try:
                     decomposition_prompt = f"""
-{MULTIMODAL_DECOMPOSITION_SYSTEM_INSTRUCTION}
+            {MULTIMODAL_DECOMPOSITION_SYSTEM_INSTRUCTION}
 
-INPUT:
-{aggregated_query}
-""".strip()
+            INPUT:
+            {aggregated_query}
+            """.strip()
 
-                    p = GEMINI_POLICY["decomposition"]
-                    decomp_resp = _gemini_generate_content(
-                        call_name="decomposition",
-                        model="gemini-2.5-flash",
-                        contents=decomposition_prompt,
-                        config={"temperature": 0},
-                        timeout_s=p["timeout_s"],
-                        retries=p["retries"],
-                        start_total=start_total,
+                    decomp_resp = _gemini.models.generate_content(
+                        model="gemini-3-flash-preview",
+                        contents=decomposition_prompt
                     )
+
                     decomp_text = (decomp_resp.text or "").strip()
                     print("completed decomposition response")
                     print(decomp_text)
 
+
                     print("starting parsing decomposed queries")
+
+                    # Parse into array: one non-empty line per query
                     decomposed_queries = [
                         line.strip()
                         for line in decomp_text.splitlines()
                         if line.strip()
                     ]
+
                     print("completed parsing decomposed queries")
                     print(decomposed_queries)
 
-                    decomposed_queries = [q for q in decomposed_queries if "|" in q]
-                    if not decomposed_queries:
-                        # Fallback: single query path if decomposition fails
-                        decomposed_queries = [aggregated_query.replace(" - ", " | ", 1)] if " - " in aggregated_query else [f"{crop} | {aggregated_query}"]
+                    # (Optional but recommended) basic validation: must contain '|'
+                    decomposed_queries = [
+                        q for q in decomposed_queries
+                        if "|" in q
+                    ]
 
+                    # Store in an array (session + your existing persistence if you have it)
+                    # session["decomposedQueries"] = decomposed_queries
                     append_aggregated_query_decomposed_response(session["userId"], decomposed_queries)
 
-                    rag_results = None
                     try:
                         rag_results = retrieve_rag_evidence(decomposed_queries)
                         update_session(session["userId"], {"ragResults": rag_results})
                     except Exception:
                         logger.exception("RAG retrieval error")
 
-                    if rag_results:
-                        try:
-                            rag_payload = json.dumps(rag_results, ensure_ascii=False)
-                            rag_prompt = f"""
-{RAG_GROUNDED_ADVICE_SYSTEM_INSTRUCTION}
+                    try:
+                        rag_payload = json.dumps(rag_results, ensure_ascii=False)
+                        rag_prompt = f"""
+            {RAG_GROUNDED_ADVICE_SYSTEM_INSTRUCTION}
 
-RAG_RESULTS_JSON:
-{rag_payload}
-""".strip()
+            RAG_RESULTS_JSON:
+            {rag_payload}
+            """.strip()
 
-                            p = GEMINI_POLICY["rag_grounded"]
-                            rag_response = _gemini_generate_content(
-                                call_name="rag_grounded",
-                                model="gemini-3-flash-preview",
-                                contents=rag_prompt,
-                                config={"temperature": 0},
-                                timeout_s=p["timeout_s"],
-                                retries=p["retries"],
-                                start_total=start_total,
-                            )
-                            rag_text = (rag_response.text or "").strip()
-                            if rag_text:
-                                response_text = rag_text
-                        except TimeoutError:
-                            logger.exception("Gemini timeout in RAG grounded response")
-                        except Exception:
-                            logger.exception("Gemini error in RAG grounded response")
+                        rag_response = _gemini.models.generate_content(
+                            model="gemini-3-flash-preview",
+                            contents=rag_prompt,
+                            config={"temperature": 0},
+                        )
+                        rag_text = (rag_response.text or "").strip()
+                        if rag_text:
+                            # MODIFIED: No return rag_text here. Pass to Prompt 10 instead.
+                            response_text = rag_text
+                    except Exception:
+                        logger.exception("Gemini error in RAG grounded response")
 
+                    #dump the session at this point for now
                     dump_session(session["userId"])
                     delete_session(session["userId"])
-
-                except TimeoutError:
-                    logger.exception("Gemini timeout in query decomposition")
-                    # Fallback: continue with aggregated_query directly
-                    response_text = aggregated_query
                 except Exception:
                     logger.exception("Gemini error in query decomposition")
-                    response_text = aggregated_query
+                    session["decomposedQueries"] = []
 
-            final_text = _run_auditor_prompt(response_text, start_total=start_total)
+            # MANDATORY: Final pass through Prompt 10 for ALL advice paths
+            final_text = _run_auditor_prompt(response_text)
             append_advice_response(session["userId"], final_text)
             return final_text
-
+            
         categories_text = _load_varieties_text(crop)
         completion = _client.chat.completions.create(
             model="gpt-4o-mini",
@@ -1107,8 +918,7 @@ RAG_RESULTS_JSON:
         print(f"Error generating response: {exc}")
         return "Sorry, I am having trouble processing that request right now."
 
-
-def _run_auditor_prompt(text: str, start_total: float = None) -> str:
+def _run_auditor_prompt(text: str) -> str:
     try:
         auditor_prompt = f"""
 {AUDITOR_INSTRUCTION}
@@ -1117,26 +927,17 @@ TEXT TO AUDIT:
 {text}
 """.strip()
 
-        p = GEMINI_POLICY["auditor_final"]
-        auditor_resp = _gemini_generate_content(
-            call_name="auditor_final",
+        auditor_resp = _gemini.models.generate_content(
             model="gemini-3-flash-preview",
             contents=auditor_prompt,
             config={"temperature": 0},
-            timeout_s=p["timeout_s"],
-            retries=p["retries"],
-            start_total=start_total,
         )
 
         return (auditor_resp.text or "").strip() or text
 
-    except TimeoutError:
-        logger.exception("Gemini timeout in auditor prompt")
-        return text
     except Exception:
         logger.exception("Gemini error in auditor prompt")
         return text
-
 
 def _get_varieties_sowing_response(crop):
     records = _load_varieties_records(crop)
@@ -1161,19 +962,12 @@ def _format_varieties_sowing_response(crop, records):
 def _fetch_varieties_from_gemini(crop):
     prompt = f"{SYSTEM_INSTRUCTION}\n\nCrop: {crop}"
     try:
-        p = GEMINI_POLICY["varieties_fetch"]
-        response = _gemini_generate_content(
-            call_name="varieties_fetch",
+        response = _gemini.models.generate_content(
             model="gemini-3-flash-preview",
             contents=prompt,
-            config={"temperature": 0},
-            timeout_s=p["timeout_s"],
-            retries=p["retries"],
+            config={"temperature": 0}
         )
         raw = (response.text or "").strip()
-    except TimeoutError as exc:
-        print(f"Gemini timeout: {exc}")
-        return None
     except Exception as exc:
         print(f"Gemini error: {exc}")
         return None
@@ -1199,19 +993,12 @@ def _audit_varieties_with_gemini(parsed):
 
     prompt = f"{AUDIT_SYSTEM_INSTRUCTION}\n\nJSON:\n{payload}"
     try:
-        p = GEMINI_POLICY["varieties_audit"]
-        response = _gemini_generate_content(
-            call_name="varieties_audit",
+        response = _gemini.models.generate_content(
             model="gemini-3-flash-preview",
             contents=prompt,
-            config={"temperature": 0},
-            timeout_s=p["timeout_s"],
-            retries=p["retries"],
+            config={"temperature": 0}
         )
         raw = (response.text or "").strip()
-    except TimeoutError as exc:
-        print(f"Gemini audit timeout: {exc}")
-        return None
     except Exception as exc:
         print(f"Gemini audit error: {exc}")
         return None
@@ -1247,7 +1034,7 @@ def _format_gemini_varieties_json(parsed):
     return "\n".join(lines) if len(lines) > 1 else None
 
 
-def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total: float = None):
+def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls):
     """
     Build a true multimodal Gemini request using PUBLIC URLs as file parts
     (NOT as plain text inside JSON).
@@ -1262,14 +1049,16 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
     if not (texts or audio_urls or image_urls):
         return {"status": "error"}
 
+    # DIAG: perf timer
     _t0 = time.perf_counter()
     try:
         print(f"AGG[0] enter crop={crop} texts={len(texts)} audios={len(audio_urls)} images={len(image_urls)}")
     except Exception:
         pass
 
+    # Lazy import so you don't have to change the top of your file.
     try:
-        print("AGG[1] importing google.genai.types...")
+        print(f"AGG[1] importing google.genai.types...")
         from google.genai import types
         print(f"AGG[1] import_ok dt_ms={int((time.perf_counter() - _t0) * 1000)}")
     except Exception as exc:
@@ -1278,25 +1067,31 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
             print(f"AGG[1] import_fail err={repr(exc)} dt_ms={int((time.perf_counter() - _t0) * 1000)}")
         except Exception:
             pass
-        return {"status": "error", "error": "types_import"}
+        return {"status": "error"}
 
     def _guess_mime(url: str, kind: str) -> str:
+        """
+        FIXED: Robust MIME guess.
+        """
         guessed, _ = mimetypes.guess_type(url)
         if guessed and guessed != "application/octet-stream":
             return guessed
+
         if kind == "image":
             return "image/jpeg"
         if kind == "audio":
             return "audio/ogg"
         return "application/octet-stream"
 
+    # Inject locked crop into the instruction text (your template uses {Locked Crop Name})
     try:
-        print("AGG[2] building instruction...")
+        print(f"AGG[2] building instruction...")
     except Exception:
         pass
 
     instruction = MULTIMODAL_SYSTEM_INSTRUCTION.replace("{Locked Crop Name}", crop).strip()
 
+    # Put your instruction + any farmer text as text parts.
     text_blob = "\n".join([t for t in texts if isinstance(t, str) and t.strip()]).strip()
     user_text_part = f"{instruction}\n\nLOCKED_CROP_NAME: {crop}\n"
     if text_blob:
@@ -1319,7 +1114,7 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
         mime_type = _guess_mime(url, "image")
         try:
             host = url.split("/")[2] if "://" in url else ""
-            tail = _shorten_url(url)
+            tail = url[-40:] if len(url) > 40 else url
             print(f"AGG[3] attach_image i={i} mime={mime_type} host={host} tail={tail}")
         except Exception:
             pass
@@ -1338,7 +1133,7 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
         mime_type = _guess_mime(url, "audio")
         try:
             host = url.split("/")[2] if "://" in url else ""
-            tail = _shorten_url(url)
+            tail = url[-40:] if len(url) > 40 else url
             print(f"AGG[3] attach_audio i={i} mime={mime_type} host={host} tail={tail}")
         except Exception:
             pass
@@ -1358,82 +1153,54 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
     except Exception:
         pass
 
-    raw = ""
     try:
-        p = GEMINI_POLICY["aggregation_multimodal"]
-        print(f"AGG[5] gemini_call_start model=gemini-2.5-flash dt_ms={int((time.perf_counter() - _t0) * 1000)}")
-        resp = _gemini_generate_content(
-            call_name="aggregation_multimodal",
-            model="gemini-2.5-flash",
+        _t_call = time.perf_counter()
+        print(f"AGG[5] gemini_call_start model=gemini-3-flash-preview dt_ms={int((_t_call - _t0) * 1000)}")
+
+        response = _gemini.models.generate_content(
+            model="gemini-3-flash-preview",
             contents=[types.Content(role="user", parts=parts)],
             config={"temperature": 0},
-            timeout_s=p["timeout_s"],
-            retries=p["retries"],
-            start_total=start_total,
         )
-        raw = (resp.text or "").strip()
+        raw = (response.text or "").strip()
+
+        _t_end = time.perf_counter()
         try:
             snippet = raw[:120].replace("\n", " ") if raw else ""
-            print(f"AGG[6] gemini_call_end has_text={bool(raw)} text_len={len(raw)} snippet={snippet}")
+            print(
+                f"AGG[6] gemini_call_end elapsed_ms={int((_t_end - _t_call) * 1000)} has_text={bool(raw)} "
+                f"text_len={len(raw)} snippet={snippet}"
+            )
         except Exception:
             pass
 
         logger.info("[gemini][query_aggregation] raw=%r", raw)
-
-    except TimeoutError as exc:
-        logger.exception("Gemini aggregation timeout: %s", exc)
-        try:
-            print(f"AGG[6] gemini_call_timeout err={repr(exc)}")
-        except Exception:
-            pass
-
-        # Fallback: text-only aggregation (skip URI parts)
-        try:
-            print("AGG[5F] fallback_text_only_start")
-            p = GEMINI_POLICY["aggregation_text_only"]
-            resp2 = _gemini_generate_content(
-                call_name="aggregation_text_only",
-                model="gemini-2.5-flash",
-                contents=[types.Content(role="user", parts=[types.Part.from_text(text=user_text_part)])],
-                config={"temperature": 0},
-                timeout_s=p["timeout_s"],
-                retries=p["retries"],
-                start_total=start_total,
-            )
-            raw = (resp2.text or "").strip()
-            try:
-                print(f"AGG[5F] fallback_text_only_end has_text={bool(raw)} text_len={len(raw)}")
-            except Exception:
-                pass
-        except Exception as exc2:
-            try:
-                print(f"AGG[5F] fallback_text_only_fail err={repr(exc2)}")
-            except Exception:
-                pass
-            return {"status": "error", "error": "timeout"}
-
     except Exception as exc:
         logger.exception("Gemini aggregation error: %s", exc)
         try:
-            print(f"AGG[6] gemini_call_err err={repr(exc)}")
+            _t_err = time.perf_counter()
+            print(
+                f"AGG[6] gemini_call_err elapsed_ms={int((_t_err - _t0) * 1000)} err={repr(exc)}"
+            )
         except Exception:
             pass
-        return {"status": "error", "error": "error"}
+        return {"status": "error"}
 
+    # FIXED: Substring Check
     expected = f"is not a question about {crop}".lower()
     try:
         print(
-            f"AGG[7] mismatch_check expected_substring={expected} matched={expected in (raw or '').lower()} "
+            f"AGG[7] mismatch_check expected_substring={expected} matched={expected in raw.lower()} "
             f"dt_ms={int((time.perf_counter() - _t0) * 1000)}"
         )
     except Exception:
         pass
 
-    if expected in (raw or "").lower():
+    if expected in raw.lower():
         return {"status": "mismatch"}
 
     if not raw:
-        return {"status": "error", "error": "empty"}
+        return {"status": "error"}
 
     try:
         print(f"AGG[8] return status=ok total_dt_ms={int((time.perf_counter() - _t0) * 1000)}")
@@ -1449,7 +1216,6 @@ def _ensure_session_id(user_id, session):
         session_id = uuid.uuid4().hex[:8]
         update_session(user_id, {"sessionId": session_id})
     return session_id
-
 
 def _load_varieties_records(crop):
     path = os.path.join(Config.data_dir, "Varieties and Sowing Time.json")
@@ -1486,4 +1252,6 @@ def _load_varieties_text(crop):
         description = record.get("description") or record.get("Description") or ""
         parts.append(f"Variety: {record.get('Variety')}, Sowing Time: {sowing_time}, Description: {description}")
 
+    # NOTE: The original text after this line used "--" which is not a Python comment and breaks the file.
+    # Keeping the logic identical; only changing it to a valid comment marker.
     return " | ".join(parts)  # first ingest this script and tell me very concise what you think

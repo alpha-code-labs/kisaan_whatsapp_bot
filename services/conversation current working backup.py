@@ -50,15 +50,15 @@ logger = logging.getLogger("conversation")
 # GEMINI TIMEOUT/RETRY POLICY
 # ----------------------------
 GEMINI_POLICY = {
-    "aggregation_multimodal": {"timeout_s": 60, "retries": 1},
+    "aggregation_multimodal": {"timeout_s": 180, "retries": 1},
     # "aggregation_text_only": {"timeout_s": 25, "retries": 1},
-    "advice_main": {"timeout_s": 60, "retries": 1},
-    "advice_audit": {"timeout_s": 60, "retries": 1},
-    "decomposition": {"timeout_s": 60, "retries": 1},
-    "rag_grounded": {"timeout_s": 60, "retries": 1},
-    "auditor_final": {"timeout_s": 60, "retries": 1},
-    "varieties_fetch": {"timeout_s": 120, "retries": 1},
-    "varieties_audit": {"timeout_s": 120, "retries": 1},
+    "advice_main": {"timeout_s": 35, "retries": 1},
+    "advice_audit": {"timeout_s": 30, "retries": 1},
+    "decomposition": {"timeout_s": 25, "retries": 1},
+    "rag_grounded": {"timeout_s": 35, "retries": 1},
+    "auditor_final": {"timeout_s": 20, "retries": 1},
+    "varieties_fetch": {"timeout_s": 35, "retries": 1},
+    "varieties_audit": {"timeout_s": 35, "retries": 1},
 }
 
 # Overall max time budget for a single user request (seconds)
@@ -93,31 +93,6 @@ def _check_budget(start_total: float, call_name: str) -> bool:
             pass
         return False
     return True
-
-# ----------------------------
-# FIX: DEDUPE WELCOME MENU SENDS
-# ----------------------------
-def _send_welcome_menu_once(message_id, phone_number_id, user_id):
-    """
-    Ensure welcome menu buttons are sent only once per incoming WhatsApp message_id.
-    This prevents duplicate menus caused by webhook retries / repeated set_timeout calls.
-    """
-    try:
-        session = get_session(user_id)
-        if not session:
-            session = create_session(user_id)
-
-        last_id = session.get("welcomeMenuLastMsgId")
-        if message_id and last_id == message_id:
-            return
-
-        # mark first, then send (idempotency)
-        update_session(user_id, {"welcomeMenuLastMsgId": message_id})
-    except Exception:
-        # If session ops fail, fall back to sending (do not break UX)
-        pass
-
-    GraphApi.send_welcome_menu(message_id, phone_number_id, user_id)
 
 def _gemini_generate_content(
     *,
@@ -256,32 +231,15 @@ You are an Agricultural Extraction Agent. You have one primary filter: the {Lock
  
 STEP 1: CENSUS & THRESHOLD
 - Examine all provided inputs (TEXT, AUDIO, and IMAGES).
-- Classify each input into exactly one of these buckets:
-  A) LOCKED_CROP: clearly about {Locked Crop Name}
-  B) DIFFERENT_CROP: clearly about a different crop (a specific crop is mentioned or clearly implied)
-  C) GENERAL_AGRI: general agriculture / policy / scheme / insurance / subsidy questions that are NOT tied to any specific crop
-
-- IMPORTANT LOGIC #1 (Implicit Crop Assumption):
-  If the farmer gives a generic symptom-only message like "leaf curling ho rahi hai" (or similar symptom-only text) WITHOUT naming any crop,
-  then ASSUME it is about {Locked Crop Name} and classify it as LOCKED_CROP.
-
-- IMPORTANT LOGIC #2 (General Queries Count as Acceptable):
-  If the input is a general question such as crop insurance, government schemes, subsidies, MSP, PM-KISAN, KCC, or any policy/help topic,
-  classify it as GENERAL_AGRI (NOT DIFFERENT_CROP).
-  GENERAL_AGRI must be treated as ACCEPTABLE for the 50% threshold (i.e., it should NOT contribute to rejection).
-
-- Count how many inputs are LOCKED_CROP, DIFFERENT_CROP, and GENERAL_AGRI.
-
-- RULE 1 (Single Input): If only 1 input is provided and it is classified as DIFFERENT_CROP, REJECT.
-- RULE 2 (Multiple Inputs): If MORE THAN 50% of total inputs are classified as DIFFERENT_CROP, REJECT.
+- Count how many inputs are about the {Locked Crop Name} and how many are about a DIFFERENT crop.
+- RULE 1 (Single Input): If only 1 input is provided and it is NOT {Locked Crop Name}, REJECT.
+- RULE 2 (Multiple Inputs): If MORE THAN 50% of total inputs are about a DIFFERENT crop, REJECT.
 - REJECTION PHRASE: "This is not a question about {Locked Crop Name}" (Output ONLY this).
 
 STEP 2: AGGREGATE (Only if Threshold Passes)
-- IGNORE any input that was identified as DIFFERENT_CROP.
-- For the remaining inputs that match {Locked Crop Name} OR are GENERAL_AGRI, extract every technical issue.
-- Convert each extracted issue into a question:
-  - If the issue is crop-specific, the question must explicitly include "{Locked Crop Name}".
-  - If the issue is GENERAL_AGRI, keep it as a general agriculture question (do NOT force crop name).
+- IGNORE any input that was identified as a DIFFERENT crop.
+- For the remaining inputs that match {Locked Crop Name}, extract every technical issue.
+- Convert each matching issue into a question that explicitly includes "{Locked Crop Name}".
 - Combine these into a single compound sentence using "and".
 
 FORMAT:
@@ -444,7 +402,7 @@ class Conversation:
                         message.from_,
                         "नमस्कार किसान भाई/बहन, आपका स्वागत है। यहाँ आप फसल और मौसम से जुड़े सवाल पूछ सकते हैं।"
                     )
-            _send_welcome_menu_once(message.id, sender_phone_number_id, message.from_)
+            GraphApi.send_welcome_menu(message.id, sender_phone_number_id, message.from_)
             update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
             return
 
@@ -480,13 +438,12 @@ class Conversation:
                 dump_session(message.from_)
                 create_session(message.from_)
                 update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-                set_timeout(
-                    2,
-                    _send_welcome_menu_once,
-                    message.id,
-                    sender_phone_number_id,
-                    message.from_
-                )
+                set_timeout(2,
+                            GraphApi.send_welcome_menu,
+                            message.id,
+                            sender_phone_number_id,
+                            message.from_
+                            )
             else:
                 _reset_session_state(message.id, sender_phone_number_id, message.from_)
             return
@@ -832,7 +789,7 @@ def _continue_after_crop_selected(message_id, sender_phone_number_id, user_id, c
         update_session_state(user_id, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
         set_timeout(
             2,
-            _send_welcome_menu_once,
+            GraphApi.send_welcome_menu,
             message_id,
             sender_phone_number_id,
             user_id
@@ -849,7 +806,7 @@ def _continue_after_crop_selected(message_id, sender_phone_number_id, user_id, c
 
 def _reset_session_state(message_id, phone_number_id, user_id):
     update_session_state(user_id, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-    _send_welcome_menu_once(message_id, phone_number_id, user_id)
+    GraphApi.send_welcome_menu(message_id, phone_number_id, user_id)
 
 
 def _generate_response(session):
@@ -999,7 +956,7 @@ INPUT:
                     p = GEMINI_POLICY["decomposition"]
                     decomp_resp = _gemini_generate_content(
                         call_name="decomposition",
-                        model="gemini-2.5-flash",
+                        model="gemini-3-flash-preview",
                         contents=decomposition_prompt,
                         config={"temperature": 0},
                         timeout_s=p["timeout_s"],
@@ -1361,10 +1318,10 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
     raw = ""
     try:
         p = GEMINI_POLICY["aggregation_multimodal"]
-        print(f"AGG[5] gemini_call_start model=gemini-2.5-flash dt_ms={int((time.perf_counter() - _t0) * 1000)}")
+        print(f"AGG[5] gemini_call_start model=gemini-3-flash-preview dt_ms={int((time.perf_counter() - _t0) * 1000)}")
         resp = _gemini_generate_content(
             call_name="aggregation_multimodal",
-            model="gemini-2.5-flash",
+            model="gemini-3-flash-preview",
             contents=[types.Content(role="user", parts=parts)],
             config={"temperature": 0},
             timeout_s=p["timeout_s"],
@@ -1393,7 +1350,7 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
             p = GEMINI_POLICY["aggregation_text_only"]
             resp2 = _gemini_generate_content(
                 call_name="aggregation_text_only",
-                model="gemini-2.5-flash",
+                model="gemini-3-flash-preview",
                 contents=[types.Content(role="user", parts=[types.Part.from_text(text=user_text_part)])],
                 config={"temperature": 0},
                 timeout_s=p["timeout_s"],
