@@ -1,0 +1,56 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.dist-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment files
+.env
+.env.*
+*.env
+
+# Git
+.git/
+.gitignore
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test / build artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Local data folders (VERY IMPORTANT – don’t ship these)
+data/
+chroma_db/
+generated_images/
+*.sqlite3
+
+# Node or frontend (if any)
+node_modules/
+
+# Docker artifacts
+Dockerfile
+docker-compose*

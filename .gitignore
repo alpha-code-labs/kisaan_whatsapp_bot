@@ -50,5 +50,6 @@ instance/
 *.sqlite3
 gemini_responses
 sessions
+kissan-fast-api.yaml
 
 

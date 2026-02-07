@@ -1,0 +1,45 @@
+services:
+  api:
+    image: kissan-fastapi:latest
+    container_name: kissan_api
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      # Talk to the other containers by service name
+      CHROMA_HOST: chroma
+      CHROMA_PORT: "8000"
+      CHROMA_TENANT: default_tenant
+      CHROMA_DATABASE: default_database
+
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+
+      # optional embedding cache knobs
+      EMBED_CACHE_TTL_SECONDS: "21600"
+      EMBED_CACHE_LOG_EVERY_N_CALLS: "10"
+    depends_on:
+      - chroma
+      - redis
+    restart: always
+
+  chroma:
+    image: chromadb/chroma:1.4.1
+    container_name: chroma
+    ports:
+      - "8000:8000"
+    environment:
+      IS_PERSISTENT: "TRUE"
+      PERSIST_DIRECTORY: "/data"
+      ANONYMIZED_TELEMETRY: "FALSE"
+    volumes:
+      - ./data/chroma_db:/data
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: redis-azure
+    ports:
+      - "6379:6379"
+    restart: always

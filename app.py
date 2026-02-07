@@ -6,19 +6,38 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 
 from services.config import Config
 from services.conversation import Conversation
-from services.rag_builder import warm_rag_cache
+from services.rag_builder import warm_rag_cache, list_chroma_collections
 
-app = FastAPI()
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        logger.info("Starting initialization...")
+        Config.check_env_variables()
+        # If Config uses os.environ['KEY'] and it's missing on Azure, 
+        # the app crashes here.
+        yield
+    except Exception as e:
+        logger.error(f"CRITICAL CRASH DURING LIFESPAN: {str(e)}", exc_info=True)
+        raise e
+
+app = FastAPI(lifespan=lifespan)
+
 logger = logging.getLogger("app")
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
-@app.on_event("startup")
-def on_startup():
-    Config.check_env_variables()
-    Config.print_config()
-    if not warm_rag_cache():
-        logger.warning("RAG warmup did not complete; first request may be slower")
-
+@app.get("/debug/chroma")
+async def debug_chroma():
+    """
+    Diagnostic endpoint to verify ChromaDB connectivity 
+    and see if your persistent data is actually mounted.
+    """
+    data = list_chroma_collections()
+    return JSONResponse(content=data)
 
 @app.get("/webhook")
 async def verify_webhook(request: Request):
@@ -92,4 +111,4 @@ def verify_request_signature(raw_body, signature_header):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="0.0.0.0", port=Config.port, reload=False)
+    uvicorn.run("app:app", host="0.0.0.0", port=8080, reload=False)

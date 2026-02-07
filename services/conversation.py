@@ -47,11 +47,21 @@ _blob_storage = None
 logger = logging.getLogger("conversation")
 
 # ----------------------------
+# DISTRICTS (HARYANA) - 22
+# ----------------------------
+HARYANA_DISTRICTS = [
+    "Ambala", "Bhiwani", "Charki Dadri", "Faridabad", "Fatehabad",
+    "Gurugram", "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal",
+    "Kurukshetra", "Mahendragarh", "Nuh", "Palwal", "Panchkula",
+    "Panipat", "Rewari", "Rohtak", "Sirsa", "Sonipat", "Yamunanagar"
+]
+
+# ----------------------------
 # GEMINI TIMEOUT/RETRY POLICY
 # ----------------------------
 GEMINI_POLICY = {
     "aggregation_multimodal": {"timeout_s": 60, "retries": 1},
-    # "aggregation_text_only": {"timeout_s": 25, "retries": 1},
+    "aggregation_text_only": {"timeout_s": 25, "retries": 1},  # FIX: code uses this fallback
     "advice_main": {"timeout_s": 60, "retries": 1},
     "advice_audit": {"timeout_s": 60, "retries": 1},
     "decomposition": {"timeout_s": 60, "retries": 1},
@@ -93,6 +103,32 @@ def _check_budget(start_total: float, call_name: str) -> bool:
             pass
         return False
     return True
+
+# ----------------------------
+# NEW: DISTRICT + CONTACT HELPERS
+# ----------------------------
+def _get_locked_district(session: dict) -> str:
+    if not isinstance(session, dict):
+        return ""
+    # common keys (keep conservative to not break schema)
+    for k in ("district", "districtName", "district_info", "districtInfo"):
+        v = session.get(k)
+        if isinstance(v, str) and v.strip():
+            return v.strip()
+    return ""
+
+def _is_contact_number_query(text: str) -> bool:
+    if not isinstance(text, str):
+        return False
+    t = text.lower()
+    hits = [
+        "phone", "mobile", "number", "contact", "call",
+        "dealer", "dealership", "agency", "showroom",
+        "helpline", "service center", "service centre",
+        "फोन", "मोबाइल", "नंबर", "सम्पर्क", "संपर्क",
+        "डीलर", "एजेंसी", "शोरूम", "हेल्पलाइन", "सेवा केंद्र"
+    ]
+    return any(h in t for h in hits)
 
 # ----------------------------
 # FIX: DEDUPE WELCOME MENU SENDS
@@ -250,16 +286,21 @@ STRICT OUTPUT RULES:
 - NO conversational filler.
 """
 
-# THIS IS PROMPT 4 FOR MULTIMODAL QUERY AGGREGATION
+# THIS IS PROMPT 4 FOR MULTIMODAL QUERY AGGREGATION (UPDATED FOR CONTACT + DISTRICT)
 MULTIMODAL_SYSTEM_INSTRUCTION = """
-You are an Agricultural Extraction Agent. You have one primary filter: the {Locked Crop Name}.
- 
+You are an Agricultural Extraction Agent.
+
+PRIMARY CONTEXT:
+- LOCKED_CROP_NAME: {Locked Crop Name}
+- LOCKED_DISTRICT: {Locked District}
+
 STEP 1: CENSUS & THRESHOLD
 - Examine all provided inputs (TEXT, AUDIO, and IMAGES).
 - Classify each input into exactly one of these buckets:
   A) LOCKED_CROP: clearly about {Locked Crop Name}
   B) DIFFERENT_CROP: clearly about a different crop (a specific crop is mentioned or clearly implied)
   C) GENERAL_AGRI: general agriculture / policy / scheme / insurance / subsidy questions that are NOT tied to any specific crop
+  D) CONTACT_REQUEST: asking for phone numbers/contacts (dealer/agency/shop/person/helpline)
 
 - IMPORTANT LOGIC #1 (Implicit Crop Assumption):
   If the farmer gives a generic symptom-only message like "leaf curling ho rahi hai" (or similar symptom-only text) WITHOUT naming any crop,
@@ -270,7 +311,12 @@ STEP 1: CENSUS & THRESHOLD
   classify it as GENERAL_AGRI (NOT DIFFERENT_CROP).
   GENERAL_AGRI must be treated as ACCEPTABLE for the 50% threshold (i.e., it should NOT contribute to rejection).
 
-- Count how many inputs are LOCKED_CROP, DIFFERENT_CROP, and GENERAL_AGRI.
+- IMPORTANT LOGIC #3 (Contact/Phone Requests):
+  If the user asks for a phone number/contact of a dealer/agency/shop/person/tractor showroom etc.,
+  classify it as CONTACT_REQUEST (NOT DIFFERENT_CROP).
+  CONTACT_REQUEST must be treated as ACCEPTABLE for the 50% threshold (i.e., it should NOT contribute to rejection).
+
+- Count how many inputs are LOCKED_CROP, DIFFERENT_CROP, GENERAL_AGRI, CONTACT_REQUEST.
 
 - RULE 1 (Single Input): If only 1 input is provided and it is classified as DIFFERENT_CROP, REJECT.
 - RULE 2 (Multiple Inputs): If MORE THAN 50% of total inputs are classified as DIFFERENT_CROP, REJECT.
@@ -278,11 +324,14 @@ STEP 1: CENSUS & THRESHOLD
 
 STEP 2: AGGREGATE (Only if Threshold Passes)
 - IGNORE any input that was identified as DIFFERENT_CROP.
-- For the remaining inputs that match {Locked Crop Name} OR are GENERAL_AGRI, extract every technical issue.
+- For the remaining inputs that match {Locked Crop Name} OR are GENERAL_AGRI OR CONTACT_REQUEST, extract every technical issue.
 - Convert each extracted issue into a question:
   - If the issue is crop-specific, the question must explicitly include "{Locked Crop Name}".
   - If the issue is GENERAL_AGRI, keep it as a general agriculture question (do NOT force crop name).
-- Combine these into a single compound sentence using "and".
+  - If the issue is CONTACT_REQUEST, keep it as a contact-number request and include LOCKED_DISTRICT context.
+
+CRITICAL SAFETY RULE (NO HALLUCINATED NUMBERS):
+- NEVER invent or guess any phone numbers.
 
 FORMAT:
 {Locked Crop Name} - [Question 1] and [Question 2]?
@@ -291,7 +340,7 @@ STRICT RULES:
 - Never mention a pest or symptom found in the "ignored" different-crop files.
 - No markdown, no bolding, no conversational filler.
 - If the rejection threshold is met, do not explain the logic; just provide the rejection phrase.
-"""
+""".strip()
 
 # THIS IS PROMPT 7 FOR DECOMPOSING
 MULTIMODAL_DECOMPOSITION_SYSTEM_INSTRUCTION = """
@@ -459,12 +508,18 @@ class Conversation:
                         "मौसम जानने के लिए अपना लोकेशन भेजें।"
                     )
                 else:
+                    # Existing behavior: set category
                     update_crop_advice_category(message.from_, category_id)
+
+                    # FIX (Option A): district pagination (store page + pass page=0)
+                    update_session(message.from_, {"districtPage": 0})
                     update_session_state(message.from_, SessionState["AWAITING_DISTRICT_NAME"])
-                    GraphApi.message_text(
+                    GraphApi.send_district_menu(
+                        message.id,
                         sender_phone_number_id,
                         message.from_,
-                        "कृपया अपने ज़िले का नाम बताइए?"
+                        HARYANA_DISTRICTS,
+                        page=0
                     )
             else:
                 _reset_session_state(message.id, sender_phone_number_id, message.from_)
@@ -492,13 +547,101 @@ class Conversation:
             return
 
         if state == SessionState["AWAITING_DISTRICT_NAME"]:
-            if message.type != "text":
+            # Accept district selection + pagination from interactive LIST
+            if interaction and interaction.get("kind") == "LIST":
+                picked_id = (interaction.get("id") or "").strip()
+
+                # Pagination controls (Option A)
+                if picked_id in ("dist_next", "dist_prev"):
+                    session = get_session(message.from_) or create_session(message.from_)
+                    current_page = session.get("districtPage", 0)
+                    try:
+                        current_page = int(current_page)
+                    except Exception:
+                        current_page = 0
+
+                    per_page = 8
+                    total = len(HARYANA_DISTRICTS)
+                    max_page = (total - 1) // per_page if total > 0 else 0
+
+                    if picked_id == "dist_next":
+                        new_page = min(current_page + 1, max_page)
+                    else:
+                        new_page = max(current_page - 1, 0)
+
+                    update_session(message.from_, {"districtPage": new_page})
+                    GraphApi.send_district_menu(
+                        message.id,
+                        sender_phone_number_id,
+                        message.from_,
+                        HARYANA_DISTRICTS,
+                        page=new_page
+                    )
+                    return
+
+                # Actual district pick
+                if picked_id.startswith("dist_"):
+                    try:
+                        idx = int(picked_id.split("_")[-1])
+                        if 0 <= idx < len(HARYANA_DISTRICTS):
+                            district_name = HARYANA_DISTRICTS[idx]
+                            update_district_info(message.from_, district_name)
+                            update_session(message.from_, {"districtPage": 0})
+                            update_session_state(message.from_, SessionState["AWAITING_CROP_NAME"])
+                            GraphApi.message_text(
+                                sender_phone_number_id,
+                                message.from_,
+                                "कृपया फसल का नाम टाइप करें।"
+                            )
+                            return
+                    except Exception:
+                        pass
+
+                # If list interaction is malformed, re-show current page
+                session = get_session(message.from_) or create_session(message.from_)
+                current_page = session.get("districtPage", 0)
+                try:
+                    current_page = int(current_page)
+                except Exception:
+                    current_page = 0
+
                 GraphApi.message_text(
                     sender_phone_number_id,
                     message.from_,
-                    "कृपया अपने ज़िले का नाम बताइए।"
+                    "कृपया सूची में से अपना ज़िला चुनें।"
+                )
+                GraphApi.send_district_menu(
+                    message.id,
+                    sender_phone_number_id,
+                    message.from_,
+                    HARYANA_DISTRICTS,
+                    page=current_page
                 )
                 return
+
+            # Fallback: keep old behavior (text input) so nothing breaks
+            if message.type != "text":
+                session = get_session(message.from_) or create_session(message.from_)
+                current_page = session.get("districtPage", 0)
+                try:
+                    current_page = int(current_page)
+                except Exception:
+                    current_page = 0
+
+                GraphApi.message_text(
+                    sender_phone_number_id,
+                    message.from_,
+                    "कृपया सूची में से अपना ज़िला चुनें।"
+                )
+                GraphApi.send_district_menu(
+                    message.id,
+                    sender_phone_number_id,
+                    message.from_,
+                    HARYANA_DISTRICTS,
+                    page=current_page
+                )
+                return
+
             update_district_info(message.from_, message.text)
             update_session_state(message.from_, SessionState["AWAITING_CROP_NAME"])
             GraphApi.message_text(
@@ -786,15 +929,12 @@ def _trigger_processing(sender_phone_number_id, user_id):
 
     # ---- FIX: If mismatch/reset is returned, keep the user in the crop question loop ----
     if isinstance(response, dict) and response.get("action") == "reset_query":
-        # _generate_response already reset query arrays + set state to CROP_ADVICE_QUERY_COLLECTING.
-        # Do NOT wipe session and do NOT set GREETING.
         try:
             update_session_state(user_id, SessionState["CROP_ADVICE_QUERY_COLLECTING"])
         except Exception:
             pass
 
         GraphApi.message_text(sender_phone_number_id, user_id, response.get("text", ""))
-        # Prompt the user to send the correct-crop query again (stay in the loop)
         GraphApi.message_text(sender_phone_number_id, user_id, "कृपया अपनी समस्या/सवाल फिर से भेजें।")
         return
     # -------------------------------------------------------------------------------
@@ -883,6 +1023,9 @@ def _generate_response(session):
                 det.get("is_existing_crop", det.get("matched_by") == "local")
             )
 
+        # NEW: district context (for contact-number requests)
+        locked_district = _get_locked_district(session)
+
         category_id = session.get("cropAdviceCategory")
         if category_id == "variety_sowing_time":
             response = _get_varieties_sowing_response(crop)
@@ -899,7 +1042,7 @@ def _generate_response(session):
                 pass
 
             aggregated = _aggregate_multimodal_query(
-                crop, texts, audio_urls, image_urls, start_total=start_total
+                crop, locked_district, texts, audio_urls, image_urls, start_total=start_total
             )
 
             print("completed aggregation query")
@@ -923,7 +1066,6 @@ def _generate_response(session):
                 }
 
             if aggregated.get("status") != "ok":
-                # If aggregation failed (timeout or error), return safe UX message
                 return "तकनीकी कारण से विलंब/समस्या हो रही है। कृपया अपना सवाल केवल टेक्स्ट में फिर से भेजें।"
 
             aggregated_query = aggregated.get("text", "").strip()
@@ -932,6 +1074,15 @@ def _generate_response(session):
 
             if not aggregated_query:
                 return None
+
+            # NEW: contact-number guard (avoid hallucinations)
+            if _is_contact_number_query(aggregated_query):
+                dist_txt = locked_district or "आपके ज़िले"
+                return (
+                    f"किसान भाई, आप {dist_txt} में किस डीलर/एजेंसी/शोरूम का नंबर चाहते हैं?\n"
+                    "✅ कृपया नाम + एरिया/गांव/शहर लिखें।\n\n"
+                    "⚠️ मेरे पास सत्यापित डीलर-डायरेक्टरी नहीं है, इसलिए मैं कोई नंबर बना कर नहीं बता सकता।"
+                )
 
             response_text = ""
 
@@ -1021,8 +1172,11 @@ INPUT:
 
                     decomposed_queries = [q for q in decomposed_queries if "|" in q]
                     if not decomposed_queries:
-                        # Fallback: single query path if decomposition fails
-                        decomposed_queries = [aggregated_query.replace(" - ", " | ", 1)] if " - " in aggregated_query else [f"{crop} | {aggregated_query}"]
+                        decomposed_queries = (
+                            [aggregated_query.replace(" - ", " | ", 1)]
+                            if " - " in aggregated_query
+                            else [f"{crop} | {aggregated_query}"]
+                        )
 
                     append_aggregated_query_decomposed_response(session["userId"], decomposed_queries)
 
@@ -1066,7 +1220,6 @@ RAG_RESULTS_JSON:
 
                 except TimeoutError:
                     logger.exception("Gemini timeout in query decomposition")
-                    # Fallback: continue with aggregated_query directly
                     response_text = aggregated_query
                 except Exception:
                     logger.exception("Gemini error in query decomposition")
@@ -1247,7 +1400,7 @@ def _format_gemini_varieties_json(parsed):
     return "\n".join(lines) if len(lines) > 1 else None
 
 
-def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total: float = None):
+def _aggregate_multimodal_query(crop, district, texts, audio_urls, image_urls, start_total: float = None):
     """
     Build a true multimodal Gemini request using PUBLIC URLs as file parts
     (NOT as plain text inside JSON).
@@ -1262,9 +1415,11 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
     if not (texts or audio_urls or image_urls):
         return {"status": "error"}
 
+    district_val = (district or "UNKNOWN").strip()
+
     _t0 = time.perf_counter()
     try:
-        print(f"AGG[0] enter crop={crop} texts={len(texts)} audios={len(audio_urls)} images={len(image_urls)}")
+        print(f"AGG[0] enter crop={crop} district={district_val} texts={len(texts)} audios={len(audio_urls)} images={len(image_urls)}")
     except Exception:
         pass
 
@@ -1295,10 +1450,15 @@ def _aggregate_multimodal_query(crop, texts, audio_urls, image_urls, start_total
     except Exception:
         pass
 
-    instruction = MULTIMODAL_SYSTEM_INSTRUCTION.replace("{Locked Crop Name}", crop).strip()
+    instruction = (
+        MULTIMODAL_SYSTEM_INSTRUCTION
+        .replace("{Locked Crop Name}", crop)
+        .replace("{Locked District}", district_val)
+        .strip()
+    )
 
     text_blob = "\n".join([t for t in texts if isinstance(t, str) and t.strip()]).strip()
-    user_text_part = f"{instruction}\n\nLOCKED_CROP_NAME: {crop}\n"
+    user_text_part = f"{instruction}\n\nLOCKED_CROP_NAME: {crop}\nLOCKED_DISTRICT: {district_val}\n"
     if text_blob:
         user_text_part += f"\nFARMER_TEXT:\n{text_blob}\n"
 
@@ -1486,4 +1646,4 @@ def _load_varieties_text(crop):
         description = record.get("description") or record.get("Description") or ""
         parts.append(f"Variety: {record.get('Variety')}, Sowing Time: {sowing_time}, Description: {description}")
 
-    return " | ".join(parts)  # first ingest this script and tell me very concise what you think
+    return " | ".join(parts)

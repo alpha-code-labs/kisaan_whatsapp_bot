@@ -3,6 +3,7 @@ import os
 import redis
 import uuid
 from services.config import Config
+from redis.cluster import RedisCluster
 
 SESSION_TTL = 300
 
@@ -24,10 +25,14 @@ SessionState = {
     "QUERY_NOT_ABOUT_CROP": "QUERY_NOT_ABOUT_CROP",
 }
 
-_client = redis.Redis(
+# Azure Managed Redis in Cluster Mode
+_client = RedisCluster(
     host=Config.redis_host,
     port=Config.redis_port,
-    decode_responses=True
+    password=Config.redis_password,
+    ssl=Config.redis_ssl,
+    decode_responses=True,
+    skip_full_coverage_check=True  # Recommended for Azure Managed Redis
 )
 
 
