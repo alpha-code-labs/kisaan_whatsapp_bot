@@ -4,7 +4,7 @@ import logging
 import os
 import re
 import time
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import chromadb
 from chromadb.api.types import Documents, EmbeddingFunction, Embeddings
@@ -44,14 +44,22 @@ _chroma_client = None
 _collection = None
 _valid_crop_cache = {"values": None, "fetched_at": 0.0}
 
-_redis_client: Optional[RedisCluster] = None
+_redis_client: Optional[Union[redis.Redis, RedisCluster]] = None
 _redis_status_logged = False
 
-
-def _get_redis_client() -> Optional[RedisCluster]:
+def _get_redis_client() -> Optional[Union[redis.Redis, RedisCluster]]:
+    """
+    Returns a redis client for embedding cache:
+      - USE_LOCAL_REDIS=false (default): RedisCluster (Azure Managed Redis cluster)
+      - USE_LOCAL_REDIS=true:  redis.Redis (single node local)
+    If Redis is unreachable, returns None and disables cache.
+    """
     global _redis_client, _redis_status_logged
+
     if _redis_client is not None:
         return _redis_client
+
+    use_local = os.getenv("USE_LOCAL_REDIS", "false").lower() == "true"
 
     host = Config.redis_host
     port = Config.redis_port
@@ -59,28 +67,43 @@ def _get_redis_client() -> Optional[RedisCluster]:
     ssl_enabled = Config.redis_ssl
 
     try:
-        # We add password and ssl here
-        _redis_client = RedisCluster(
-            host=host, 
-            port=port, 
-            password=password,
-            ssl=Config.redis_ssl,
-            decode_responses=False, 
-            socket_timeout=2,
-            skip_full_coverage_check=True
-        )
+        if use_local:
+            _logger.info("[REDIS] Using LOCAL single-node Redis for embedding cache")
+            _redis_client = redis.Redis(
+                host=host,
+                port=port,
+                password=password,
+                ssl=ssl_enabled,
+                decode_responses=False,
+                socket_timeout=2,
+            )
+        else:
+            _logger.info("[REDIS] Using CLUSTER Redis (Azure Managed) for embedding cache")
+            _redis_client = RedisCluster(
+                host=host,
+                port=port,
+                password=password,
+                ssl=ssl_enabled,
+                decode_responses=False,
+                socket_timeout=2,
+                skip_full_coverage_check=True,
+            )
+
         _redis_client.ping()
         return _redis_client
+
     except Exception as exc:
         if not _redis_status_logged:
             _logger.warning(
-                "Redis cache unavailable at %s:%s (ssl=%s); embedding cache will be disabled: %s",
+                "Redis cache unavailable at %s:%s (ssl=%s, local=%s); embedding cache disabled: %s",
                 host,
                 port,
                 ssl_enabled,
-                exc
+                use_local,
+                exc,
             )
             _redis_status_logged = True
+
         _redis_client = None
         return None
 

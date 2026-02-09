@@ -28,6 +28,7 @@ from services.redis_session import (
     delete_session,
     append_aggregated_query_response,
     append_aggregated_query_decomposed_response,
+    mark_incoming_message_seen,
     SessionState
 )
 from services.status import Status
@@ -479,6 +480,12 @@ class Conversation:
     @staticmethod
     def handle_message(sender_phone_number_id, raw_message):
         message = Message(raw_message)
+        if message.id and not mark_incoming_message_seen(message.id, ttl_s=3600):
+            try:
+                print(f"[IDEMPOTENT] skipping duplicate message_id={message.id}")
+            except Exception:
+                pass
+            return
         interaction = message.get_interaction()
 
         session = get_session(message.from_)

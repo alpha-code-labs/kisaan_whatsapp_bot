@@ -25,16 +25,33 @@ SessionState = {
     "QUERY_NOT_ABOUT_CROP": "QUERY_NOT_ABOUT_CROP",
 }
 
-# Azure Managed Redis in Cluster Mode
-_client = RedisCluster(
-    host=Config.redis_host,
-    port=Config.redis_port,
-    password=Config.redis_password,
-    ssl=Config.redis_ssl,
-    decode_responses=True,
-    skip_full_coverage_check=True  # Recommended for Azure Managed Redis
-)
 
+USE_LOCAL = os.getenv("USE_LOCAL_REDIS", "false").lower() == "true"
+
+_client = None
+
+if USE_LOCAL:
+    print("[REDIS] Using LOCAL single-node Redis")
+
+    _client = redis.Redis(
+        host=Config.redis_host,
+        port=Config.redis_port,
+        password=Config.redis_password,
+        ssl=Config.redis_ssl,
+        decode_responses=True
+    )
+
+else:
+    print("[REDIS] Using CLUSTER Redis (Azure Managed)")
+
+    _client = RedisCluster(
+        host=Config.redis_host,
+        port=Config.redis_port,
+        password=Config.redis_password,
+        ssl=Config.redis_ssl,
+        decode_responses=True,
+        skip_full_coverage_check=True
+    )
 
 def get_session(user_id):
     data = _client.get(f"session:{user_id}")
@@ -189,3 +206,21 @@ def next_upload_count(user_id):
 def _now_ms():
     import time
     return int(time.time() * 1000)
+
+def mark_incoming_message_seen(message_id: str, ttl_s: int = 3600) -> bool:
+    """
+    Returns True if this message_id is seen for the first time.
+    Returns False if we've already processed it recently.
+    """
+    if not message_id:
+        return True  # can't dedupe
+
+    key = f"seen:wa:msg:{message_id}"
+    try:
+        # SET NX EX = atomic idempotency lock
+        ok = _client.set(key, "1", nx=True, ex=int(ttl_s))
+        return bool(ok)
+    except Exception:
+        # If Redis is down, don't break the bot; process normally
+        return True
+
