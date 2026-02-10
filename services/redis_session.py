@@ -158,19 +158,21 @@ def delete_session(user_id):
     _client.delete(f"session:{user_id}")
 
 
-def dump_session(user_id, failed = False):
+from services.config import Config
+
+def dump_session(user_id, failed=False):
     session = get_session(user_id)
     if not session:
         return
 
     session_id = session.get("sessionId") or "unknown"
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    sessions_dir = os.path.join(base_dir, "sessions")
+
+    sessions_dir = Config.sessions_dir
     os.makedirs(sessions_dir, exist_ok=True)
-    if not failed:
-        path = os.path.join(sessions_dir, f"{user_id}_{session_id}.json")
-    else:
-        path = os.path.join(sessions_dir, f"{user_id}_{session_id}_failed.json")
+
+    suffix = "_failed" if failed else ""
+    path = os.path.join(sessions_dir, f"{user_id}_{session_id}{suffix}.json")
+
     with open(path, "w", encoding="utf-8") as f:
         json.dump(session, f, ensure_ascii=True, indent=2)
 

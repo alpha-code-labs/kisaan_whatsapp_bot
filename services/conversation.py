@@ -1,3 +1,5 @@
+# conversation.py (or your Conversation script)
+
 import json
 import os
 import uuid
@@ -73,10 +75,11 @@ GEMINI_POLICY = {
 }
 
 # Overall max time budget for a single user request (seconds)
-OVERALL_BUDGET_S = 90
+OVERALL_BUDGET_S = 120
 
 # Thread pool to enforce hard timeouts around Gemini calls
 _GEMINI_EXECUTOR = concurrent.futures.ThreadPoolExecutor(max_workers=4)
+
 
 def get_blob_storage():
     global _blob_storage
@@ -84,16 +87,19 @@ def get_blob_storage():
         _blob_storage = BlobStorageService()
     return _blob_storage
 
+
 def _shorten_url(url: str, tail: int = 40) -> str:
     if not isinstance(url, str):
         return ""
     return url[-tail:] if len(url) > tail else url
+
 
 def _sleep_backoff(attempt: int):
     # attempt: 1,2,... for retries
     base = 2 ** (attempt - 1)  # 1,2,4...
     jitter = random.uniform(0.0, 0.5)
     time.sleep(base + jitter)
+
 
 def _check_budget(start_total: float, call_name: str) -> bool:
     elapsed = time.perf_counter() - start_total
@@ -104,6 +110,7 @@ def _check_budget(start_total: float, call_name: str) -> bool:
             pass
         return False
     return True
+
 
 # ----------------------------
 # NEW: DISTRICT + CONTACT HELPERS
@@ -118,6 +125,7 @@ def _get_locked_district(session: dict) -> str:
             return v.strip()
     return ""
 
+
 def _is_contact_number_query(text: str) -> bool:
     if not isinstance(text, str):
         return False
@@ -130,6 +138,7 @@ def _is_contact_number_query(text: str) -> bool:
         "डीलर", "एजेंसी", "शोरूम", "हेल्पलाइन", "सेवा केंद्र"
     ]
     return any(h in t for h in hits)
+
 
 # ----------------------------
 # FIX: DEDUPE WELCOME MENU SENDS
@@ -155,6 +164,26 @@ def _send_welcome_menu_once(message_id, phone_number_id, user_id):
         pass
 
     GraphApi.send_welcome_menu(message_id, phone_number_id, user_id)
+
+
+def _schedule_welcome_menu_endflow(message_id, sender_phone_number_id, user_id, delay_s: int = 2):
+    """
+    End-of-flow requirement:
+      - after delay, publish welcome menu
+      - only once (idempotent by message_id via _send_welcome_menu_once)
+    """
+    try:
+        set_timeout(
+            delay_s,
+            _send_welcome_menu_once,
+            message_id,
+            sender_phone_number_id,
+            user_id
+        )
+    except Exception:
+        # never break main flow if scheduling fails
+        pass
+
 
 def _gemini_generate_content(
     *,
@@ -233,6 +262,7 @@ def _gemini_generate_content(
         raise TimeoutError(f"Gemini call timed out: {call_name}")
     raise last_exc if last_exc else Exception(f"Gemini call failed: {call_name}")
 
+
 # THIS IS PROMPT 2 FOR NEW CROP VARIETIES AND SOWING TIME
 SYSTEM_INSTRUCTION = """ You are a Senior Agronomist and Citrus Specialist specialized in Haryana Agricultural University (HAU) recommendations.
 
@@ -270,6 +300,7 @@ THE RESPONSE MUST START WITH { AND END WITH }.
 
 Focus on heat tolerance, frost resistance, and Haryana climatic conditions. """
 
+
 # THIS IS PROMPT 3 FOR AUDITING THE ABOVE JSON. VARITIES AND SOWING TIME FOR NEW CROPS
 AUDIT_SYSTEM_INSTRUCTION = """
 You are a Senior Agricultural Scientist at Haryana Agricultural University (HAU) Hisar. 
@@ -286,6 +317,7 @@ STRICT OUTPUT RULES:
 - NO markdown blocks (NO ```json).
 - NO conversational filler.
 """
+
 
 # THIS IS PROMPT 4 FOR MULTIMODAL QUERY AGGREGATION (UPDATED FOR CONTACT + DISTRICT)
 MULTIMODAL_SYSTEM_INSTRUCTION = """
@@ -343,6 +375,7 @@ STRICT RULES:
 - If the rejection threshold is met, do not explain the logic; just provide the rejection phrase.
 """.strip()
 
+
 # THIS IS PROMPT 7 FOR DECOMPOSING
 MULTIMODAL_DECOMPOSITION_SYSTEM_INSTRUCTION = """
 You are a Query Decomposition Expert for an Agricultural RAG system.
@@ -366,6 +399,7 @@ INPUT FORMAT: "Pearl Millet - Why are the roots rotting?"
 OUTPUT FORMAT:
 Pearl Millet | Why are the roots rotting in Pearl Millet?
 """
+
 
 # THIS IS PROMPT 5 FOR AGRONOMIC ADVICE
 AGRI_ADVICE_SYSTEM_INSTRUCTION = """
@@ -395,6 +429,7 @@ STRICT RULES:
 - ZERO hallucinations. 
 """
 
+
 #THIS IS PROMPT 6 FOR AUDITING THE AGRONOMIC ADVICE
 AGRI_ADVICE_AUDIT_SYSTEM_INSTRUCTION = """
 You are a Senior Agricultural Auditor and Fact-Checker. Your task is to review an existing Hindi agronomic response for absolute scientific accuracy and safety.
@@ -415,6 +450,7 @@ STRICT RULES:
 - DO NOT add introductory filler like "I have audited this." 
 - Output ONLY the final, corrected Hindi response.
 """
+
 
 # THIS IS PROMPT 9
 RAG_GROUNDED_ADVICE_SYSTEM_INSTRUCTION = """
@@ -444,6 +480,7 @@ OUTPUT STRUCTURE:
    - Use bullet points for dosages and steps.
    - Maintain a helpful, expert tone.
 """
+
 
 # This is prompt 10
 AUDITOR_INSTRUCTION = """
@@ -486,6 +523,7 @@ class Conversation:
             except Exception:
                 pass
             return
+
         interaction = message.get_interaction()
 
         session = get_session(message.from_)
@@ -496,10 +534,10 @@ class Conversation:
 
         if state == SessionState["GREETING"]:
             GraphApi.message_text(
-                        sender_phone_number_id,
-                        message.from_,
-                        "नमस्कार किसान भाई/बहन, आपका स्वागत है। यहाँ आप फसल और मौसम से जुड़े सवाल पूछ सकते हैं।"
-                    )
+                sender_phone_number_id,
+                message.from_,
+                "नमस्कार किसान भाई/बहन, आपका स्वागत है। यहाँ आप फसल और मौसम से जुड़े सवाल पूछ सकते हैं।"
+            )
             _send_welcome_menu_once(message.id, sender_phone_number_id, message.from_)
             update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
             return
@@ -537,18 +575,16 @@ class Conversation:
                 location = message.location
                 set_user_location(message.from_, location)
                 send_weather(sender_phone_number_id, message.from_, location)
-                #dump session, create a fresh one
+
+                # dump session, create a fresh one
                 delete_session(message.from_)
                 dump_session(message.from_)
                 create_session(message.from_)
                 update_session_state(message.from_, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-                set_timeout(
-                    2,
-                    _send_welcome_menu_once,
-                    message.id,
-                    sender_phone_number_id,
-                    message.from_
-                )
+
+                # END-OF-FLOW: welcome menu after 2s, idempotent by message.id
+                _schedule_welcome_menu_endflow(message.id, sender_phone_number_id, message.from_, delay_s=2)
+
             else:
                 _reset_session_state(message.id, sender_phone_number_id, message.from_)
             return
@@ -652,10 +688,10 @@ class Conversation:
             update_district_info(message.from_, message.text)
             update_session_state(message.from_, SessionState["AWAITING_CROP_NAME"])
             GraphApi.message_text(
-                    sender_phone_number_id,
-                    message.from_,
-                    "कृपया फसल का नाम टाइप करें।"
-                )
+                sender_phone_number_id,
+                message.from_,
+                "कृपया फसल का नाम टाइप करें।"
+            )
             return
 
         if state == SessionState["AWAITING_CROP_NAME"]:
@@ -890,7 +926,7 @@ class Conversation:
 
             if not interaction:
                 if total_items >= 6:
-                    _trigger_processing(sender_phone_number_id, message.from_)
+                    _trigger_processing(message.id, sender_phone_number_id, message.from_)
                 else:
                     GraphApi.send_query_confirmation_menu(
                         message.id,
@@ -908,11 +944,12 @@ class Conversation:
                 )
 
             if interaction and interaction.get("id") == "query_done":
-                _trigger_processing(sender_phone_number_id, message.from_)
+                _trigger_processing(message.id, sender_phone_number_id, message.from_)
             return
 
         if state == SessionState["PROCESSING_CROP_QUERY"]:
-            _trigger_processing(sender_phone_number_id, message.from_)
+            # if any message arrives while processing, just re-trigger idempotently for that message_id
+            _trigger_processing(message.id, sender_phone_number_id, message.from_)
             return
 
     @staticmethod
@@ -925,7 +962,7 @@ class Conversation:
         )
 
 
-def _trigger_processing(sender_phone_number_id, user_id):
+def _trigger_processing(message_id, sender_phone_number_id, user_id):
     update_session_state(user_id, SessionState["PROCESSING_CROP_QUERY"])
     GraphApi.message_text(
         sender_phone_number_id,
@@ -949,11 +986,16 @@ def _trigger_processing(sender_phone_number_id, user_id):
     dump_session(user_id)
     delete_session(user_id)
     create_session(user_id)
+
     if isinstance(response, dict):
         GraphApi.message_text(sender_phone_number_id, user_id, response.get("text", ""))
     else:
         GraphApi.message_text(sender_phone_number_id, user_id, response)
-    update_session_state(user_id, SessionState["GREETING"])
+
+    # END-OF-FLOW requirement for main agri path:
+    # move user to the main menu state, and auto-publish welcome menu after 2 seconds (idempotent)
+    update_session_state(user_id, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
+    _schedule_welcome_menu_endflow(message_id, sender_phone_number_id, user_id, delay_s=2)
 
 
 def _continue_after_crop_selected(message_id, sender_phone_number_id, user_id, crop, is_existing):
@@ -977,13 +1019,9 @@ def _continue_after_crop_selected(message_id, sender_phone_number_id, user_id, c
         delete_session(user_id)
         create_session(user_id)
         update_session_state(user_id, SessionState["AWAITING_MENU_WEATHER_CHOICE"])
-        set_timeout(
-            2,
-            _send_welcome_menu_once,
-            message_id,
-            sender_phone_number_id,
-            user_id
-        )
+
+        # END-OF-FLOW: welcome menu after 2s, idempotent by message_id
+        _schedule_welcome_menu_endflow(message_id, sender_phone_number_id, user_id, delay_s=2)
         return
 
     update_session_state(user_id, SessionState["CROP_ADVICE_QUERY_COLLECTING"])

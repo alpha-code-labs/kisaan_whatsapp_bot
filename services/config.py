@@ -59,6 +59,15 @@ class Config:
     else:
         data_dir = os.path.join(_base_dir, "data")
 
+    _sessions_dir_env = os.getenv("SESSIONS_DIR")
+    if _sessions_dir_env:
+        sessions_dir = (
+            _sessions_dir_env
+            if os.path.isabs(_sessions_dir_env)
+            else os.path.join(_base_dir, _sessions_dir_env)
+        )
+    else:
+        sessions_dir = os.path.join(_base_dir, "sessions")
     # -------- LOCAL CHROMA PATH (only for dev / fallback) --------
     _chroma_dir_env = os.getenv("CHROMA_DB_DIR")
     if _chroma_dir_env:

@@ -24,7 +24,12 @@ _VALID_CROP_CACHE_TTL_SECONDS = 300
 
 # Embedding cache
 _EMBED_CACHE_TTL_SECONDS = int(os.getenv("EMBED_CACHE_TTL_SECONDS", "21600"))  # 6 hours default
-_EMBED_CACHE_PREFIX = "emb:v1"
+
+# ✅ FIX (Option A): Use a Redis Cluster hash-tag so ALL embed keys map to the same slot.
+# Anything inside {...} is used for hash-slot calculation in Redis Cluster.
+# This enables MGET/MSET-style multi-key ops without CROSSSLOT errors.
+_EMBED_CACHE_PREFIX = "{emb:v1}"
+
 _EMBED_NORM_MAXLEN = 512
 
 # Logging controls
@@ -46,6 +51,7 @@ _valid_crop_cache = {"values": None, "fetched_at": 0.0}
 
 _redis_client: Optional[Union[redis.Redis, RedisCluster]] = None
 _redis_status_logged = False
+
 
 def _get_redis_client() -> Optional[Union[redis.Redis, RedisCluster]]:
     """
@@ -135,7 +141,9 @@ def _normalize_for_embed_cache(text: str) -> str:
 
 
 def _embed_cache_key(model_name: str, normalized_text: str) -> str:
+    # Using SHA1 for compactness; collision risk is negligible for cache use.
     digest = hashlib.sha1(normalized_text.encode("utf-8")).hexdigest()
+    # Example: "{emb:v1}:gemini-embedding-001:ab12..."
     return f"{_EMBED_CACHE_PREFIX}:{model_name}:{digest}"
 
 
@@ -151,9 +159,13 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
     """
     EmbeddingFunction used by Chroma for query_texts.
     Adds Redis caching with light normalization to reduce Gemini embed calls.
+
+    ✅ FIX (Option A): Keys contain a Redis Cluster hash-tag so MGET works.
+    ✅ Robustness: safer index-to-key mapping (no iterator misalignment).
+    ✅ Pipeline: use transaction=False for best compatibility with cluster clients.
     """
 
-    def __init__(self, client, model_name="text-embedding-004"):
+    def __init__(self, client, model_name="gemini-embedding-001"):
         self.client = client
         self.model_name = model_name
 
@@ -182,17 +194,14 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
 
         if r is not None:
             try:
-                # only non-empty keys
-                non_empty_keys = [k for k in keys if k]
-                raw_vals = r.mget(non_empty_keys) if non_empty_keys else []
-                it = iter(raw_vals)
+                # Keep index alignment explicitly
+                idx_keys = [(i, k) for i, k in enumerate(keys) if k]
+                if idx_keys:
+                    raw_vals = r.mget([k for _, k in idx_keys])
+                else:
+                    raw_vals = []
 
-                for i, k in enumerate(keys):
-                    if not k:
-                        missing_indices.append(i)
-                        continue
-
-                    raw = next(it)
+                for (i, _k), raw in zip(idx_keys, raw_vals):
                     if raw:
                         try:
                             cached[i] = _deserialize_embedding(raw)
@@ -203,8 +212,19 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
                     else:
                         missing_indices.append(i)
 
+                # Any empty-key entries are always missing
+                for i, k in enumerate(keys):
+                    if not k:
+                        missing_indices.append(i)
+
+                # De-dup (empty-key + miss from above can add duplicates)
+                if missing_indices:
+                    missing_indices = sorted(set(missing_indices))
+
                 redis_ms = (time.perf_counter() - t0) * 1000.0
+
             except Exception as exc:
+                # With the hash-tag fix, CROSSSLOT errors should disappear.
                 _logger.warning("Redis mget failed; embedding cache bypassed for this call: %s", exc)
                 missing_indices = list(range(len(texts)))
         else:
@@ -263,7 +283,7 @@ class GeminiEmbeddingFunction(EmbeddingFunction):
             if r is not None:
                 t2 = time.perf_counter()
                 try:
-                    pipe = r.pipeline()
+                    pipe = r.pipeline(transaction=False)
                     for idx, vec in zip(missing_indices, new_embeds):
                         cached[idx] = vec
                         k = keys[idx]
@@ -506,15 +526,16 @@ def warm_rag_cache():
         return False
     return True
 
+
 def list_chroma_collections():
     """Diagnostic helper to list all collections and their item counts."""
     # Ensure the client is initialized
-    _get_collection() 
-    
+    _get_collection()
+
     global _chroma_client
     if _chroma_client is None:
         return {"error": "Chroma client not initialized"}
-    
+
     try:
         collections = _chroma_client.list_collections()
         result = []

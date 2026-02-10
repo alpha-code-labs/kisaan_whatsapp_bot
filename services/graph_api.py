@@ -1,3 +1,6 @@
+# graph_api.py (your GraphApi script) — NO BEHAVIORAL CHANGES REQUIRED for this requirement.
+# (Conversation layer now schedules the delayed welcome menu and dedupes it.)
+
 import requests
 from services.config import Config
 
