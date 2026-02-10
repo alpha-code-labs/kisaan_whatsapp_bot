@@ -3,7 +3,8 @@ import time
 import logging
 from typing import Optional
 
-from azure.storage.blob import BlobServiceClient, ContentSettings
+from azure.storage.blob.aio import BlobServiceClient
+from azure.storage.blob import ContentSettings
 
 from services.config import Config
 
@@ -31,21 +32,19 @@ class BlobStorageService:
 
     @staticmethod
     def _guess_content_type_from_name(blob_name: str) -> Optional[str]:
-        # mimetypes guesses based on filename extension
         ctype, _ = mimetypes.guess_type(blob_name)
         return ctype
 
-    def upload_bytes(self, blob_name: str, data: bytes, content_type: Optional[str] = None) -> str:
+    async def upload_bytes(self, blob_name: str, data: bytes, content_type: Optional[str] = None) -> str:
         # If caller didn't provide content type, try guessing from blob_name
         content_type = content_type or self._guess_content_type_from_name(blob_name)
 
         settings = ContentSettings(content_type=content_type) if content_type else None
-
         blob_client = self._container.get_blob_client(blob_name)
 
         start = time.perf_counter()
         try:
-            blob_client.upload_blob(
+            await blob_client.upload_blob(
                 data=data,
                 overwrite=True,
                 content_settings=settings,

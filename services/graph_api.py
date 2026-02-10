@@ -1,13 +1,12 @@
-# graph_api.py (your GraphApi script) — NO BEHAVIORAL CHANGES REQUIRED for this requirement.
-# (Conversation layer now schedules the delayed welcome menu and dedupes it.)
+# graph_api.py (async version) — NO BEHAVIORAL CHANGES
 
-import requests
+import httpx
 from services.config import Config
 
 
 class GraphApi:
     @staticmethod
-    def _make_api_call(message_id, sender_phone_number_id, request_body):
+    async def _make_api_call(message_id, sender_phone_number_id, request_body):
         if message_id:
             typing_body = {
                 "messaging_product": "whatsapp",
@@ -15,18 +14,20 @@ class GraphApi:
                 "message_id": message_id,
                 "typing_indicator": {"type": "text"}
             }
-            GraphApi._post(sender_phone_number_id, typing_body)
+            await GraphApi._post(sender_phone_number_id, typing_body)
 
-        return GraphApi._post(sender_phone_number_id, request_body)
+        return await GraphApi._post(sender_phone_number_id, request_body)
 
     @staticmethod
-    def _post(sender_phone_number_id, body):
+    async def _post(sender_phone_number_id, body):
         url = f"{Config.graph_api_url}/{sender_phone_number_id}/messages"
         headers = {"Authorization": f"Bearer {Config.access_token}"}
-        response = requests.post(url, json=body, headers=headers, timeout=30)
+
+        async with httpx.AsyncClient(timeout=httpx.Timeout(30.0)) as client:
+            response = await client.post(url, json=body, headers=headers)
 
         # --- DEBUG: print Meta error response on 4xx/5xx (without changing behavior) ---
-        if not response.ok:
+        if not response.is_success:
             try:
                 print(f"[GraphApi] HTTP_ERROR status={response.status_code} url={url}")
                 try:
@@ -46,7 +47,7 @@ class GraphApi:
         return response.json()
 
     @staticmethod
-    def send_welcome_menu(message_id, sender_phone_number_id, recipient_phone_number):
+    async def send_welcome_menu(message_id, sender_phone_number_id, recipient_phone_number):
         body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
@@ -75,10 +76,10 @@ class GraphApi:
                 }
             }
         }
-        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(message_id, sender_phone_number_id, body)
 
     @staticmethod
-    def send_query_confirmation_menu(message_id, sender_phone_number_id, recipient_phone_number):
+    async def send_query_confirmation_menu(message_id, sender_phone_number_id, recipient_phone_number):
         body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
@@ -96,10 +97,10 @@ class GraphApi:
                 }
             }
         }
-        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(message_id, sender_phone_number_id, body)
 
     @staticmethod
-    def request_location(sender_phone_number_id, recipient_phone_number, text):
+    async def request_location(sender_phone_number_id, recipient_phone_number, text):
         body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
@@ -110,20 +111,20 @@ class GraphApi:
                 "action": {"name": "send_location"}
             }
         }
-        return GraphApi._make_api_call(None, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(None, sender_phone_number_id, body)
 
     @staticmethod
-    def message_text(sender_phone_number_id, recipient_phone_number, text):
+    async def message_text(sender_phone_number_id, recipient_phone_number, text):
         body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
             "type": "text",
             "text": {"body": text}
         }
-        return GraphApi._make_api_call(None, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(None, sender_phone_number_id, body)
 
     @staticmethod
-    def send_crop_advice_category_menu(message_id, sender_phone_number_id, recipient_phone_number):
+    async def send_crop_advice_category_menu(message_id, sender_phone_number_id, recipient_phone_number):
         request_body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
@@ -154,27 +155,15 @@ class GraphApi:
                 }
             }
         }
-        return GraphApi._make_api_call(message_id, sender_phone_number_id, request_body)
+        return await GraphApi._make_api_call(message_id, sender_phone_number_id, request_body)
 
     # ----------------------------
     # District picker (interactive list) - PAGINATED (<= 10 rows TOTAL)
     # ----------------------------
     @staticmethod
-    def send_district_menu(message_id, sender_phone_number_id, recipient_phone_number, districts, page=0):
-        """
-        districts: list[str] of district names (22).
-        page: 0-based page index.
-        WhatsApp constraint (your env): TOTAL rows <= 10 per list message.
-        Strategy:
-          - show up to 8 districts per page
-          - add Back/Next rows as needed
-          - IDs:
-              dist_0..dist_21 = actual districts
-              dist_prev       = previous page
-              dist_next       = next page
-        """
+    async def send_district_menu(message_id, sender_phone_number_id, recipient_phone_number, districts, page=0):
         districts = districts or []
-        per_page = 8  # keeps room for Back+Next => 8 + 2 = 10 rows max
+        per_page = 8
 
         total = len(districts)
         max_page = (total - 1) // per_page if total > 0 else 0
@@ -193,23 +182,20 @@ class GraphApi:
 
         rows = []
         for i, name in enumerate(page_slice):
-            idx = start + i  # global index for stable IDs
+            idx = start + i
             rows.append({
                 "id": f"dist_{idx}",
                 "title": str(name)[:24]
             })
 
-        # Navigation rows (still LIST rows)
         if page > 0:
             rows.append({"id": "dist_prev", "title": "⬅️ पिछला (Back)"})
         if page < max_page:
             rows.append({"id": "dist_next", "title": "➡️ अगला (Next)"})
 
-        # Safety: never exceed 10
         rows = rows[:10]
 
         body_text = "कृपया अपना ज़िला चुनें:"
-        # Optional small hint, still short
         if max_page > 0:
             body_text = f"कृपया अपना ज़िला चुनें: (पेज {page+1}/{max_page+1})"
 
@@ -231,13 +217,10 @@ class GraphApi:
                 }
             }
         }
-        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(message_id, sender_phone_number_id, body)
 
     @staticmethod
-    def send_ambiguous_crop_menu(message_id, sender_phone_number_id, recipient_phone_number, title_text, options):
-        """
-        options: list of dicts -> [{"id":"crop_pick_0","title":"1. नींबू"}, ...]
-        """
+    async def send_ambiguous_crop_menu(message_id, sender_phone_number_id, recipient_phone_number, title_text, options):
         body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
@@ -253,10 +236,10 @@ class GraphApi:
                 }
             }
         }
-        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(message_id, sender_phone_number_id, body)
 
     @staticmethod
-    def send_crop_confirmation_menu(message_id, sender_phone_number_id, recipient_phone_number, crop_name_hi):
+    async def send_crop_confirmation_menu(message_id, sender_phone_number_id, recipient_phone_number, crop_name_hi):
         body = {
             "messaging_product": "whatsapp",
             "to": recipient_phone_number,
@@ -272,29 +255,31 @@ class GraphApi:
                 }
             }
         }
-        return GraphApi._make_api_call(message_id, sender_phone_number_id, body)
+        return await GraphApi._make_api_call(message_id, sender_phone_number_id, body)
 
     @staticmethod
-    def get_media_url(media_id):
+    async def get_media_url(media_id):
         url = f"{Config.graph_api_url}/{media_id}"
         headers = {"Authorization": f"Bearer {Config.access_token}"}
-        response = requests.get(url, headers=headers, timeout=30)
+        async with httpx.AsyncClient(timeout=httpx.Timeout(30.0)) as client:
+            response = await client.get(url, headers=headers)
         response.raise_for_status()
         return response.json()
 
     @staticmethod
-    def download_media(url):
+    async def download_media(url):
         headers = {"Authorization": f"Bearer {Config.access_token}"}
-        response = requests.get(url, headers=headers, timeout=60)
+        async with httpx.AsyncClient(timeout=httpx.Timeout(60.0)) as client:
+            response = await client.get(url, headers=headers)
         response.raise_for_status()
         return response.content
 
     @staticmethod
-    def download_audio(media_id):
-        media = GraphApi.get_media_url(media_id)
-        return GraphApi.download_media(media.get("url"))
+    async def download_audio(media_id):
+        media = await GraphApi.get_media_url(media_id)
+        return await GraphApi.download_media(media.get("url"))
 
     @staticmethod
-    def download_image(media_id):
-        media = GraphApi.get_media_url(media_id)
-        return GraphApi.download_media(media.get("url"))
+    async def download_image(media_id):
+        media = await GraphApi.get_media_url(media_id)
+        return await GraphApi.download_media(media.get("url"))

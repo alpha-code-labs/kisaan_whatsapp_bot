@@ -1,16 +1,15 @@
+import asyncio
 import hashlib
 import json
 import logging
 import os
 import re
 import time
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Any, Dict
 
 import chromadb
 from chromadb.api.types import Documents, EmbeddingFunction, Embeddings
 from google import genai
-import redis
-from redis.cluster import RedisCluster
 
 from services.config import Config
 
@@ -22,25 +21,6 @@ _DEFAULT_TOP_K = 3
 _DEFAULT_DISTANCE_THRESHOLD = 0.35
 _VALID_CROP_CACHE_TTL_SECONDS = 300
 
-# Embedding cache
-_EMBED_CACHE_TTL_SECONDS = int(os.getenv("EMBED_CACHE_TTL_SECONDS", "21600"))  # 6 hours default
-
-# ✅ FIX (Option A): Use a Redis Cluster hash-tag so ALL embed keys map to the same slot.
-# Anything inside {...} is used for hash-slot calculation in Redis Cluster.
-# This enables MGET/MSET-style multi-key ops without CROSSSLOT errors.
-_EMBED_CACHE_PREFIX = "{emb:v1}"
-
-_EMBED_NORM_MAXLEN = 512
-
-# Logging controls
-_EMBED_CACHE_LOG_EVERY_N_CALLS = int(os.getenv("EMBED_CACHE_LOG_EVERY_N_CALLS", "20"))  # info log throttle
-_embed_call_counter = 0
-
-# Very light normalization: keep meaning, improve cache hits
-_FILLER_WORDS = {
-    "how", "to", "please", "plz", "kindly", "tell", "me", "can", "you", "what", "is", "are",
-    "the", "a", "an", "in", "on", "for", "of", "my", "i", "we"
-}
 _PUNCT_RE = re.compile(r"[^\w\s|]+", re.UNICODE)
 _WS_RE = re.compile(r"\s+", re.UNICODE)
 
@@ -49,266 +29,61 @@ _chroma_client = None
 _collection = None
 _valid_crop_cache = {"values": None, "fetched_at": 0.0}
 
-_redis_client: Optional[Union[redis.Redis, RedisCluster]] = None
-_redis_status_logged = False
 
-
-def _get_redis_client() -> Optional[Union[redis.Redis, RedisCluster]]:
+def _normalize_for_embed(text: str) -> str:
     """
-    Returns a redis client for embedding cache:
-      - USE_LOCAL_REDIS=false (default): RedisCluster (Azure Managed Redis cluster)
-      - USE_LOCAL_REDIS=true:  redis.Redis (single node local)
-    If Redis is unreachable, returns None and disables cache.
-    """
-    global _redis_client, _redis_status_logged
-
-    if _redis_client is not None:
-        return _redis_client
-
-    use_local = os.getenv("USE_LOCAL_REDIS", "false").lower() == "true"
-
-    host = Config.redis_host
-    port = Config.redis_port
-    password = Config.redis_password
-    ssl_enabled = Config.redis_ssl
-
-    try:
-        if use_local:
-            _logger.info("[REDIS] Using LOCAL single-node Redis for embedding cache")
-            _redis_client = redis.Redis(
-                host=host,
-                port=port,
-                password=password,
-                ssl=ssl_enabled,
-                decode_responses=False,
-                socket_timeout=2,
-            )
-        else:
-            _logger.info("[REDIS] Using CLUSTER Redis (Azure Managed) for embedding cache")
-            _redis_client = RedisCluster(
-                host=host,
-                port=port,
-                password=password,
-                ssl=ssl_enabled,
-                decode_responses=False,
-                socket_timeout=2,
-                skip_full_coverage_check=True,
-            )
-
-        _redis_client.ping()
-        return _redis_client
-
-    except Exception as exc:
-        if not _redis_status_logged:
-            _logger.warning(
-                "Redis cache unavailable at %s:%s (ssl=%s, local=%s); embedding cache disabled: %s",
-                host,
-                port,
-                ssl_enabled,
-                use_local,
-                exc,
-            )
-            _redis_status_logged = True
-
-        _redis_client = None
-        return None
-
-
-def _normalize_for_embed_cache(text: str) -> str:
-    """
-    Light normalization to increase cache hits safely:
-    - lowercase
-    - strip punctuation (keep letters/numbers/_)
-    - collapse whitespace
-    - remove common filler words (keeps technical keywords like control/dosage/etc.)
+    Lightweight normalization to reduce trivial embedding differences.
+    (No Redis cache; this is only for stable hashing/logging if needed.)
     """
     if not text:
         return ""
-
     t = text.strip().lower()
     t = _PUNCT_RE.sub(" ", t)
     t = _WS_RE.sub(" ", t).strip()
-
-    if not t:
-        return ""
-
-    parts = [p for p in t.split(" ") if p and p not in _FILLER_WORDS]
-    t = " ".join(parts).strip()
-
-    if len(t) > _EMBED_NORM_MAXLEN:
-        t = t[:_EMBED_NORM_MAXLEN]
     return t
-
-
-def _embed_cache_key(model_name: str, normalized_text: str) -> str:
-    # Using SHA1 for compactness; collision risk is negligible for cache use.
-    digest = hashlib.sha1(normalized_text.encode("utf-8")).hexdigest()
-    # Example: "{emb:v1}:gemini-embedding-001:ab12..."
-    return f"{_EMBED_CACHE_PREFIX}:{model_name}:{digest}"
-
-
-def _serialize_embedding(vec: List[float]) -> bytes:
-    return json.dumps(vec, separators=(",", ":")).encode("utf-8")
-
-
-def _deserialize_embedding(raw: bytes) -> List[float]:
-    return json.loads(raw.decode("utf-8"))
 
 
 class GeminiEmbeddingFunction(EmbeddingFunction):
     """
-    EmbeddingFunction used by Chroma for query_texts.
-    Adds Redis caching with light normalization to reduce Gemini embed calls.
+    Chroma EmbeddingFunction interface is SYNC.
 
-    ✅ FIX (Option A): Keys contain a Redis Cluster hash-tag so MGET works.
-    ✅ Robustness: safer index-to-key mapping (no iterator misalignment).
-    ✅ Pipeline: use transaction=False for best compatibility with cluster clients.
+    ✅ Redis caching REMOVED completely.
+    We embed all input texts directly via Gemini embed_content (sync SDK),
+    and we run the overall Chroma pipeline in a worker thread (see retrieve_rag_evidence).
     """
 
-    def __init__(self, client, model_name="gemini-embedding-001"):
+    def __init__(self, client, model_name: str = "gemini-embedding-001"):
         self.client = client
         self.model_name = model_name
 
     def __call__(self, input_texts: Documents) -> Embeddings:
-        global _embed_call_counter
-
         texts = list(input_texts or [])
         if not texts:
             return []
 
-        _embed_call_counter += 1
-        call_id = _embed_call_counter
+        # Normalize only to avoid accidental None/whitespace weirdness
+        cleaned = [_normalize_for_embed(t) for t in texts]
 
-        r = _get_redis_client()
-
-        normalized = [_normalize_for_embed_cache(t) for t in texts]
-        keys = [_embed_cache_key(self.model_name, n) if n else "" for n in normalized]
-
-        cached: List[Optional[List[float]]] = [None] * len(texts)
-        missing_indices: List[int] = []
-
-        # --- Redis read ---
         t0 = time.perf_counter()
-        redis_ms = None
-        hit_count = 0
-
-        if r is not None:
-            try:
-                # Keep index alignment explicitly
-                idx_keys = [(i, k) for i, k in enumerate(keys) if k]
-                if idx_keys:
-                    raw_vals = r.mget([k for _, k in idx_keys])
-                else:
-                    raw_vals = []
-
-                for (i, _k), raw in zip(idx_keys, raw_vals):
-                    if raw:
-                        try:
-                            cached[i] = _deserialize_embedding(raw)
-                            hit_count += 1
-                        except Exception:
-                            cached[i] = None
-                            missing_indices.append(i)
-                    else:
-                        missing_indices.append(i)
-
-                # Any empty-key entries are always missing
-                for i, k in enumerate(keys):
-                    if not k:
-                        missing_indices.append(i)
-
-                # De-dup (empty-key + miss from above can add duplicates)
-                if missing_indices:
-                    missing_indices = sorted(set(missing_indices))
-
-                redis_ms = (time.perf_counter() - t0) * 1000.0
-
-            except Exception as exc:
-                # With the hash-tag fix, CROSSSLOT errors should disappear.
-                _logger.warning("Redis mget failed; embedding cache bypassed for this call: %s", exc)
-                missing_indices = list(range(len(texts)))
-        else:
-            missing_indices = list(range(len(texts)))
-
-        miss_count = len(missing_indices)
-
-        # Throttled INFO summary + always DEBUG details
-        if (call_id % _EMBED_CACHE_LOG_EVERY_N_CALLS) == 0:
-            _logger.info(
-                "Embed cache summary (every %d calls): model=%s texts=%d hits=%d misses=%d ttl=%ss redis=%s",
-                _EMBED_CACHE_LOG_EVERY_N_CALLS,
-                self.model_name,
-                len(texts),
-                hit_count,
-                miss_count,
-                _EMBED_CACHE_TTL_SECONDS,
-                "on" if r is not None else "off",
+        try:
+            result = self.client.models.embed_content(
+                model=self.model_name,
+                contents=cleaned,
             )
+            out = [e.values for e in result.embeddings]
+        except Exception as exc:
+            _logger.exception("Gemini embedding failed: %s", exc)
+            raise
 
+        gemini_ms = (time.perf_counter() - t0) * 1000.0
         _logger.debug(
-            "Embed cache call=%d model=%s texts=%d hits=%d misses=%d redis_read_ms=%.2f",
-            call_id,
+            "Gemini embed model=%s texts=%d gemini_ms=%.2f",
             self.model_name,
-            len(texts),
-            hit_count,
-            miss_count,
-            redis_ms if redis_ms is not None else -1.0,
+            len(cleaned),
+            gemini_ms,
         )
 
-        # --- Gemini embed for misses only ---
-        gemini_ms = 0.0
-        if missing_indices:
-            missing_texts = [texts[i] for i in missing_indices]
-            t1 = time.perf_counter()
-            try:
-                result = self.client.models.embed_content(
-                    model=self.model_name,
-                    contents=missing_texts
-                )
-                new_embeds = [e.values for e in result.embeddings]
-                gemini_ms = (time.perf_counter() - t1) * 1000.0
-            except Exception as exc:
-                _logger.exception("Gemini embedding failed: %s", exc)
-                raise
-
-            _logger.debug(
-                "Gemini embed call=%d model=%s miss_count=%d gemini_ms=%.2f",
-                call_id,
-                self.model_name,
-                len(missing_texts),
-                gemini_ms,
-            )
-
-            # --- Redis write for new embeds ---
-            if r is not None:
-                t2 = time.perf_counter()
-                try:
-                    pipe = r.pipeline(transaction=False)
-                    for idx, vec in zip(missing_indices, new_embeds):
-                        cached[idx] = vec
-                        k = keys[idx]
-                        if k:
-                            pipe.setex(k, _EMBED_CACHE_TTL_SECONDS, _serialize_embedding(vec))
-                    pipe.execute()
-                    redis_write_ms = (time.perf_counter() - t2) * 1000.0
-                    _logger.debug(
-                        "Redis embed cache write call=%d keys=%d write_ms=%.2f",
-                        call_id,
-                        len(missing_indices),
-                        redis_write_ms,
-                    )
-                except Exception as exc:
-                    _logger.warning("Redis cache write failed (continuing without): %s", exc)
-                    for idx, vec in zip(missing_indices, new_embeds):
-                        cached[idx] = vec
-            else:
-                for idx, vec in zip(missing_indices, new_embeds):
-                    cached[idx] = vec
-
-        # Output embeddings in order
-        out: Embeddings = []
-        for vec in cached:
-            out.append(vec if vec is not None else [])
+        # Chroma expects a list-of-vectors aligned with input_texts length.
         return out
 
     def name(self) -> str:
@@ -322,7 +97,7 @@ def _get_gemini_client():
     return _gemini_client
 
 
-def _get_collection():
+def _get_collection_sync():
     global _chroma_client, _collection
     if _collection is not None:
         return _collection
@@ -360,7 +135,7 @@ def _get_collection():
     return _collection
 
 
-def _get_valid_crops(collection):
+def _get_valid_crops_sync(collection):
     now = time.time()
     cached = _valid_crop_cache.get("values")
     if cached is not None and (now - _valid_crop_cache.get("fetched_at", 0)) < _VALID_CROP_CACHE_TTL_SECONDS:
@@ -406,16 +181,16 @@ def _resolve_crop_tag(normalized_crop, valid_crops):
     return normalized_crop
 
 
-def retrieve_rag_evidence(
+def _retrieve_rag_evidence_sync(
     decomposed_queries,
     *,
     top_k=_DEFAULT_TOP_K,
-    distance_threshold=_DEFAULT_DISTANCE_THRESHOLD
+    distance_threshold=_DEFAULT_DISTANCE_THRESHOLD,
 ):
     if not decomposed_queries:
         return []
 
-    collection = _get_collection()
+    collection = _get_collection_sync()
     if collection is None:
         _logger.warning("RAG collection unavailable; returning empty results")
         results = []
@@ -425,17 +200,19 @@ def retrieve_rag_evidence(
             crop_raw, atomic_query = (part.strip() for part in line.split("|", 1))
             if not atomic_query:
                 continue
-            results.append({
-                "query": atomic_query,
-                "crop": crop_raw,
-                "status": "ERROR",
-                "evidence": [],
-                "matched_crop": "",
-                "score": 1.0,
-            })
+            results.append(
+                {
+                    "query": atomic_query,
+                    "crop": crop_raw,
+                    "status": "ERROR",
+                    "evidence": [],
+                    "matched_crop": "",
+                    "score": 1.0,
+                }
+            )
         return results
 
-    valid_crops = _get_valid_crops(collection)
+    valid_crops = _get_valid_crops_sync(collection)
 
     parsed = []
     for line in decomposed_queries:
@@ -446,11 +223,13 @@ def retrieve_rag_evidence(
             continue
         normalized_crop = _normalize_crop_tag(crop_raw)
         search_crop_tag = _resolve_crop_tag(normalized_crop, valid_crops)
-        parsed.append({
-            "crop": crop_raw,
-            "query": atomic_query,
-            "search_tag": search_crop_tag,
-        })
+        parsed.append(
+            {
+                "crop": crop_raw,
+                "query": atomic_query,
+                "search_tag": search_crop_tag,
+            }
+        )
 
     if not parsed:
         return []
@@ -463,14 +242,16 @@ def retrieve_rag_evidence(
     for tag, entries in grouped.items():
         if not tag:
             for entry in entries:
-                results.append({
-                    "query": entry["query"],
-                    "crop": entry["crop"],
-                    "status": "MISSING",
-                    "evidence": [],
-                    "matched_crop": "",
-                    "score": 1.0,
-                })
+                results.append(
+                    {
+                        "query": entry["query"],
+                        "crop": entry["crop"],
+                        "status": "MISSING",
+                        "evidence": [],
+                        "matched_crop": "",
+                        "score": 1.0,
+                    }
+                )
             continue
 
         try:
@@ -482,14 +263,16 @@ def retrieve_rag_evidence(
         except Exception as exc:
             _logger.exception("Chroma query failed for tag=%s: %s", tag, exc)
             for entry in entries:
-                results.append({
-                    "query": entry["query"],
-                    "crop": entry["crop"],
-                    "status": "ERROR",
-                    "evidence": [],
-                    "matched_crop": tag,
-                    "score": 1.0,
-                })
+                results.append(
+                    {
+                        "query": entry["query"],
+                        "crop": entry["crop"],
+                        "status": "ERROR",
+                        "evidence": [],
+                        "matched_crop": tag,
+                        "score": 1.0,
+                    }
+                )
             continue
 
         documents = response.get("documents") or []
@@ -505,49 +288,74 @@ def retrieve_rag_evidence(
             raw_evidence = docs if status == "FOUND" else []
             clean_evidence = list(dict.fromkeys(raw_evidence))
 
-            results.append({
-                "query": entry["query"],
-                "crop": entry["crop"],
-                "status": status,
-                "evidence": clean_evidence,
-                "matched_crop": tag,
-                "score": float(top_distance),
-            })
+            results.append(
+                {
+                    "query": entry["query"],
+                    "crop": entry["crop"],
+                    "status": status,
+                    "evidence": clean_evidence,
+                    "matched_crop": tag,
+                    "score": float(top_distance),
+                }
+            )
 
     return results
 
 
-def warm_rag_cache():
+async def retrieve_rag_evidence(
+    decomposed_queries,
+    *,
+    top_k=_DEFAULT_TOP_K,
+    distance_threshold=_DEFAULT_DISTANCE_THRESHOLD,
+):
+    # Run the whole pipeline in a worker thread (Chroma + Gemini embed are sync).
+    return await asyncio.to_thread(
+        _retrieve_rag_evidence_sync,
+        decomposed_queries,
+        top_k=top_k,
+        distance_threshold=distance_threshold,
+    )
+
+
+async def warm_rag_cache():
     try:
-        collection = _get_collection()
-        _get_valid_crops(collection)
+        def _warm():
+            collection = _get_collection_sync()
+            if collection is None:
+                return False
+            _get_valid_crops_sync(collection)
+            return True
+
+        return await asyncio.to_thread(_warm)
     except Exception as exc:
         _logger.warning("RAG warmup failed: %s", exc)
         return False
-    return True
 
 
-def list_chroma_collections():
+async def list_chroma_collections():
     """Diagnostic helper to list all collections and their item counts."""
-    # Ensure the client is initialized
-    _get_collection()
+    def _list() -> Dict[str, Any]:
+        _get_collection_sync()
 
-    global _chroma_client
-    if _chroma_client is None:
-        return {"error": "Chroma client not initialized"}
+        global _chroma_client
+        if _chroma_client is None:
+            return {"error": "Chroma client not initialized"}
 
-    try:
-        collections = _chroma_client.list_collections()
-        result = []
-        for col in collections:
-            # We fetch the count for each to be sure data exists
-            count = col.count()
-            result.append({
-                "name": col.name,
-                "count": count,
-                "metadata": col.metadata
-            })
-        return {"collections": result, "total_count": len(result)}
-    except Exception as e:
-        _logger.error(f"Failed to list collections: {e}")
-        return {"error": str(e)}
+        try:
+            collections = _chroma_client.list_collections()
+            result = []
+            for col in collections:
+                count = col.count()
+                result.append(
+                    {
+                        "name": col.name,
+                        "count": count,
+                        "metadata": col.metadata,
+                    }
+                )
+            return {"collections": result, "total_count": len(result)}
+        except Exception as e:
+            _logger.error(f"Failed to list collections: {e}")
+            return {"error": str(e)}
+
+    return await asyncio.to_thread(_list)

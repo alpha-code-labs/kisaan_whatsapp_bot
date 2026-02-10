@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 import tempfile
@@ -254,10 +255,10 @@ def _add_new_crop_to_file(
         _DETECTOR_CACHE["detector"] = None
         return True
 
-def _ai_detect_crop(query: str, master_names: List[str], trace_id: str) -> Dict[str, Any]:
+async def _ai_detect_crop(query: str, master_names: List[str], trace_id: str) -> Dict[str, Any]:
     crop_list_str = ", ".join(master_names)
 
-# THIS IS PROMPT 1 FOR CROP DETECTION
+    # THIS IS PROMPT 1 FOR CROP DETECTION
     system_instruction = f"""You are a Senior Agronomist in Haryana, India.
 Identify the crop from user input.
 
@@ -285,13 +286,16 @@ Schema rules:
 C) If input is not a crop, return exactly:
 no crop found"""
 
-    try:
+    def _blocking_gemini_call() -> str:
         response = client.models.generate_content(
             model="gemini-3-flash-preview",
             contents=f"{system_instruction}\n\nUser input: {query}",
             config={"temperature": 0}
         )
-        raw = (response.text or "").strip()
+        return (response.text or "").strip()
+
+    try:
+        raw = await asyncio.to_thread(_blocking_gemini_call)
         logger.info(f"[{trace_id}] LLM raw output: {raw!r}")
     except Exception as e:
         logger.exception(f"[{trace_id}] AI Detection Error")
@@ -321,16 +325,18 @@ no crop found"""
     except json.JSONDecodeError:
         logger.warning(f"[{trace_id}] LLM output not parseable as JSON and not |found.")
         return {"status": "none", "raw_text": raw}
-
-def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
+    
+async def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
     trace_id = trace_id or uuid.uuid4().hex[:8]
     logger.info(f"[{trace_id}] detect_crop() called | query={query!r}")
 
-    detector, data, crops_path = _get_detector_and_data()
+    # This does file IO + possible JSON writes; run in thread
+    detector, data, crops_path = await asyncio.to_thread(_get_detector_and_data)
+
     logger.info(f"[{trace_id}] crops_path={crops_path!r} | crops_count={len(data.get('crops', []))}")
 
-    # 1) Local Fuzzy Detection
-    local = detector.identify_crop(query, top_k=5)
+    # Local fuzzy detection is CPU-ish, ok either way; run in thread to avoid blocking
+    local = await asyncio.to_thread(detector.identify_crop, query, 5)
 
     best = local.get("best")
     ambiguous = bool(local.get("ambiguous"))
@@ -341,8 +347,8 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
         f"candidates={[c.get('master_name') for c in candidates]}"
     )
 
-    # Curated ambiguity list should override local exact matches (e.g., "lobiya").
-    ambiguous_entry = _find_ambiguous_match(query, data)
+    # Curated ambiguity check (cheap, but keep consistent)
+    ambiguous_entry = await asyncio.to_thread(_find_ambiguous_match, query, data)
     if ambiguous_entry:
         options = ambiguous_entry.get("resolves_to", []) or []
         buttons = ambiguous_entry.get("button_options", []) or []
@@ -358,7 +364,7 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
 
     if best and not ambiguous:
         logger.info(f"[{trace_id}] DECISION=local_best | crop={best['master_name']!r}")
-        hi_name = _get_hindi_name_for_master(best["master_name"], data)
+        hi_name = await asyncio.to_thread(_get_hindi_name_for_master, best["master_name"], data)
         return {
             "crop_name": best["master_name"],
             "crop_name_hi": hi_name,
@@ -368,7 +374,7 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
             "trace_id": trace_id
         }
 
-    # 2) Ambiguity Handling (Local)
+    # Local ambiguity handling
     if ambiguous:
         options = list(dict.fromkeys([c["master_name"] for c in candidates if "master_name" in c]))
         logger.info(f"[{trace_id}] DECISION=local_ambiguous | options={options}")
@@ -380,11 +386,11 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
             "trace_id": trace_id
         }
 
-    # 3) AI Fallback
+    # AI fallback
     master_names = [c["master_name"] for c in data.get("crops", []) if isinstance(c, dict) and c.get("master_name")]
     logger.info(f"[{trace_id}] fallback=LLM | master_names_count={len(master_names)}")
 
-    ai_result = _ai_detect_crop(query, master_names, trace_id=trace_id)
+    ai_result = await _ai_detect_crop(query, master_names, trace_id=trace_id)
     logger.info(
         f"[{trace_id}] ai_result={{'status': {ai_result.get('status')!r}, "
         f"'crop_name': {ai_result.get('crop_name')!r}}}"
@@ -399,23 +405,25 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
         logger.warning(f"[{trace_id}] AI returned status={ai_result.get('status')} but empty crop_name.")
         return {"crop_name": None, "is_ambiguous": False, "matched_by": "none", "trace_id": trace_id}
 
-    # If AI says "new", we append with validation
+    # If AI says "new", append with validation (file IO -> thread)
     if ai_result["status"] == "new":
-        added = _add_new_crop_to_file(crops_path, ai_crop, ai_result.get("synonyms"))
-        hi_name = _pick_hindi_from_synonyms(ai_result.get("synonyms")) or ai_crop
+        added = await asyncio.to_thread(_add_new_crop_to_file, crops_path, ai_crop, ai_result.get("synonyms"))
+        hi_name = await asyncio.to_thread(_pick_hindi_from_synonyms, ai_result.get("synonyms"))
+        hi_name = hi_name or ai_crop
+
         logger.info(f"[{trace_id}] DECISION=ai_new | crop={ai_crop!r} | file_added={added}")
         return {
             "crop_name": ai_crop,
             "crop_name_hi": hi_name,
             "is_ambiguous": False,
             "matched_by": "ai_new",
-            "is_existing_crop": False if added else True,  # if already existed, treat as existing
+            "is_existing_crop": False if added else True,
             "file_added": added,
             "trace_id": trace_id
         }
 
     # status == "master" from LLM
-    hi_name = _get_hindi_name_for_master(ai_crop, data)
+    hi_name = await asyncio.to_thread(_get_hindi_name_for_master, ai_crop, data)
     logger.info(f"[{trace_id}] DECISION=ai_master | crop={ai_crop!r}")
     return {
         "crop_name": ai_crop,
@@ -424,52 +432,4 @@ def detect_crop(query: str, trace_id: Optional[str] = None) -> Dict[str, Any]:
         "matched_by": "ai_existing",
         "is_existing_crop": True,
         "trace_id": trace_id
-    }
-
-    detector, data, crops_path = _get_detector_and_data()
-
-    # 1. Local Fuzzy Detection
-    local = detector.identify_crop(query, top_k=5)
-    
-    if local.get("best") and not local.get("ambiguous"):
-        return {
-            "crop_name": local["best"]["master_name"],
-            "is_ambiguous": False,
-            "matched_by": "local",
-            "is_existing_crop": True
-        }
-
-    # 2. Ambiguity Handling (Curated or Local)
-    if local.get("ambiguous"):
-        options = list(dict.fromkeys([c["master_name"] for c in local.get("candidates", [])]))
-        return {
-            "crop_name": None,
-            "is_ambiguous": True,
-            "ambiguous_crop_names": options,
-            "matched_by": "local_ambiguous"
-        }
-
-    # 3. AI Fallback
-    master_names = [c["master_name"] for c in data.get("crops", []) if "master_name" in c]
-    ai_result = _ai_detect_crop(query, master_names)
-
-    if ai_result["status"] == "none":
-        return {"crop_name": None, "is_ambiguous": False, "matched_by": "none"}
-
-    ai_crop = ai_result.get("crop_name")
-    
-    if ai_result["status"] == "new" and ai_crop:
-        _add_new_crop_to_file(crops_path, ai_crop, ai_result.get("synonyms"))
-        return {
-            "crop_name": ai_crop,
-            "is_ambiguous": False,
-            "matched_by": "ai_new",
-            "is_existing_crop": False
-        }
-
-    return {
-        "crop_name": ai_crop,
-        "is_ambiguous": False,
-        "matched_by": "ai_existing",
-        "is_existing_crop": True
     }
